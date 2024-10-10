@@ -1,9 +1,32 @@
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import DashboardPage from '~/Pages/Dashboard';
+import DefaultLayout from '~/Layouts/DefaultLayout';
+import PaymentMethod from '~/Pages/PaymentMethod';
+import Order from '~/Pages/Order';
+import Product from '~/Pages/Product';
+import Promotion from '~/Pages/Promotion';
+
 function App() {
-  return (
-    <>
-      <h1 className="text-lg">hello</h1>
-    </>
-  )
+    return (
+        <BrowserRouter>
+            <Routes>
+                <Route path="/" element={<DefaultLayout />}>
+                    <Route index element={<DashboardPage />} />
+                    <Route
+                        path="/category/payment-method"
+                        element={<PaymentMethod />}
+                    />
+                    <Route
+                        path="/category/payment-method/:id"
+                        element={<PaymentMethod />}
+                    />
+                    <Route path="/orders" element={<Order />} />
+                    <Route path="/products" element={<Product />} />
+                    <Route path="/promotions" element={<Promotion />} />
+                </Route>
+            </Routes>
+        </BrowserRouter>
+    );
 }
 
 export default App;
