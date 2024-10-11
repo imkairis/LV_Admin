@@ -6,7 +6,7 @@ import { IoIosArrowUp } from 'react-icons/io';
 import { useLocation } from 'react-router-dom';
 import { clsx } from 'clsx';
 
-function Aside() {
+function Aside({ width }) {
     const navItems = [
         { to: '/', label: 'Dashboard', icon: <MdOutlineDashboard size={18} /> },
         {
@@ -41,7 +41,11 @@ function Aside() {
     ];
 
     return (
-        <motion.aside className="w-[250px] bg-white" layout>
+        <motion.aside
+            className="fixed h-dvh bg-white"
+            layout
+            style={{ width: width }}
+        >
             <div className="flex items-center gap-2 pt-10 pl-8 mb-4">
                 <img
                     src="https://picsum.photos/50/50"

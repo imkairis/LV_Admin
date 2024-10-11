@@ -33,7 +33,9 @@ function Popover({ trigger, content, dir, onStateChange, align }) {
 
     return (
         <div className="relative" ref={ref}>
-            <div onClick={handleToggle}>{trigger}</div>
+            <div onClick={handleToggle} className="cursor-pointer">
+                {trigger}
+            </div>
             <AnimatePresence>
                 {showPopover && (
                     <motion.div

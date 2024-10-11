@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { NAME_WEB } from '~/Constants';
 import Popover from '../Popover';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function Header() {
     const [isOpen, setIsOpen] = useState(false);
@@ -45,16 +46,30 @@ function Header() {
 export default Header;
 
 function ContentPopover() {
+    const navigate = useNavigate();
+    const handleLogout = () => {
+        console.log('Logout');
+    };
+
+    const navigateToProfile = () => {
+        navigate('/profile');
+    };
     return (
         <div className="bg-white rounded-md shadow-lg overflow-hidden mt-4">
             <ul>
                 <li>
-                    <button className="w-full py-2 px-4 text-left hover:bg-gray-100 duration-200">
+                    <button
+                        className="w-full py-2 px-4 text-left hover:bg-gray-100 duration-200"
+                        onClick={navigateToProfile}
+                    >
                         Profile
                     </button>
                 </li>
                 <li>
-                    <button className="w-full py-2 px-4 text-left hover:bg-gray-100 duration-200">
+                    <button
+                        className="w-full py-2 px-4 text-left hover:bg-gray-100 duration-200"
+                        onClick={handleLogout}
+                    >
                         Logout
                     </button>
                 </li>
