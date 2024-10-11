@@ -28,12 +28,6 @@ const LoginForm = () => {
                         </a>
                     </div>
                     <button type="submit">Login</button>
-                    <div className="register-link">
-                        <p>
-                            Don't have an account?{' '}
-                            <Link to="/register">Register</Link>
-                        </p>
-                    </div>
                 </form>
             </div>
         </section>
