@@ -1,13 +1,15 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import Popover from '~/Components/Popover';
 import Table from '~/Components/Table';
-import { PRODUCTS_DATA } from '~/Constants';
+// import { PRODUCTS_DATA } from '~/Constants';
 import { IoIosMore } from 'react-icons/io';
 import { useSearchParams } from 'react-router-dom';
 import Modal from '~/Components/Modal';
+import {useDispatch, useSelector} from "react-redux";
+import {getProductsRequestStart} from "~/Redux/product/slice.jsx";
 
 function Product() {
-    const [products, setProducts] = useState(PRODUCTS_DATA);
+    // const [products, setProducts] = useState(PRODUCTS_DATA);
     const [loading, setLoading] = useState(false);
     const [searchPrams, setSearchPrams] = useSearchParams();
     const [showModalDelete, setShowModalDelete] = useState({
@@ -15,10 +17,33 @@ function Product() {
         product: null,
     });
 
+    const dispatch = useDispatch();
+    const [orderBy, setOrderBy,] = React.useState('');
+    const [descending, setDescending,] = React.useState(true);
+    const [page, setPage,] = React.useState(1);
+    const [limit, setLimit,] = React.useState(10);
+    const [selectedObj, setSelectedObj,] = React.useState(null);
+    const { products, meta, updateSuccess, deleteSuccess, createSuccess, } = useSelector((state) => state.product);
+
     // Temporary
     const [currentPage, setCurrentPage] = useState(1);
     const pageSize = 10;
     // const totalPages = Math.ceil(products.length / pageSize);
+
+    const getProducts = () => {
+        dispatch(
+            getProductsRequestStart({
+                orderBy,
+                page,
+                limit,
+                descending,
+            })
+        );
+    };
+
+    React.useEffect(() => {
+        getProducts();
+    },[orderBy, descending, page, limit, dispatch, selectedObj, updateSuccess, deleteSuccess, createSuccess,]);
 
     const handlePageChange = (page) => {
         setCurrentPage(page);
@@ -40,7 +65,8 @@ function Product() {
     };
 
     const handleDeleteProduct = (id) => {
-        setProducts(products.filter((product) => product.id !== id));
+        console.log('Edit product', id);
+        // setProducts(products.filter((product) => product.id !== id));
     };
 
     const handleLimitChange = (limit) => {

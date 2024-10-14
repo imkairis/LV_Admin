@@ -3,6 +3,7 @@ import globals from 'globals';
 import react from 'eslint-plugin-react';
 import reactHooks from 'eslint-plugin-react-hooks';
 import reactRefresh from 'eslint-plugin-react-refresh';
+import eslintPluginPrettier from 'eslint-plugin-prettier'
 
 export default [
     { ignores: ['dist'] },
@@ -22,6 +23,7 @@ export default [
             react,
             'react-hooks': reactHooks,
             'react-refresh': reactRefresh,
+            'prettier': eslintPluginPrettier
         },
         rules: {
             ...js.configs.recommended.rules,
@@ -36,6 +38,21 @@ export default [
             'react-hooks/rules-of-hooks': 'error',
             'no-unused-vars': 'warn',
             'react/prop-types': 'off',
+            'prettier/prettier': [
+                'warn',
+                {
+                    arrowParens: 'always',
+                    semi: false,
+                    trailingComma: 'none',
+                    tabWidth: 2,
+                    endOfLine: 'auto',
+                    useTabs: false,
+                    singleQuote: true,
+                    printWidth: 120,
+                    jsxSingleQuote: true
+                }
+            ]
+
         },
     },
 ];
