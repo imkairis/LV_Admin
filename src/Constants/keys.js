@@ -1,4 +1,5 @@
 export const QUERY_KEYS = {
     PRODUCT_TYPES: 'PRODUCT_TYPES',
     PRODUCTS: 'PRODUCTS',
+    AGE_GROUPS: 'AGE_GROUPS',
 };

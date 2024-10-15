@@ -38,8 +38,9 @@ function Aside({ width }) {
         {
             label: 'Products',
             children: [
-                { to: '/products', label: 'Product List' },
+                { to: ROUTES.PRODUCTS, label: 'Product List' },
                 { to: ROUTES.PRODUCT_TYPE, label: 'Product Type' },
+                { to: ROUTES.AGE_GROUP, label: 'Age Group' },
             ],
         },
         { to: '/orders', label: 'Order' },

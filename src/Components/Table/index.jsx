@@ -103,7 +103,7 @@ function Table({
                 </thead>
                 <tbody className="relative">
                     {loading && <LoadingDataTable />}
-                    {data.length === 0 && (
+                    {!loading && data.length === 0 && (
                         <tr>
                             <td
                                 colSpan={columns.length + (showOrder ? 1 : 0)}
@@ -113,37 +113,36 @@ function Table({
                             </td>
                         </tr>
                     )}
-                    {data.map((row, index) => (
-                        // {data.slice(start, start + limit).map((row, index) => (
-                        <tr
-                            key={index}
-                            className="hover:bg-slate-100 duration-200"
-                        >
-                            {showOrder && (
-                                <td className="border-b border-gray-200 px-2 py-4">
-                                    {index + 1 + start}
-                                </td>
-                            )}
-                            {columns.map((column) => (
-                                <td
-                                    key={column.key}
-                                    className={clsx({
-                                        'border-b border-gray-200 px-2 py-4': true,
-                                    })}
-                                >
-                                    {column?.render
-                                        ? column.render(row)
-                                        : row[column.key]}
-                                </td>
-                            ))}
-                        </tr>
-                    ))}
+                    {!loading &&
+                        data.map((row, index) => (
+                            <tr
+                                key={index}
+                                className="hover:bg-slate-100 duration-200"
+                            >
+                                {showOrder && (
+                                    <td className="border-b border-gray-200 px-2 py-4">
+                                        {index + 1 + start}
+                                    </td>
+                                )}
+                                {columns.map((column) => (
+                                    <td
+                                        key={column.key}
+                                        className={clsx({
+                                            'border-b border-gray-200 px-2 py-4': true,
+                                        })}
+                                    >
+                                        {column?.render
+                                            ? column.render(row)
+                                            : row[column.key]}
+                                    </td>
+                                ))}
+                            </tr>
+                        ))}
                 </tbody>
             </table>
 
-            <div className="pt-4 flex justify-between">
-                <div />
-                {pagination ? (
+            <div className="pt-4 flex relative justify-center">
+                {pagination && (
                     <Pagination
                         currentPage={currentPage}
                         onPageChange={onPageChange}
@@ -152,20 +151,16 @@ function Table({
                         siblingCount={siblingCount}
                         totalCount={totalCount}
                     />
-                ) : (
-                    <div />
                 )}
-                {enableLimitChange ? (
+                {enableLimitChange && (
                     <input
                         type="number"
-                        className="border border-gray-200 rounded-md px-2 py-1 max-w-20"
+                        className="border border-gray-200 rounded-md px-2 py-1 max-w-20 absolute right-0"
                         value={limit}
                         onChange={(e) => {
                             onLimitChange(+e.target.value);
                         }}
                     />
-                ) : (
-                    <div />
                 )}
             </div>
         </section>
@@ -176,9 +171,11 @@ export default Table;
 
 function LoadingDataTable() {
     return (
-        <tr className="flex justify-center items-center absolute inset-0">
-            <img className="size-20 relative z-10" src={BoundingSvg} />
-            <td className="bg-white opacity-70 absolute inset-0" />
+        <tr className="h-20">
+            <td className="flex justify-center items-center absolute inset-0">
+                <div className="bg-white opacity-70 absolute inset-0" />
+                <img className="size-20 relative z-10" src={BoundingSvg} />
+            </td>
         </tr>
     );
 }

@@ -3,7 +3,13 @@ import { useRef } from 'react';
 import toast from 'react-hot-toast';
 import { useSelector } from 'react-redux';
 
-export const useQueryDefault = ({ keys, fn, page, limit = 10, ...props }) => {
+export const useQueryDefault = ({
+    keys,
+    fn,
+    page = 1,
+    limit = 10,
+    ...props
+}) => {
     const token = useSelector((state) => state.auth.token);
     const query = useQuery({
         queryKey: [...keys],

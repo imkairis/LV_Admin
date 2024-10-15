@@ -1,32 +1,31 @@
 import { useState } from 'react';
 import Popover from '~/Components/Popover';
 import Table from '~/Components/Table';
-import { PRODUCTS_DATA, ROUTES } from '~/Constants';
+import { PRODUCTS_DATA, QUERY_KEYS, ROUTES } from '~/Constants';
 import { IoIosMore, IoIosAddCircleOutline } from 'react-icons/io';
-import { Link, useSearchParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Modal from '~/Components/Modal';
+import { useCustomSearchParams, useQueryDefault } from '~/Hooks';
+import { getAllProducts } from '~/services';
 
 function Product() {
     const [products, setProducts] = useState(PRODUCTS_DATA);
-    const [loading, setLoading] = useState(false);
-    const [, setSearchPrams] = useSearchParams();
+    const { setSearchPrams, page, limit, search } = useCustomSearchParams([
+        'page',
+        'limit',
+        'search',
+    ]);
+    const { data, isLoading, isFetching } = useQueryDefault({
+        keys: [QUERY_KEYS.PRODUCTS, { page, limit, search }],
+        fn: getAllProducts,
+        page: page || 1,
+        limit: limit || 10,
+        search: search || '',
+    });
     const [showModalDelete, setShowModalDelete] = useState({
         show: false,
         product: null,
     });
-
-    // Temporary
-    const [currentPage, setCurrentPage] = useState(1);
-    const pageSize = 10;
-    // const totalPages = Math.ceil(products.length / pageSize);
-
-    const handlePageChange = (page) => {
-        setCurrentPage(page);
-        setLoading(true);
-        setTimeout(() => {
-            setLoading(false);
-        }, 1000);
-    };
 
     const handleEditProduct = (id) => {
         console.log('Edit product', id);
@@ -44,12 +43,18 @@ function Product() {
         setShowModalDelete({ show: false, product: null });
     };
 
+    const handlePageChange = (page) => {
+        setSearchPrams((params) => {
+            params.set('page', page);
+            return params;
+        });
+    };
+
     const handleLimitChange = (limit) => {
-        setSearchPrams((prev) => ({
-            ...prev,
-            limit,
-        }));
-        console.log('Limit change', limit);
+        setSearchPrams((params) => {
+            params.set('limit', limit);
+            return params;
+        });
     };
 
     const columns = [
@@ -142,17 +147,16 @@ function Product() {
             </div>
 
             <Table
-                data={products}
+                data={data?.data || []}
                 columns={columns}
-                loading={loading}
+                loading={isLoading || isFetching}
+                currentPage={data?.pagination?.page || 1}
+                limit={data?.pagination?.limit || 10}
+                totalPages={data?.pagination?.totalPage || 1}
                 enableLimitChange
                 onLimitChange={handleLimitChange}
                 showOrder
                 pagination
-                currentPage={currentPage}
-                limit={pageSize}
-                // totalPages={totalPages}
-                totalCount={products.length}
                 onPageChange={handlePageChange}
             />
 

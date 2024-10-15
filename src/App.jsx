@@ -13,6 +13,7 @@ import ProtectRoute from '~/Components/ProtectRoute';
 import { ROUTES } from '~/Constants';
 import AddProductPage from '~/Pages/AddProduct';
 import ProductType from '~/Pages/ProductType';
+import AgeGroup from '~/Pages/AgeGroup';
 
 function App() {
     return (
@@ -49,6 +50,7 @@ function App() {
                             path={ROUTES.ADD_PRODUCT}
                             element={<AddProductPage />}
                         />
+                        <Route path={ROUTES.AGE_GROUP} element={<AgeGroup />} />
                     </Route>
                     <Route exact path="/login" element={<Login />} />
                 </Routes>

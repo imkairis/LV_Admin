@@ -16,7 +16,7 @@ function AddProductPage() {
                 <h1 className="font-bold text-xl">Add Product</h1>
             </div>
 
-            <div>
+            <div className="mt-6">
                 <AddProductForm />
             </div>
         </main>
