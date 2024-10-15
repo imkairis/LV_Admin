@@ -41,6 +41,7 @@ function Aside({ width }) {
                 { to: ROUTES.PRODUCTS, label: 'Product List' },
                 { to: ROUTES.PRODUCT_TYPE, label: 'Product Type' },
                 { to: ROUTES.AGE_GROUP, label: 'Age Group' },
+                { to: ROUTES.TARGET_AUDIENCE, label: 'Target Audience' },
             ],
         },
         { to: '/orders', label: 'Order' },

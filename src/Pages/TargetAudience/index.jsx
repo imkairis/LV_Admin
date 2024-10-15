@@ -8,11 +8,11 @@ import {
     useMutationAndToast,
     useQueryDefault,
 } from '~/Hooks';
-import { getAllAges, deleteAgeGroup, addAgeGroup } from '~/services';
+import { getAllTargets, addTargets, deleteTargets } from '~/services';
 import { QUERY_KEYS } from '~/Constants';
 import AddAgeGroupForm from '~/Components/Product/AddAgeGroupForm';
 
-function AgeGroup() {
+function TargetAudience() {
     // status modal
     const [showModalDelete, setShowModalDelete] = useState({
         show: false,
@@ -26,24 +26,24 @@ function AgeGroup() {
         'limit',
     ]);
     const { data, isLoading, isFetching } = useQueryDefault({
-        keys: [QUERY_KEYS.AGE_GROUPS, { page, limit }],
-        fn: getAllAges,
+        keys: [QUERY_KEYS.TARGET_AUDIENCES, { page, limit }],
+        fn: getAllTargets,
         page: page || 1,
         limit: limit || 10,
     });
     const mutation = useMutationAndToast({
-        keys: [QUERY_KEYS.AGE_GROUPS, { page, limit }],
-        fn: addAgeGroup,
+        keys: [QUERY_KEYS.TARGET_AUDIENCES, { page, limit }],
+        fn: addTargets,
         onSuccess: () => setShowModalAdding(false),
-        loadingString: 'Adding age group...',
-        successString: 'Adding age group success',
+        loadingString: 'Adding target audience...',
+        successString: 'Adding target audience success',
     });
     const mutationDelete = useMutationAndToast({
-        keys: [QUERY_KEYS.AGE_GROUPS, { page, limit }],
-        fn: deleteAgeGroup,
+        keys: [QUERY_KEYS.TARGET_AUDIENCES, { page, limit }],
+        fn: deleteTargets,
         onSuccess: () => setShowModalDelete({ show: false, type: null }),
-        loadingString: 'Deleting age group...',
-        successString: 'Deleting age group success',
+        loadingString: 'Deleting target audience...',
+        successString: 'Deleting target audience success',
     });
 
     const handleEditProduct = (id) => {
@@ -133,7 +133,7 @@ function AgeGroup() {
     return (
         <main>
             <div className="flex justify-between my-8 items-center">
-                <h2>Age Group</h2>
+                <h2>Target Audience</h2>
                 <button
                     className="rounded-md px-4 py-2 bg-blue-500 text-white flex gap-2 items-center"
                     onClick={() => setShowModalAdding(true)}
@@ -173,7 +173,7 @@ function AgeGroup() {
     );
 }
 
-export default AgeGroup;
+export default TargetAudience;
 
 const ModalConfirmDelete = ({
     showModalDelete,
@@ -182,7 +182,7 @@ const ModalConfirmDelete = ({
 }) => {
     return (
         <Modal
-            title="Delete Age Group"
+            title="Delete Target Audience"
             open={showModalDelete.show}
             onClose={() => setShowModalDelete({ show: false, target: null })}
             footer={
@@ -221,7 +221,7 @@ const ModalAddProductType = ({ onClose, open, onAdding }) => {
     };
 
     return (
-        <Modal title="Add Age Group" open={open} onClose={onClose}>
+        <Modal title="Add Delete Target Audience" open={open} onClose={onClose}>
             <AddAgeGroupForm
                 onSubmit={(values) => handleAddProductType(values)}
             />

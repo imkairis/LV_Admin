@@ -14,6 +14,7 @@ import { ROUTES } from '~/Constants';
 import AddProductPage from '~/Pages/AddProduct';
 import ProductType from '~/Pages/ProductType';
 import AgeGroup from '~/Pages/AgeGroup';
+import TargetAudience from './Pages/TargetAudience';
 
 function App() {
     return (
@@ -51,6 +52,10 @@ function App() {
                             element={<AddProductPage />}
                         />
                         <Route path={ROUTES.AGE_GROUP} element={<AgeGroup />} />
+                        <Route
+                            path={ROUTES.TARGET_AUDIENCE}
+                            element={<TargetAudience />}
+                        />
                     </Route>
                     <Route exact path="/login" element={<Login />} />
                 </Routes>

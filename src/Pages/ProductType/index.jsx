@@ -20,7 +20,7 @@ function ProductType() {
     // status modal
     const [showModalDelete, setShowModalDelete] = useState({
         show: false,
-        type: null,
+        target: null,
     });
     const [showModalAdding, setShowModalAdding] = useState(false);
 
@@ -95,7 +95,7 @@ function ProductType() {
                 key: 'action',
                 title: 'Action',
                 align: 'center',
-                render: (type) => {
+                render: (values) => {
                     return (
                         <div className="w-full flex justify-center">
                             <Popover
@@ -107,7 +107,7 @@ function ProductType() {
                                         <button
                                             className="py-1 px-2 w-full text-left hover:bg-gray-100 duration-200"
                                             onClick={() =>
-                                                handleEditProduct(type.id)
+                                                handleEditProduct(values.id)
                                             }
                                         >
                                             Edit
@@ -117,7 +117,7 @@ function ProductType() {
                                             onClick={() =>
                                                 setShowModalDelete({
                                                     show: true,
-                                                    type,
+                                                    target: values,
                                                 })
                                             }
                                         >
@@ -188,13 +188,13 @@ const ModalConfirmDelete = ({
         <Modal
             title="Delete Product Type"
             open={showModalDelete.show}
-            onClose={() => setShowModalDelete({ show: false, product: null })}
+            onClose={() => setShowModalDelete({ show: false, target: null })}
             footer={
                 <div className="flex justify-end">
                     <button
                         className="bg-red-500 text-white px-4 py-1 rounded-md"
                         onClick={() =>
-                            onDeleteProductType(showModalDelete.type._id)
+                            onDeleteProductType(showModalDelete.target._id)
                         }
                     >
                         Delete
@@ -204,7 +204,7 @@ const ModalConfirmDelete = ({
                         onClick={() =>
                             setShowModalDelete({
                                 show: false,
-                                product: null,
+                                target: null,
                             })
                         }
                     >
@@ -215,7 +215,7 @@ const ModalConfirmDelete = ({
         >
             <p>
                 Are you sure you want to delete{' '}
-                <strong>{showModalDelete.type?.name}</strong>?
+                <strong>{showModalDelete.target?.name}</strong>?
             </p>
         </Modal>
     );

@@ -1,7 +1,7 @@
 import { Form, Formik, Field } from 'formik';
 import { QUERY_KEYS } from '~/Constants';
 import { useQueryDefault } from '~/Hooks';
-import { getAllProductTypes } from '~/services';
+import { getAllAges, getAllProductTypes, getAllTargets } from '~/services';
 
 function AddProductForm() {
     const { data: productTypes, isLoading: loadingType } = useQueryDefault({
@@ -9,6 +9,17 @@ function AddProductForm() {
         fn: getAllProductTypes,
         limit: 999999,
     });
+    const { data: ageGroups, isLoading: loadingAgeGroup } = useQueryDefault({
+        keys: [QUERY_KEYS.AGE_GROUPS],
+        fn: getAllAges,
+        limit: 999999,
+    });
+    const { data: targetAudiences, isLoading: loadingTargetAudience } =
+        useQueryDefault({
+            keys: [QUERY_KEYS.TARGET_AUDIENCES],
+            fn: getAllTargets,
+            limit: 999999,
+        });
 
     return (
         <Formik>
@@ -162,12 +173,25 @@ function AddProductForm() {
                                     Target Audience
                                 </label>
                                 <Field
-                                    type="text"
+                                    as="select"
                                     id="targetAudience"
                                     name="targetAudience"
                                     placeholder="Product target audience"
                                     className="border p-2 rounded-md"
-                                />
+                                >
+                                    {loadingTargetAudience ? (
+                                        <option>Loading...</option>
+                                    ) : (
+                                        targetAudiences?.data?.map((type) => (
+                                            <option
+                                                key={type._id}
+                                                value={type._id}
+                                            >
+                                                {type?.name}
+                                            </option>
+                                        ))
+                                    )}
+                                </Field>
                                 {errors.targetAudience &&
                                     touched.targetAudience && (
                                         <div className="text-red-500">
@@ -178,12 +202,25 @@ function AddProductForm() {
                             <div className="flex flex-col gap-2 flex-1">
                                 <label htmlFor="ageGroup">Age Group</label>
                                 <Field
-                                    type="text"
+                                    as="select"
                                     id="ageGroup"
                                     name="ageGroup"
-                                    placeholder="Product age group"
+                                    placeholder="Age group"
                                     className="border p-2 rounded-md"
-                                />
+                                >
+                                    {loadingAgeGroup ? (
+                                        <option>Loading...</option>
+                                    ) : (
+                                        ageGroups?.data?.map((type) => (
+                                            <option
+                                                key={type._id}
+                                                value={type._id}
+                                            >
+                                                {type?.name}
+                                            </option>
+                                        ))
+                                    )}
+                                </Field>
                                 {errors.ageGroup && touched.ageGroup && (
                                     <div className="text-red-500">
                                         {errors.ageGroup}
@@ -265,7 +302,7 @@ function AddProductForm() {
                         <div className="flex flex-col gap-2">
                             <label htmlFor="element">Element</label>
                             <Field
-                                type="textarea"
+                                as="textarea"
                                 id="element"
                                 name="element"
                                 placeholder="Product element"
