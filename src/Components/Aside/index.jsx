@@ -5,6 +5,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { IoIosArrowUp } from 'react-icons/io';
 import { useLocation } from 'react-router-dom';
 import { clsx } from 'clsx';
+import { ROUTES } from '~/Constants';
 
 function Aside({ width }) {
     const navItems = [
@@ -34,7 +35,13 @@ function Aside({ width }) {
                 },
             ],
         },
-        { to: '/products', label: 'Product' },
+        {
+            label: 'Products',
+            children: [
+                { to: '/products', label: 'Product List' },
+                { to: ROUTES.PRODUCT_TYPE, label: 'Product Type' },
+            ],
+        },
         { to: '/orders', label: 'Order' },
         { to: '/promotions', label: 'Promotion' },
         { to: '/users', label: 'User' },

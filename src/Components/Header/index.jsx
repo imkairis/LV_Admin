@@ -4,13 +4,15 @@ import { NAME_WEB } from '~/Constants';
 import Popover from '../Popover';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { logout } from '~/store/authSlice';
 
 function Header() {
     const [isOpen, setIsOpen] = useState(false);
 
     return (
         <header className="flex justify-between items-center">
-            <h1>{NAME_WEB}</h1>
+            <h2>{NAME_WEB}</h2>
             <div className="flex items-center gap-3">
                 <div>
                     <p className="font-medium">Thomas Andree</p>
@@ -47,8 +49,9 @@ export default Header;
 
 function ContentPopover() {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const handleLogout = () => {
-        navigate('/Login');
+        dispatch(logout());
     };
 
     const navigateToProfile = () => {

@@ -8,7 +8,7 @@ function Modal({
     open = false,
     onClose = () => {},
     title = 'Modal title',
-    footer = 'Modal footer',
+    footer = '',
     children,
 }) {
     const ref = useRef(null);
@@ -41,7 +41,7 @@ function Modal({
                             </button>
                         </div>
                         <div className="mt-4">{children}</div>
-                        <div className="mt-4">{footer}</div>
+                        {footer && <div className="mt-4">{footer}</div>}
                     </motion.div>
                 </motion.div>
             )}

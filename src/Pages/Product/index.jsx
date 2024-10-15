@@ -1,15 +1,15 @@
 import { useState } from 'react';
 import Popover from '~/Components/Popover';
 import Table from '~/Components/Table';
-import { PRODUCTS_DATA } from '~/Constants';
-import { IoIosMore } from 'react-icons/io';
-import { useSearchParams } from 'react-router-dom';
+import { PRODUCTS_DATA, ROUTES } from '~/Constants';
+import { IoIosMore, IoIosAddCircleOutline } from 'react-icons/io';
+import { Link, useSearchParams } from 'react-router-dom';
 import Modal from '~/Components/Modal';
 
 function Product() {
     const [products, setProducts] = useState(PRODUCTS_DATA);
     const [loading, setLoading] = useState(false);
-    const [searchPrams, setSearchPrams] = useSearchParams();
+    const [, setSearchPrams] = useSearchParams();
     const [showModalDelete, setShowModalDelete] = useState({
         show: false,
         product: null,
@@ -41,6 +41,7 @@ function Product() {
 
     const handleDeleteProduct = (id) => {
         setProducts(products.filter((product) => product.id !== id));
+        setShowModalDelete({ show: false, product: null });
     };
 
     const handleLimitChange = (limit) => {
@@ -129,7 +130,16 @@ function Product() {
 
     return (
         <div>
-            <h2>Product</h2>
+            <div className="flex justify-between my-8 items-center">
+                <h2>Product</h2>
+                <Link
+                    to={ROUTES.ADD_PRODUCT}
+                    className="rounded-md px-4 py-2 bg-blue-500 text-white flex gap-2 items-center"
+                >
+                    <IoIosAddCircleOutline size={20} />
+                    Add
+                </Link>
+            </div>
 
             <Table
                 data={products}

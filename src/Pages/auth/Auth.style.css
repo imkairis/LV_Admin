@@ -1,68 +1,65 @@
 .container__auth {
     margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-      'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-      sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
+        'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
+        'Helvetica Neue', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background: url('E:\LV_HK2_2024\public\assets\CatnDog.jpg')
-    no-repeat;
+    background: url('/assets/CatnDog.jpg') no-repeat;
     background-size: cover;
     background-position: center;
-  }
+}
 
 .form_auth {
     background-color: transparent;
 }
 
-.wrapper{
+.container__auth .wrapper {
     width: 420px;
     background: transparent;
-    border: 2px solid rgba(255,255,255, .2);
-    box-shadow: 0 0 10px rgba(255,255,255, .2);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
     backdrop-filter: blur(30px);
-    color:#fff;
+    color: #fff;
     border-radius: 10px;
-    padding: 30px 40px; 
+    padding: 30px 40px;
 }
 
-.wrapper h1{
+.container__auth .wrapper h1 {
     text-align: center;
     font-size: 36px;
 }
 
-.wrapper .input-box{
+.container__auth .wrapper .input-box {
     position: relative;
     width: 100%;
     height: 50px;
     margin: 30px 0;
-    
 }
 
-.input-box input{
+.container__auth .input-box input {
     width: 100%;
     height: 100%;
     background: transparent;
     border: none;
-    border: 2px solid rgba(255,255,255, .2);
+    border: 2px solid rgba(255, 255, 255, 0.2);
     outline: none;
-    
+
     border-radius: 40px;
     font-size: 16px;
     color: #fff;
     padding: 20px 45px 20px 20px;
-  
 }
 
-.input-box input::placeholder{
+.container__auth .input-box input::placeholder {
     color: #fff;
 }
 
-.input-box .icon{
+.container__auth .input-box .icon {
     position: absolute;
     right: 20px;
     top: 50%;
@@ -70,38 +67,38 @@
     font-size: 16px;
     color: #fff;
 }
-.wrapper .remember-forgot{
+.container__auth .wrapper .remember-forgot {
     display: flex;
     font-size: 14.5px;
     margin: -15px 0 15px;
     justify-content: end;
 }
 
-.remember-forgot a {
+.container__auth .remember-forgot a {
     color: #fff;
     text-decoration: none;
 }
-.remember-forgot a:hover{
+.container__auth .remember-forgot a:hover {
     text-decoration: underline;
 }
-.wrapper .login-register{
+.container__auth .wrapper .login-register {
     font-size: 14.5px;
     text-align: center;
 }
-.login-register a{
+.container__auth .login-register a {
     color: #fff;
     text-decoration: none;
 }
-.login-register a:hover{
+.container__auth .login-register a:hover {
     text-decoration: underline;
 }
-.wrapper button{
+.container__auth .wrapper button {
     width: 100%;
     height: 45px;
     background: #fff;
     border: none;
     outline: none;
-    box-shadow: 0 0 10px rgba(0,0,0, .1);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     border-radius: 40px;
     color: #333;
     font-size: 16px;
@@ -109,18 +106,18 @@
     text-transform: uppercase;
     cursor: pointer;
 }
-.wrapper .register-link{
+.container__auth .wrapper .register-link {
     font-size: 14.5px;
     text-align: center;
-    margin-top: 15px ;
+    margin-top: 15px;
 }
 
-.register-link p a{
+.container__auth .register-link p a {
     color: #fff;
     text-decoration: none;
     font-weight: 600;
 }
 
-.register-link p a:hover{
+.container__auth .register-link p a:hover {
     text-decoration: underline;
 }

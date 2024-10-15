@@ -1,7 +1,6 @@
 import clsx from 'clsx';
 import Pagination from '../Pagination';
 import BoundingSvg from '/svg/bouncing-circles.svg';
-import { useState } from 'react';
 
 /**
  * Table component
@@ -69,9 +68,8 @@ function Table({
     totalPages,
     totalCount,
 }) {
-    const [limitPerPage, setLimitPerPage] = useState(limit);
-    const start = (currentPage - 1) * limitPerPage;
-    console.log('🚀 ~ start:', start, start + limitPerPage);
+    const start = (currentPage - 1) * limit;
+
     return (
         <section>
             <table
@@ -105,32 +103,41 @@ function Table({
                 </thead>
                 <tbody className="relative">
                     {loading && <LoadingDataTable />}
-                    {data
-                        .slice(start, start + limitPerPage)
-                        .map((row, index) => (
-                            <tr
-                                key={index}
-                                className="hover:bg-slate-100 duration-200"
+                    {data.length === 0 && (
+                        <tr>
+                            <td
+                                colSpan={columns.length + (showOrder ? 1 : 0)}
+                                className="text-center py-6"
                             >
-                                {showOrder && (
-                                    <td className="border-b border-gray-200 px-2 py-4">
-                                        {index + 1 + start}
-                                    </td>
-                                )}
-                                {columns.map((column) => (
-                                    <td
-                                        key={column.key}
-                                        className={clsx({
-                                            'border-b border-gray-200 px-2 py-4': true,
-                                        })}
-                                    >
-                                        {column?.render
-                                            ? column.render(row)
-                                            : row[column.key]}
-                                    </td>
-                                ))}
-                            </tr>
-                        ))}
+                                No data available
+                            </td>
+                        </tr>
+                    )}
+                    {data.map((row, index) => (
+                        // {data.slice(start, start + limit).map((row, index) => (
+                        <tr
+                            key={index}
+                            className="hover:bg-slate-100 duration-200"
+                        >
+                            {showOrder && (
+                                <td className="border-b border-gray-200 px-2 py-4">
+                                    {index + 1 + start}
+                                </td>
+                            )}
+                            {columns.map((column) => (
+                                <td
+                                    key={column.key}
+                                    className={clsx({
+                                        'border-b border-gray-200 px-2 py-4': true,
+                                    })}
+                                >
+                                    {column?.render
+                                        ? column.render(row)
+                                        : row[column.key]}
+                                </td>
+                            ))}
+                        </tr>
+                    ))}
                 </tbody>
             </table>
 
@@ -140,7 +147,7 @@ function Table({
                     <Pagination
                         currentPage={currentPage}
                         onPageChange={onPageChange}
-                        pageSize={limitPerPage}
+                        pageSize={limit}
                         totalPages={totalPages}
                         siblingCount={siblingCount}
                         totalCount={totalCount}
@@ -152,9 +159,8 @@ function Table({
                     <input
                         type="number"
                         className="border border-gray-200 rounded-md px-2 py-1 max-w-20"
-                        value={limitPerPage}
+                        value={limit}
                         onChange={(e) => {
-                            setLimitPerPage(+e.target.value);
                             onLimitChange(+e.target.value);
                         }}
                     />

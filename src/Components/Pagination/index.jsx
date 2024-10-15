@@ -26,7 +26,9 @@ function Pagination({
                         'cursor-pointer hover:bg-blue-200': currentPage > 1,
                         'text-gray-300': currentPage === 1,
                     })}
-                    onClick={() => onPageChange(currentPage - 1)}
+                    onClick={() =>
+                        currentPage > 1 && onPageChange(currentPage - 1)
+                    }
                 >
                     <IoIosArrowBack size={20} />
                 </li>
@@ -57,7 +59,11 @@ function Pagination({
                             currentPage < totalPages,
                         'text-gray-300': currentPage === totalPages,
                     })}
-                    onClick={() => onPageChange(currentPage + 1)}
+                    onClick={() =>
+                        currentPage !== totalPages &&
+                        currentPage < totalPages &&
+                        onPageChange(currentPage + 1)
+                    }
                 >
                     <IoIosArrowForward size={20} />
                 </li>

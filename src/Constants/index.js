@@ -1,2 +1,5 @@
-export { PRODUCTS_DATA } from './data';
+export * from './data';
+export * from './route';
+export * from './keys';
+
 export const NAME_WEB = 'React Admin';
