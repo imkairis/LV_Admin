@@ -48,7 +48,7 @@ export default Header;
 function ContentPopover() {
     const navigate = useNavigate();
     const handleLogout = () => {
-        console.log('Logout');
+        navigate('/Login');
     };
 
     const navigateToProfile = () => {

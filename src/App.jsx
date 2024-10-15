@@ -5,6 +5,7 @@ import PaymentMethod from '~/Pages/PaymentMethod';
 import Order from '~/Pages/Order';
 import Product from '~/Pages/Product';
 import Promotion from '~/Pages/Promotion';
+import Login from './Components/auth/LoginForm';
 
 function App() {
     return (
@@ -24,6 +25,7 @@ function App() {
                     <Route path="/products" element={<Product />} />
                     <Route path="/promotions" element={<Promotion />} />
                 </Route>
+                <Route exact path="/login" element={<Login />} />
             </Routes>
         </BrowserRouter>
     );
