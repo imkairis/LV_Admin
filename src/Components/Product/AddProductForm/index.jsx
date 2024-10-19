@@ -2,8 +2,10 @@ import { Form, Formik, Field } from 'formik';
 import { QUERY_KEYS } from '~/Constants';
 import { useQueryDefault } from '~/Hooks';
 import { getAllAges, getAllProductTypes, getAllTargets } from '~/services';
+import * as Yup from 'yup';
+import { useMemo } from 'react';
 
-function AddProductForm() {
+function AddProductForm({ onSubmit }) {
     const { data: productTypes, isLoading: loadingType } = useQueryDefault({
         keys: [QUERY_KEYS.PRODUCT_TYPES],
         fn: getAllProductTypes,
@@ -21,10 +23,79 @@ function AddProductForm() {
             limit: 999999,
         });
 
+    const schema = useMemo(() => {
+        return Yup.object().shape({
+            name: Yup.string().required('Name is required'),
+            price: Yup.number().required('Price is required'),
+            type: Yup.string().required('Type is required'),
+            quantity: Yup.number().required('Quantity is required'),
+            cost: Yup.number().required('Cost is required'),
+            stockQuantity: Yup.number().required('Stock quantity is required'),
+            weight: Yup.number().required('Weight is required'),
+            origin: Yup.string().required('Origin is required'),
+            targetAudience: Yup.string().required(
+                'Target audience is required'
+            ),
+            ageGroup: Yup.string().required('Age group is required'),
+            dateOfManufacture: Yup.string().required(
+                'Date of manufacture is required'
+            ),
+            expirationDate: Yup.string().required(
+                'Expiration date is required'
+            ),
+            description: Yup.string().required('Description is required'),
+            userManual: Yup.string().required('User manual is required'),
+            element: Yup.string().required('Element is required'),
+            // images: Yup.ValidationError.required('Images is required'),
+        });
+    }, []);
+
     return (
-        <Formik>
-            {({ errors, touched, isSubmitting }) => (
-                <Form>
+        <Formik
+            initialValues={{
+                name: '',
+                price: '',
+                type: '',
+                quantity: '',
+                cost: '',
+                stockQuantity: '',
+                weight: '',
+                origin: '',
+                targetAudience: '',
+                ageGroup: '',
+                dateOfManufacture: '',
+                expirationDate: '',
+                description: '',
+                userManual: '',
+                element: '',
+            }}
+            validationSchema={schema}
+            onSubmit={(values, { setSubmitting }) => {
+                const formData = new FormData();
+                for (const key in values) {
+                    if (key === 'images') {
+                        for (let i = 0; i < values[key].length; i++) {
+                            formData.append('images', values[key][i]);
+                        }
+                    } else {
+                        formData.append(key, values[key]);
+                    }
+                }
+                console.log('formData', formData);
+                onSubmit(formData);
+
+                // onSubmit(values);
+                setSubmitting(false);
+            }}
+        >
+            {({
+                errors,
+                touched,
+                isSubmitting,
+                setFieldValue,
+                handleSubmit,
+            }) => (
+                <Form onSubmit={handleSubmit}>
                     <div className="flex flex-col gap-4">
                         <div className="flex flex-col gap-2">
                             <label htmlFor="name">Name</label>
@@ -63,20 +134,24 @@ function AddProductForm() {
                                     as="select"
                                     id="type"
                                     name="type"
-                                    placeholder="Product type"
                                     className="border p-2 rounded-md"
                                 >
                                     {loadingType ? (
                                         <option>Loading...</option>
                                     ) : (
-                                        productTypes?.data?.map((type) => (
-                                            <option
-                                                key={type._id}
-                                                value={type._id}
-                                            >
-                                                {type?.name}
+                                        <>
+                                            <option value="">
+                                                Product type
                                             </option>
-                                        ))
+                                            {productTypes?.data?.map((type) => (
+                                                <option
+                                                    key={type._id}
+                                                    value={type._id}
+                                                >
+                                                    {type?.name}
+                                                </option>
+                                            ))}
+                                        </>
                                     )}
                                 </Field>
                                 {errors.type && touched.type && (
@@ -182,14 +257,21 @@ function AddProductForm() {
                                     {loadingTargetAudience ? (
                                         <option>Loading...</option>
                                     ) : (
-                                        targetAudiences?.data?.map((type) => (
-                                            <option
-                                                key={type._id}
-                                                value={type._id}
-                                            >
-                                                {type?.name}
+                                        <>
+                                            <option value="">
+                                                Product target audience
                                             </option>
-                                        ))
+                                            {targetAudiences?.data?.map(
+                                                (type) => (
+                                                    <option
+                                                        key={type._id}
+                                                        value={type._id}
+                                                    >
+                                                        {type?.name}
+                                                    </option>
+                                                )
+                                            )}
+                                        </>
                                     )}
                                 </Field>
                                 {errors.targetAudience &&
@@ -211,14 +293,17 @@ function AddProductForm() {
                                     {loadingAgeGroup ? (
                                         <option>Loading...</option>
                                     ) : (
-                                        ageGroups?.data?.map((type) => (
-                                            <option
-                                                key={type._id}
-                                                value={type._id}
-                                            >
-                                                {type?.name}
-                                            </option>
-                                        ))
+                                        <>
+                                            <option value="">Age group</option>
+                                            {ageGroups?.data?.map((type) => (
+                                                <option
+                                                    key={type._id}
+                                                    value={type._id}
+                                                >
+                                                    {type?.name}
+                                                </option>
+                                            ))}
+                                        </>
                                     )}
                                 </Field>
                                 {errors.ageGroup && touched.ageGroup && (
@@ -314,10 +399,38 @@ function AddProductForm() {
                                 </div>
                             )}
                         </div>
+
+                        <div className="flex flex-col gap-2">
+                            <label htmlFor="images">Images</label>
+                            <input
+                                type="file"
+                                id="images"
+                                name="images"
+                                placeholder="Product images"
+                                className="border p-2 rounded-md"
+                                multiple
+                                onChange={(event) => {
+                                    if (event.currentTarget.files) {
+                                        setFieldValue(
+                                            'images',
+                                            event.currentTarget.files
+                                        );
+                                    }
+                                }}
+                            />
+                            {errors.images && touched.images && (
+                                <div className="text-red-500">
+                                    {errors.images}
+                                </div>
+                            )}
+                        </div>
                     </div>
 
                     <div className="mt-6 flex justify-center">
-                        <button className="py-2 px-4 bg-blue-500 hover:bg-blue-600 text-white rounded-md">
+                        <button
+                            type="submit"
+                            className="py-2 px-4 bg-blue-500 hover:bg-blue-600 text-white rounded-md"
+                        >
                             {isSubmitting ? 'Adding product...' : 'Add Product'}
                         </button>
                     </div>

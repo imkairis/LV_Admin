@@ -1,7 +1,16 @@
-import axios from 'axios';
+import { instanceAxios } from './instanceAxios';
 
-const API_URL = import.meta.env.VITE_API_URL;
+export const getAllProducts = async (queries) => {
+    const params = new URLSearchParams(queries).toString();
+    return instanceAxios.get(`/products?${params}`).then((res) => res.data);
+};
 
-export const getAllProducts = async () => {
-    return axios(API_URL + '/products').then((res) => res.data);
+export const createProduct = async (data) => {
+    return instanceAxios
+        .post('/products/admin', data, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            },
+        })
+        .then((res) => res.data);
 };

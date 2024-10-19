@@ -10,6 +10,7 @@ import { login } from '~/services';
 import toast from 'react-hot-toast';
 import { useDispatch } from 'react-redux';
 import { login as loginReducer } from '~/store/authSlice';
+import { KEYS } from '~/Constants';
 
 const LoginForm = () => {
     const [showPassword, setShowPassword] = useState(false);
@@ -19,6 +20,7 @@ const LoginForm = () => {
     const handleSubmitFormik = (values, setSubmitting) => {
         login(values.username, values.password)
             .then((res) => {
+                localStorage.setItem(KEYS.TOKEN, res.data.token);
                 dispatch(loginReducer(res.data));
                 navigate('/');
             })
@@ -98,7 +100,6 @@ const LoginForm = () => {
                                     <small>{errors.password}</small>
                                 ) : null}
                             </div>
-
                             <button
                                 className={`mt-6 ${
                                     isSubmitting ? 'opacity-70' : ''

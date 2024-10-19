@@ -56,7 +56,7 @@ function ProductType() {
 
     const handleDeleteProductType = (id) => {
         console.log('Delete product', id);
-        mutationDelete.mutate({ id });
+        mutationDelete.mutate(id);
     };
 
     const handleAddingProductType = (values) => {

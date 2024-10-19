@@ -52,7 +52,7 @@ function TargetAudience() {
 
     const handleDelete = (id) => {
         console.log('Delete product', id);
-        mutationDelete.mutate({ id });
+        mutationDelete.mutate(id);
     };
 
     const handleAdding = (values) => {

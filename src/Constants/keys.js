@@ -4,3 +4,7 @@ export const QUERY_KEYS = {
     AGE_GROUPS: 'AGE_GROUPS',
     TARGET_AUDIENCES: 'TARGET_AUDIENCES',
 };
+
+export const KEYS = {
+    TOKEN: 'TOKEN',
+};

@@ -1,7 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useRef } from 'react';
 import toast from 'react-hot-toast';
-import { useSelector } from 'react-redux';
 
 export const useQueryDefault = ({
     keys,
@@ -10,10 +9,9 @@ export const useQueryDefault = ({
     limit = 10,
     ...props
 }) => {
-    const token = useSelector((state) => state.auth.token);
     const query = useQuery({
         queryKey: [...keys],
-        queryFn: () => fn({ token, page, limit, ...props }),
+        queryFn: () => fn({ page, limit, ...props }),
         staleTime: 1000 * 60 * 5, // 5 minutes
         keepPreviousData: true,
         refetchOnWindowFocus: false,
@@ -31,9 +29,8 @@ export const useMutationAndToast = ({
 }) => {
     const toastId = useRef(null);
     const queryClient = useQueryClient();
-    const token = useSelector((state) => state.auth.token);
     const mutation = useMutation({
-        mutationFn: (data) => fn({ token, ...data }),
+        mutationFn: (data) => fn(data),
         retryDelay: 1000, // 1 second
         onMutate: () => {
             toastId.current = toast.loading(loadingString);

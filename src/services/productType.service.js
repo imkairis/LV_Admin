@@ -1,41 +1,23 @@
 import axios from 'axios';
+import { instanceAxios } from './instanceAxios';
 
 const API_URL = import.meta.env.VITE_API_URL;
 
-export const getAllProductTypes = async (props) => {
-    const { token, ...rest } = props;
-    const url = new URL(API_URL + '/types');
-    url.search = new URLSearchParams(rest).toString();
-    return axios
-        .get(url.toString(), {
-            headers: {
-                'Content-Type': 'application/json',
-                Authorization: `Bearer ${token}`,
-            },
-        })
-        .then((res) => res.data);
+export const getAllProductTypes = async (queries) => {
+    const params = new URLSearchParams(queries).toString();
+    return instanceAxios.get(`/types?${params}`).then((res) => res.data);
 };
 
-export const addProductType = async (props) => {
-    const { token, ...data } = props;
-    return axios
+export const addProductType = async (data) => {
+    return instanceAxios
         .post(API_URL + '/types/admin', data, {
             headers: {
-                'Content-Type': 'application/json',
-                Authorization: `Bearer ${token}`,
+                'Content-Type': 'multipart/form-data',
             },
         })
         .then((res) => res.data);
 };
 
-export const deleteProductType = async (props) => {
-    const { token, id } = props;
-    return axios
-        .delete(API_URL + `/types/admin/${id}`, {
-            headers: {
-                'Content-Type': 'application/json',
-                Authorization: `Bearer ${token}`,
-            },
-        })
-        .then((res) => res.data);
+export const deleteProductType = async (id) => {
+    return instanceAxios.delete(`/types/admin/${id}`).then((res) => res.data);
 };

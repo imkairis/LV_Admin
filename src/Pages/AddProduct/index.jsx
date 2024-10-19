@@ -1,8 +1,22 @@
 import { Link } from 'react-router-dom';
 import { IoIosArrowBack } from 'react-icons/io';
 import AddProductForm from '~/Components/Product/AddProductForm';
+import { useMutationAndToast } from '~/Hooks';
+import { QUERY_KEYS } from '~/Constants';
+import { createProduct } from '~/services';
 
 function AddProductPage() {
+    const mutation = useMutationAndToast({
+        keys: [QUERY_KEYS.PRODUCTS],
+        fn: createProduct,
+        loadingString: 'Adding product...',
+        successString: 'Adding product success',
+    });
+
+    const handleCreateProduct = (values) => {
+        mutation.mutate(values);
+    };
+
     return (
         <main>
             <div className="flex gap-4 items-center">
@@ -17,7 +31,7 @@ function AddProductPage() {
             </div>
 
             <div className="mt-6">
-                <AddProductForm />
+                <AddProductForm onSubmit={handleCreateProduct} />
             </div>
         </main>
     );
