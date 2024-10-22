@@ -20,3 +20,16 @@ instanceAxios.interceptors.request.use(
         return Promise.reject(error);
     }
 );
+
+instanceAxios.interceptors.response.use(
+    (response) => {
+        return response;
+    },
+    (error) => {
+        if (error.response.status === 401) {
+            localStorage.removeItem(KEYS.TOKEN);
+            window.location.href = '/login';
+        }
+        return Promise.reject(error);
+    }
+);

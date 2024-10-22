@@ -1,0 +1,20 @@
+/* width */
+.aside::-webkit-scrollbar {
+    width: 8px;
+}
+
+/* Track */
+.aside::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+/* Handle */
+.aside::-webkit-scrollbar-thumb {
+    background: #ececec;
+    border-radius: 50px;
+}
+
+/* Handle on hover */
+.aside::-webkit-scrollbar-thumb:hover {
+    background: #dcdcdc;
+}

@@ -6,6 +6,7 @@ import { IoIosArrowUp } from 'react-icons/io';
 import { useLocation } from 'react-router-dom';
 import { clsx } from 'clsx';
 import { ROUTES } from '~/Constants';
+import './aside.css';
 
 function Aside({ width }) {
     const navItems = [
@@ -51,7 +52,7 @@ function Aside({ width }) {
 
     return (
         <motion.aside
-            className="fixed h-dvh bg-white"
+            className="fixed h-dvh overflow-y-auto overflow-x-hidden bg-white aside"
             layout
             style={{ width: width }}
         >

@@ -7,10 +7,7 @@ function DefaultLayout() {
 
     return (
         <div className="flex">
-            <div
-                className="h-dvh overflow-hidden flex-shrink-0 shadow-lg"
-                style={{ width: width }}
-            >
+            <div className="flex-shrink-0 shadow-lg" style={{ width: width }}>
                 <Aside width={width} />
             </div>
             <div className="w-full px-10 py-5">
