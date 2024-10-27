@@ -14,3 +14,9 @@ export const createProduct = async (data) => {
         })
         .then((res) => res.data);
 };
+
+export const deleteProduct = async (id) => {
+    return instanceAxios
+        .delete(`/products/admin/${id}`)
+        .then((res) => res.data);
+};

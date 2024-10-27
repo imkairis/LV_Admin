@@ -38,16 +38,16 @@ function AddProductForm({ onSubmit }) {
                 'Target audience is required'
             ),
             ageGroup: Yup.string().required('Age group is required'),
-            dateOfManufacture: Yup.string().required(
-                'Date of manufacture is required'
-            ),
-            expirationDate: Yup.string().required(
-                'Expiration date is required'
-            ),
+            dateOfManufacture: Yup.date()
+                .required('Date of manufacture is required')
+                .max(new Date(), 'Date of manufacture must be less than today'),
+            expirationDate: Yup.date()
+                .required('Expiration date is required')
+                .min(new Date(), 'Expiration date must be greater than today'),
             description: Yup.string().required('Description is required'),
             userManual: Yup.string().required('User manual is required'),
             element: Yup.string().required('Element is required'),
-            // images: Yup.ValidationError.required('Images is required'),
+            images: Yup.mixed().required('Images are required'),
         });
     }, []);
 

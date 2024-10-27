@@ -16,3 +16,20 @@ export const getValueFromSearchParams = (searchPrams, values) => {
     });
     return result;
 };
+
+export const formatDate = (date, locales = 'vi-VN', opt = {}) => {
+    const newDate = new Date(date);
+    return newDate.toLocaleDateString(locales, opt);
+};
+
+export const detectNearExpiredProducts = (date, delta) => {
+    const current = new Date();
+    const expirationDate = new Date(date);
+    const diffTime = expirationDate - current;
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    return {
+        nearExpired: diffDays <= delta && diffDays >= 0,
+        daysLeft: diffDays,
+        hadExpired: diffDays < 0,
+    };
+};

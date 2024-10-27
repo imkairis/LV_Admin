@@ -1,15 +1,24 @@
 import { useState } from 'react';
 import Popover from '~/Components/Popover';
 import Table from '~/Components/Table';
-import { PRODUCTS_DATA, QUERY_KEYS, ROUTES } from '~/Constants';
+import { QUERY_KEYS, ROUTES } from '~/Constants';
 import { IoIosMore, IoIosAddCircleOutline } from 'react-icons/io';
 import { Link } from 'react-router-dom';
 import Modal from '~/Components/Modal';
-import { useCustomSearchParams, useQueryDefault } from '~/Hooks';
-import { getAllProducts } from '~/services';
+import {
+    useCustomSearchParams,
+    useMutationAndToast,
+    useQueryDefault,
+} from '~/Hooks';
+import { deleteProduct, getAllProducts } from '~/services';
+import { detectNearExpiredProducts, formatDate } from '~/lib/utils';
+import clsx from 'clsx';
 
 function Product() {
-    const [products, setProducts] = useState(PRODUCTS_DATA);
+    const [showModalDelete, setShowModalDelete] = useState({
+        show: false,
+        product: null,
+    });
     const { setSearchPrams, page, limit, search } = useCustomSearchParams([
         'page',
         'limit',
@@ -22,9 +31,14 @@ function Product() {
         limit: limit || 10,
         search: search || '',
     });
-    const [showModalDelete, setShowModalDelete] = useState({
-        show: false,
-        product: null,
+    const deleteMutation = useMutationAndToast({
+        fn: deleteProduct,
+        keys: [QUERY_KEYS.PRODUCTS, { page, limit, search }],
+        onSuccess: () => {
+            setShowModalDelete({ show: false, product: null });
+        },
+        loadingString: 'Deleting product...',
+        successString: 'Product deleted successfully',
     });
 
     const handleEditProduct = (id) => {
@@ -39,8 +53,7 @@ function Product() {
     };
 
     const handleDeleteProduct = (id) => {
-        setProducts(products.filter((product) => product.id !== id));
-        setShowModalDelete({ show: false, product: null });
+        deleteMutation.mutate(id);
     };
 
     const handlePageChange = (page) => {
@@ -59,7 +72,7 @@ function Product() {
 
     const columns = [
         {
-            key: 'id',
+            key: '_id',
             title: 'Code',
         },
         {
@@ -82,17 +95,23 @@ function Product() {
             title: 'Quantity',
         },
         {
-            key: 'status',
-            title: 'Status',
-            render: ({ status }) => {
-                return status ? 'Not hide' : 'Hidden';
-            },
-        },
-        {
-            key: 'promotion',
-            title: 'Promotion',
-            render: ({ promotion }) => {
-                return <span className="font-medium">{promotion}</span>;
+            key: 'expirationDate',
+            title: 'Expired Date',
+            render: ({ expirationDate }) => {
+                const detect = detectNearExpiredProducts(expirationDate, 7);
+                return (
+                    <span
+                        className={clsx({
+                            'font-medium': true,
+                            'bg-yellow-500 text-white px-2 rounded-md':
+                                detect.nearExpired,
+                            'bg-red-500 text-white px-2 rounded-md':
+                                detect.hadExpired,
+                        })}
+                    >
+                        {formatDate(expirationDate)}
+                    </span>
+                );
             },
         },
         {
@@ -171,7 +190,7 @@ function Product() {
                         <button
                             className="bg-red-500 text-white px-4 py-1 rounded-md"
                             onClick={() =>
-                                handleDeleteProduct(showModalDelete.product.id)
+                                handleDeleteProduct(showModalDelete.product._id)
                             }
                         >
                             Delete
