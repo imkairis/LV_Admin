@@ -19,6 +19,11 @@ export const useQueryDefault = ({
     return query;
 };
 
+export const configQuery = {
+    staleTime: 1000 * 60 * 5, // 5 minutes
+    refetchOnWindowFocus: false,
+};
+
 export const useMutationAndToast = ({
     keys,
     fn,

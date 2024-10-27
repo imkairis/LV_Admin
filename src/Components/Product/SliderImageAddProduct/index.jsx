@@ -17,9 +17,6 @@ function SliderImageAddProduct({ images }) {
     }, [images]);
 
     return (
-        // <div className="w-full aspect-[4/3] overflow-hidden border max-w-2xl mx-auto">
-        //     {/* <Slider images={convertImages} /> */}
-        // </div>
         <Slider
             config={{
                 slidesToShow: 1,

@@ -5,4 +5,5 @@ export const ROUTES = {
     PRODUCT_TYPE: '/products/type',
     AGE_GROUP: '/products/age-group',
     TARGET_AUDIENCE: '/products/target-audience',
+    PRODUCT_DETAIL: '/products/:productId',
 };

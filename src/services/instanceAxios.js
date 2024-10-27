@@ -28,7 +28,8 @@ instanceAxios.interceptors.response.use(
     (error) => {
         if (error.response.status === 401) {
             localStorage.removeItem(KEYS.TOKEN);
-            window.location.href = '/login';
+            const currentPath = window.location.pathname;
+            window.location.href = '/login?redirect=' + currentPath;
         }
         return Promise.reject(error);
     }

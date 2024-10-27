@@ -14,12 +14,15 @@ import { ROUTES } from '~/Constants';
 import AddProductPage from '~/Pages/AddProduct';
 import ProductType from '~/Pages/ProductType';
 import AgeGroup from '~/Pages/AgeGroup';
-import TargetAudience from './Pages/TargetAudience';
+import TargetAudience from '~/Pages/TargetAudience';
+import ProductDetail from '~/Pages/ProductDetail';
 
 function App() {
+    const isDevelopment = import.meta.env.NODE_ENV === 'development';
+
     return (
         <>
-            <ReactQueryDevtools initialIsOpen />
+            {isDevelopment && <ReactQueryDevtools initialIsOpen />}
             <Toaster position="top-center" reverseOrder={false} />
             <BrowserRouter>
                 <Routes>
@@ -31,7 +34,7 @@ function App() {
                             </ProtectRoute>
                         }
                     >
-                        <Route index element={<DashboardPage />} />
+                        <Route element={<DashboardPage />} />
                         <Route
                             path="/category/payment-method"
                             element={<PaymentMethod />}
@@ -55,6 +58,10 @@ function App() {
                         <Route
                             path={ROUTES.TARGET_AUDIENCE}
                             element={<TargetAudience />}
+                        />
+                        <Route
+                            path={ROUTES.PRODUCT_DETAIL}
+                            element={<ProductDetail />}
                         />
                     </Route>
                     <Route exact path="/login" element={<Login />} />

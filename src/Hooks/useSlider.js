@@ -1,6 +1,21 @@
 import { useState, useEffect, useCallback } from 'react';
 
+/**
+ * Custom hook for slider
+ * @param {Array} data - Data to be displayed in the slider
+ * @param {Object} config - Configuration for the slider {
+ *      slidesToShow: Number,
+ *      slidesToScroll: Number,
+ *      infinite: Boolean,
+ *      dots: Boolean,
+ *      arrows: Boolean,
+ *      spacing: Number
+ * }
+ * @param {Array} responsiveConfig - Responsive configuration for the slider
+ */
 export const useSlider = (data, config, responsiveConfig = []) => {
+    console.log('config', config);
+
     const [currentSlide, setCurrentSlide] = useState(0);
     const [canGoNext, setCanGoNext] = useState(false);
     const [canGoPrev, setCanGoPrev] = useState(false);
@@ -17,6 +32,8 @@ export const useSlider = (data, config, responsiveConfig = []) => {
         responsive: [],
         ...config,
     });
+
+    console.log('settings', settings);
 
     const nextSlide = () => {
         if (!canGoNext) return;

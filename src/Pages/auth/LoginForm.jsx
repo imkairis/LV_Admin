@@ -1,27 +1,32 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { FaUserAlt, FaLock } from 'react-icons/fa';
 import { GoEye, GoEyeClosed } from 'react-icons/go';
 import * as Yup from 'yup';
 import { Formik, Form, Field } from 'formik';
 
 import './Auth.style.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { login } from '~/services';
 import toast from 'react-hot-toast';
 import { useDispatch } from 'react-redux';
-import { login as loginReducer } from '~/store/authSlice';
+import { login as loginReducer, logout } from '~/store/authSlice';
 import { KEYS } from '~/Constants';
 
 const LoginForm = () => {
     const [showPassword, setShowPassword] = useState(false);
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const { search } = useLocation();
 
     const handleSubmitFormik = (values, setSubmitting) => {
         login(values.username, values.password)
             .then((res) => {
                 localStorage.setItem(KEYS.TOKEN, res.data.token);
                 dispatch(loginReducer(res.data));
+                const redirect = new URLSearchParams(search).get('redirect');
+                if (redirect) {
+                    return navigate(redirect);
+                }
                 navigate('/');
             })
             .catch((err) => {
@@ -36,6 +41,15 @@ const LoginForm = () => {
                 setSubmitting(false);
             });
     };
+
+    useEffect(() => {
+        const token = localStorage.getItem(KEYS.TOKEN);
+        if (token) {
+            navigate('/');
+        } else {
+            dispatch(logout());
+        }
+    }, [dispatch, navigate]);
 
     const loginSchema = Yup.object().shape({
         username: Yup.string().required('Please enter your username'),

@@ -2,7 +2,39 @@ import { motion } from 'framer-motion';
 import { useSlider } from '~/Hooks';
 import SliderNav from './SliderNav';
 import SliderPagination from './SliderPagination';
+import { useEffect } from 'react';
 
+/**
+ * Slider component
+ * @param {Object} config - Configuration for the slider {
+ *     slidesToShow: Number,
+ *    slidesToScroll: Number,
+ *   infinite: Boolean,
+ *  dots: Boolean,
+ * arrows: Boolean,
+ * spacing: Number
+ * }
+ * @param {Array} responsiveConfig - Responsive configuration for the slider
+ * @param {Function} renderItem - Function to render each item in the slider
+ * @param {Array} data - Data to be displayed in the slider
+ * @returns {JSX.Element}
+ * @constructor
+ *
+ * @example
+ * <Slider
+ *    config={{
+ *       infinite: true,
+ *       autoScroll: 5000,
+ *    }}
+ *    data={data}
+ *    renderItem={(src) => (
+ *       <ProductImage
+ *          src={src}
+ *          alt={data?.data?.name}
+ *       />
+ *   )}
+ * />
+ */
 const Slider = ({ config, responsiveConfig = [], renderItem, data }) => {
     const {
         currentSlide,
@@ -16,6 +48,19 @@ const Slider = ({ config, responsiveConfig = [], renderItem, data }) => {
         setScrollTo,
         slideWidth,
     } = useSlider(data, config, responsiveConfig);
+
+    useEffect(() => {
+        let intervalId;
+        if (!config?.autoScroll) return;
+        intervalId = setInterval(() => {
+            if (canGoNext) {
+                nextSlide();
+            } else {
+                setCurrentSlide(0);
+            }
+        }, config?.autoScroll ?? 5000);
+        return () => clearInterval(intervalId);
+    }, [canGoNext, config.autoScroll, nextSlide, setCurrentSlide]);
 
     return (
         <div className={'w-full overflow-x-hidden relative group'}>

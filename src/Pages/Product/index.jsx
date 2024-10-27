@@ -78,6 +78,13 @@ function Product() {
         {
             key: 'name',
             title: 'Product',
+            render: ({ name, _id }) => {
+                return (
+                    <Link to={ROUTES.PRODUCT_DETAIL.replace(':productId', _id)}>
+                        {name}
+                    </Link>
+                );
+            },
         },
         {
             key: 'type',

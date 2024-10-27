@@ -5,6 +5,10 @@ export const getAllProducts = async (queries) => {
     return instanceAxios.get(`/products?${params}`).then((res) => res.data);
 };
 
+export const getProductById = async (id) => {
+    return instanceAxios.get(`/products/admin/${id}`).then((res) => res.data);
+};
+
 export const createProduct = async (data) => {
     return instanceAxios
         .post('/products/admin', data, {
