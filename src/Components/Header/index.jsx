@@ -2,28 +2,35 @@ import { IoIosArrowUp } from 'react-icons/io';
 import { motion } from 'framer-motion';
 import { NAME_WEB } from '~/Constants';
 import Popover from '../Popover';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '~/store/authSlice';
 
 function Header() {
     const [isOpen, setIsOpen] = useState(false);
+    const { user } = useSelector((state) => state.auth);
+
+    const url = useMemo(() => {
+        if (user?.avatar) {
+            return `${import.meta.env.VITE_API_URL}/${user.avatar}`;
+        }
+        return 'https://picsum.photos/100/100';
+    }, [user.avatar]);
 
     return (
         <header className="flex justify-between items-center">
             <h2>{NAME_WEB}</h2>
             <div className="flex items-center gap-3">
                 <div>
-                    <p className="font-medium">Thomas Andree</p>
-                    <span className="text-sm">Ux Designer</span>
+                    <p className="font-medium">{user?.fullname}</p>
+                    <span className="text-sm">
+                        {user?.isAdmin ? 'Admin' : 'Staff'}
+                    </span>
                 </div>
                 <div className="flex items-center gap-2">
-                    <img
-                        className="rounded-full size-10"
-                        src="https://picsum.photos/100/100"
-                        alt="avt"
-                    />
+                    <img className="rounded-full size-10" src={url} alt="avt" />
+
                     <Popover
                         trigger={
                             <motion.div
