@@ -9,7 +9,7 @@ function AddAgeGroupForm({ onSubmit }) {
 
     return (
         <Formik
-            initialValues={{ name: '', description: '', image: '' }}
+            initialValues={{ name: '', description: '' }}
             validationSchema={schema}
             onSubmit={(values, { setSubmitting }) => {
                 onSubmit(values);

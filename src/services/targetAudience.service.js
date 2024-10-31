@@ -11,12 +11,7 @@ export const addTargets = async (data) => {
     return instanceAxios
         .post(
             API_URL + '/targets/admin',
-            data <
-                {
-                    headers: {
-                        'Content-Type': 'multipart/form-data',
-                    },
-                }
+            data 
         )
         .then((res) => res.data);
 };

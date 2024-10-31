@@ -7,11 +7,7 @@ export const getAllAges = async (queries) => {
 
 export const addAgeGroup = async (data) => {
     return instanceAxios
-        .post('/ages/admin', data, {
-            headers: {
-                'Content-Type': 'multipart/form-data',
-            },
-        })
+        .post('/ages/admin', data)
         .then((res) => res.data);
 };
 
