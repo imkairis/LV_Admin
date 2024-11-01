@@ -35,7 +35,7 @@ function AddProductTypeForm({ onSubmit }) {
                             className="w-full border px-4 py-2 rounded-md shadow-md focus:outline-none"
                             name="description"
                             type="text"
-                            placeholder="Type"
+                            placeholder="Description"
                         />
                         {errors.description && touched.description ? (
                             <small>{errors.description}</small>
