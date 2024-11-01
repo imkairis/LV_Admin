@@ -12,11 +12,13 @@ function Header() {
     const { user } = useSelector((state) => state.auth);
 
     const url = useMemo(() => {
-        if (user?.avatar) {
+        if (user && user?.avatar) {
+            console.log(user);
+
             return `${import.meta.env.VITE_API_URL}/${user.avatar}`;
         }
         return 'https://picsum.photos/100/100';
-    }, [user.avatar]);
+    }, [user]);
 
     return (
         <header className="flex justify-between items-center">

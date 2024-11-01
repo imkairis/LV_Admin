@@ -1,21 +1,13 @@
-import { useEffect } from 'react';
-import { useSelector } from 'react-redux';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { Navigate, Outlet, useLocation } from 'react-router-dom';
 
-function ProtectRoute({ children }) {
-    const { token, user } = useSelector((state) => state.auth);
-    const isLogin = !!token;
-    const isAdmin = user?.isAdmin;
-    const navigate = useNavigate();
+function ProtectRoute({ children, isAllow, redirect = '/login' }) {
     const { pathname } = useLocation();
 
-    useEffect(() => {
-        if (!isLogin || !isAdmin) {
-            navigate('/login');
-        }
-    }, [isLogin, isAdmin, navigate, pathname]);
+    if (!isAllow) {
+        return <Navigate to={`${redirect}?redirect=${pathname}`} replace />;
+    }
 
-    return <>{children}</>;
+    return children ? children : <Outlet />;
 }
 
 export default ProtectRoute;

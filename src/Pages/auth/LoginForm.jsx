@@ -5,11 +5,11 @@ import * as Yup from 'yup';
 import { Formik, Form, Field } from 'formik';
 
 import './Auth.style.css';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { login } from '~/services';
 import toast from 'react-hot-toast';
 import { useDispatch } from 'react-redux';
-import { login as loginReducer, logout } from '~/store/authSlice';
+import { login as loginReducer } from '~/store/authSlice';
 import { KEYS } from '~/Constants';
 
 const LoginForm = () => {
@@ -41,15 +41,6 @@ const LoginForm = () => {
                 setSubmitting(false);
             });
     };
-
-    useEffect(() => {
-        const token = localStorage.getItem(KEYS.TOKEN);
-        if (token) {
-            navigate('/');
-        } else {
-            dispatch(logout());
-        }
-    }, [dispatch, navigate]);
 
     const loginSchema = Yup.object().shape({
         username: Yup.string().required('Please enter your username'),
