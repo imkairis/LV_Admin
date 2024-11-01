@@ -16,8 +16,13 @@ import ProductType from '~/Pages/ProductType';
 import AgeGroup from '~/Pages/AgeGroup';
 import TargetAudience from '~/Pages/TargetAudience';
 import ProductDetail from '~/Pages/ProductDetail';
+import { useSelector } from 'react-redux';
+import { useMemo } from 'react';
 
 function App() {
+    const { token, user } = useSelector((state) => state.auth);
+    const isLogin = useMemo(() => !!token, [token]);
+    const isAdmin = useMemo(() => user?.isAdmin, [user]);
     const isDevelopment = import.meta.env.NODE_ENV === 'development';
 
     return (
@@ -27,42 +32,42 @@ function App() {
             <BrowserRouter>
                 <Routes>
                     <Route
-                        path="/"
-                        element={
-                            <ProtectRoute>
-                                <DefaultLayout />
-                            </ProtectRoute>
-                        }
+                        element={<ProtectRoute isAllow={isAdmin && isLogin} />}
                     >
-                        <Route element={<DashboardPage />} />
-                        <Route
-                            path="/category/payment-method"
-                            element={<PaymentMethod />}
-                        />
-                        <Route
-                            path="/category/payment-method/:id"
-                            element={<PaymentMethod />}
-                        />
-                        <Route path="/orders" element={<Order />} />
-                        <Route path="/products" element={<Product />} />
-                        <Route path="/promotions" element={<Promotion />} />
-                        <Route
-                            path={ROUTES.PRODUCT_TYPE}
-                            element={<ProductType />}
-                        />
-                        <Route
-                            path={ROUTES.ADD_PRODUCT}
-                            element={<AddProductPage />}
-                        />
-                        <Route path={ROUTES.AGE_GROUP} element={<AgeGroup />} />
-                        <Route
-                            path={ROUTES.TARGET_AUDIENCE}
-                            element={<TargetAudience />}
-                        />
-                        <Route
-                            path={ROUTES.PRODUCT_DETAIL}
-                            element={<ProductDetail />}
-                        />
+                        <Route path="/" element={<DefaultLayout />}>
+                            <Route element={<DashboardPage />} />
+                            <Route
+                                path="/category/payment-method"
+                                element={<PaymentMethod />}
+                            />
+                            <Route
+                                path="/category/payment-method/:id"
+                                element={<PaymentMethod />}
+                            />
+                            <Route path="/orders" element={<Order />} />
+                            <Route path="/products" element={<Product />} />
+                            <Route path="/promotions" element={<Promotion />} />
+                            <Route
+                                path={ROUTES.PRODUCT_TYPE}
+                                element={<ProductType />}
+                            />
+                            <Route
+                                path={ROUTES.ADD_PRODUCT}
+                                element={<AddProductPage />}
+                            />
+                            <Route
+                                path={ROUTES.AGE_GROUP}
+                                element={<AgeGroup />}
+                            />
+                            <Route
+                                path={ROUTES.TARGET_AUDIENCE}
+                                element={<TargetAudience />}
+                            />
+                            <Route
+                                path={ROUTES.PRODUCT_DETAIL}
+                                element={<ProductDetail />}
+                            />
+                        </Route>
                     </Route>
                     <Route exact path="/login" element={<Login />} />
                 </Routes>
