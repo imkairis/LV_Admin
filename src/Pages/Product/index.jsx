@@ -26,10 +26,12 @@ function Product() {
     ]);
     const { data, isLoading, isFetching } = useQueryDefault({
         keys: [QUERY_KEYS.PRODUCTS, { page, limit, search }],
-        fn: getAllProducts,
-        page: page || 1,
-        limit: limit || 10,
-        search: search || '',
+        fn: () =>
+            getAllProducts({
+                page: page || 1,
+                limit: limit || 10,
+                search: search || '',
+            }),
     });
     const deleteMutation = useMutationAndToast({
         fn: deleteProduct,

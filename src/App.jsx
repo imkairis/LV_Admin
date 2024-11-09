@@ -18,6 +18,7 @@ import TargetAudience from '~/Pages/TargetAudience';
 import ProductDetail from '~/Pages/ProductDetail';
 import { useSelector } from 'react-redux';
 import { useMemo } from 'react';
+import OrderDetail from './Pages/OrderDetail';
 
 function App() {
     const { token, user } = useSelector((state) => state.auth);
@@ -44,7 +45,11 @@ function App() {
                                 path="/category/payment-method/:id"
                                 element={<PaymentMethod />}
                             />
-                            <Route path="/orders" element={<Order />} />
+                            <Route path={ROUTES.ORDER} element={<Order />} />
+                            <Route
+                                path={ROUTES.ORDER_DETAIL}
+                                element={<OrderDetail />}
+                            />
                             <Route path="/products" element={<Product />} />
                             <Route path="/promotions" element={<Promotion />} />
                             <Route

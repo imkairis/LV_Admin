@@ -2,19 +2,13 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useRef } from 'react';
 import toast from 'react-hot-toast';
 
-export const useQueryDefault = ({
-    keys,
-    fn,
-    page = 1,
-    limit = 10,
-    ...props
-}) => {
+export const useQueryDefault = ({ keys, fn, options }) => {
     const query = useQuery({
         queryKey: [...keys],
-        queryFn: () => fn({ page, limit, ...props }),
-        staleTime: 1000 * 60 * 5, // 5 minutes
+        queryFn: (...props) => fn(...props),
+        staleTime: options?.slateTime || 1000 * 60 * 5, // 5 minutes
         keepPreviousData: true,
-        refetchOnWindowFocus: false,
+        refetchOnWindowFocus: options?.refetchOnFocus || false,
     });
     return query;
 };

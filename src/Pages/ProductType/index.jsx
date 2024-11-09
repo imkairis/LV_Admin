@@ -31,9 +31,11 @@ function ProductType() {
     ]);
     const { data, isLoading, isFetching } = useQueryDefault({
         keys: [QUERY_KEYS.PRODUCT_TYPES, { page, limit }],
-        fn: getAllProductTypes,
-        page: page || 1,
-        limit: limit || 10,
+        fn: () =>
+            getAllProductTypes({
+                page: page || 1,
+                limit: limit || 10,
+            }),
     });
     const mutation = useMutationAndToast({
         keys: [QUERY_KEYS.PRODUCT_TYPES, { page, limit }],

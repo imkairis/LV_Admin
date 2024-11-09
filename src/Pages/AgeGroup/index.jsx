@@ -27,9 +27,11 @@ function AgeGroup() {
     ]);
     const { data, isLoading, isFetching } = useQueryDefault({
         keys: [QUERY_KEYS.AGE_GROUPS, { page, limit }],
-        fn: getAllAges,
-        page: page || 1,
-        limit: limit || 10,
+        fn: () =>
+            getAllAges({
+                page: page || 1,
+                limit: limit || 10,
+            }),
     });
     const mutation = useMutationAndToast({
         keys: [QUERY_KEYS.AGE_GROUPS, { page, limit }],

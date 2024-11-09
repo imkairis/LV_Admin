@@ -22,6 +22,13 @@ export const formatDate = (date, locales = 'vi-VN', opt = {}) => {
     return newDate.toLocaleDateString(locales, opt);
 };
 
+export const formatPrice = (price) => {
+    return new Intl.NumberFormat('vi-VN', {
+        style: 'currency',
+        currency: 'VND',
+    }).format(price);
+};
+
 export const detectNearExpiredProducts = (date, delta) => {
     const current = new Date();
     const expirationDate = new Date(date);

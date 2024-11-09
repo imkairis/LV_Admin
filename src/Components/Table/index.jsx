@@ -57,6 +57,7 @@ function Table({
     className,
     width = '100%',
     loading = false,
+    fetching = false,
     limit = 10,
     enableLimitChange = false,
     onLimitChange = () => {},
@@ -102,7 +103,8 @@ function Table({
                     </tr>
                 </thead>
                 <tbody className="relative">
-                    {loading && <LoadingDataTable />}
+                    {fetching && <LoadingDataTable />}
+                    {loading && <LoadingDataTable isLoading />}
                     {!loading && data.length === 0 && (
                         <tr>
                             <td
@@ -132,7 +134,10 @@ function Table({
                                         })}
                                     >
                                         {column?.render
-                                            ? column.render(row)
+                                            ? column.render(
+                                                  row,
+                                                  row[column.key]
+                                              )
                                             : row[column.key]}
                                     </td>
                                 ))}
@@ -169,11 +174,11 @@ function Table({
 
 export default Table;
 
-function LoadingDataTable() {
+function LoadingDataTable({ isLoading }) {
     return (
-        <tr className="h-20">
-            <td className="flex justify-center items-center absolute inset-0">
-                <div className="bg-white opacity-70 absolute inset-0" />
+        <tr className={`${isLoading ? 'h-96' : ''} `}>
+            <td className={`absolute inset-0 flex justify-center items-center`}>
+                <span className="bg-white opacity-70 absolute inset-0" />
                 <img className="size-20 relative z-10" src={BoundingSvg} />
             </td>
         </tr>

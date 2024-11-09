@@ -9,19 +9,16 @@ import SliderImageAddProduct from '../SliderImageAddProduct';
 function AddProductForm({ onSubmit }) {
     const { data: productTypes, isLoading: loadingType } = useQueryDefault({
         keys: [QUERY_KEYS.PRODUCT_TYPES],
-        fn: getAllProductTypes,
-        limit: 999999,
+        fn: () => getAllProductTypes({ limit: 999999 }),
     });
     const { data: ageGroups, isLoading: loadingAgeGroup } = useQueryDefault({
         keys: [QUERY_KEYS.AGE_GROUPS],
-        fn: getAllAges,
-        limit: 999999,
+        fn: () => getAllAges({ limit: 999999 }),
     });
     const { data: targetAudiences, isLoading: loadingTargetAudience } =
         useQueryDefault({
             keys: [QUERY_KEYS.TARGET_AUDIENCES],
-            fn: getAllTargets,
-            limit: 999999,
+            fn: () => getAllTargets({ limit: 99999 }),
         });
 
     const schema = useMemo(() => {

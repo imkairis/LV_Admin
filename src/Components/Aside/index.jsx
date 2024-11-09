@@ -133,7 +133,7 @@ const NavItemHaveChildren = ({ icon, label, child }) => {
                 </div>
                 <motion.div
                     className="px-1"
-                    animate={{ rotate: isOpen ? 180 : 0 }}
+                    animate={{ rotate: isOpen ? 0 : 180 }}
                     transition={{ duration: 0.2 }}
                 >
                     <IoIosArrowUp size={20} />
