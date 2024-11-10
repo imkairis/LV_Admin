@@ -75,7 +75,7 @@ function Order() {
             key: 'items',
             title: 'Số lượng',
             render: (_, items) => {
-                return items.length;
+                return items?.length;
             },
         },
         {
@@ -163,7 +163,17 @@ function Order() {
 export default Order;
 
 const convertAddress = (address) => {
-    const json = JSON.parse(address);
+    let json = {
+        name: '',
+        phone: '',
+        address: '',
+    };
+    try {
+        json = JSON.parse(address);
+    } catch (error) {
+        console.log(error);
+        json.address = address;
+    }
     return `${json?.name || 'N/A'} | ${json?.phone || 'N/A'} | ${
         json?.address
     }`;

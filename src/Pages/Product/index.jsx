@@ -5,6 +5,7 @@ import { QUERY_KEYS, ROUTES } from '~/Constants';
 import { IoIosMore, IoIosAddCircleOutline } from 'react-icons/io';
 import { Link } from 'react-router-dom';
 import Modal from '~/Components/Modal';
+
 import {
     useCustomSearchParams,
     useMutationAndToast,
@@ -13,6 +14,7 @@ import {
 import { deleteProduct, getAllProducts } from '~/services';
 import { detectNearExpiredProducts, formatDate } from '~/lib/utils';
 import clsx from 'clsx';
+import { ProductImage } from '~/Components/common';
 
 function Product() {
     const [showModalDelete, setShowModalDelete] = useState({
@@ -31,6 +33,7 @@ function Product() {
                 page: page || 1,
                 limit: limit || 10,
                 search: search || '',
+                populate: 'type',
             }),
     });
     const deleteMutation = useMutationAndToast({
@@ -74,8 +77,15 @@ function Product() {
 
     const columns = [
         {
-            key: '_id',
-            title: 'Code',
+            key: 'images',
+            render: ({ images }) => {
+                return (
+                    <ProductImage
+                        src={images[0]}
+                        className="object-cover size-32"
+                    />
+                );
+            },
         },
         {
             key: 'name',
@@ -91,6 +101,9 @@ function Product() {
         {
             key: 'type',
             title: 'Type',
+            render: ({ type }) => {
+                return type?.name;
+            },
         },
         {
             key: 'price',
