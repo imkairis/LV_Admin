@@ -1,434 +1,407 @@
-export const PRODUCTS_DATA = [
+export const barChartDataDailyTraffic = [
     {
-        id: 99,
-        name: 'carry cook nodded',
-        type: 'stream',
-        price: 2083,
-        quantity: 54,
-        status: true,
-        promotion: 'rubber maybe',
+        name: 'Daily Traffic',
+        data: [20, 30, 40, 20, 45, 50, 30],
+    },
+];
+
+export const barChartOptionsDailyTraffic = {
+    chart: {
+        toolbar: {
+            show: false,
+        },
+    },
+    tooltip: {
+        style: {
+            fontSize: '12px',
+            fontFamily: undefined,
+            backgroundColor: '#000000',
+        },
+        onDatasetHover: {
+            style: {
+                fontSize: '12px',
+                fontFamily: undefined,
+            },
+        },
+        theme: 'dark',
+    },
+    xaxis: {
+        categories: ['00', '04', '08', '12', '14', '16', '18'],
+        show: false,
+        labels: {
+            show: true,
+            style: {
+                colors: '#A3AED0',
+                fontSize: '14px',
+                fontWeight: '500',
+            },
+        },
+        axisBorder: {
+            show: false,
+        },
+        axisTicks: {
+            show: false,
+        },
+    },
+    yaxis: {
+        show: false,
+        color: 'black',
+        labels: {
+            show: true,
+            style: {
+                colors: '#CBD5E0',
+                fontSize: '14px',
+            },
+        },
+    },
+    grid: {
+        show: false,
+        strokeDashArray: 5,
+        yaxis: {
+            lines: {
+                show: true,
+            },
+        },
+        xaxis: {
+            lines: {
+                show: false,
+            },
+        },
+    },
+    fill: {
+        type: 'gradient',
+        gradient: {
+            type: 'vertical',
+            shadeIntensity: 1,
+            opacityFrom: 0.7,
+            opacityTo: 0.9,
+            colorStops: [
+                [
+                    {
+                        offset: 0,
+                        color: '#4318FF',
+                        opacity: 1,
+                    },
+                    {
+                        offset: 100,
+                        color: 'rgba(67, 24, 255, 1)',
+                        opacity: 0.28,
+                    },
+                ],
+            ],
+        },
+    },
+    dataLabels: {
+        enabled: false,
+    },
+    plotOptions: {
+        bar: {
+            borderRadius: 10,
+            columnWidth: '40px',
+        },
+    },
+};
+
+export const pieChartOptions = {
+    labels: ['Your files', 'System', 'Empty'],
+    colors: ['#4318FF', '#6AD2FF', '#EFF4FB'],
+    chart: {
+        width: '50px',
+    },
+    states: {
+        hover: {
+            filter: {
+                type: 'none',
+            },
+        },
+    },
+    legend: {
+        show: false,
+    },
+    dataLabels: {
+        enabled: false,
+    },
+    hover: { mode: null },
+    plotOptions: {
+        donut: {
+            expandOnClick: false,
+            donut: {
+                labels: {
+                    show: false,
+                },
+            },
+        },
+    },
+    fill: {
+        colors: ['#4318FF', '#6AD2FF', '#EFF4FB'],
+    },
+    tooltip: {
+        enabled: true,
+        theme: 'dark',
+        style: {
+            fontSize: '12px',
+            fontFamily: undefined,
+            backgroundColor: '#000000',
+        },
+    },
+};
+
+export const pieChartData = [63, 25, 12];
+
+export const barChartDataWeeklyRevenue = [
+    {
+        name: 'PRODUCT A',
+        data: [400, 370, 330, 390, 320, 350, 360, 320, 380],
+        color: '#6AD2Fa',
     },
     {
-        id: 180,
-        name: 'front struggle find',
-        type: 'smallest',
-        price: 2228,
-        quantity: 75,
-        status: false,
-        promotion: 'cotton contain',
+        name: 'PRODUCT B',
+        data: [400, 370, 330, 390, 320, 350, 360, 320, 380],
+        color: '#4318FF',
     },
     {
-        id: 423,
-        name: 'block stick none',
-        type: 'blue',
-        price: 20680,
-        quantity: 38,
-        status: true,
-        promotion: 'according dawn',
+        name: 'PRODUCT C',
+        data: [400, 370, 330, 390, 320, 350, 360, 320, 380],
+        color: '#EFF4FB',
+    },
+];
+
+export const barChartOptionsWeeklyRevenue = {
+    chart: {
+        stacked: true,
+        toolbar: {
+            show: false,
+        },
+    },
+    // colors:['#ff3322','#faf']
+    tooltip: {
+        style: {
+            fontSize: '12px',
+            fontFamily: undefined,
+            backgroundColor: '#000000',
+        },
+        theme: 'dark',
+        onDatasetHover: {
+            style: {
+                fontSize: '12px',
+                fontFamily: undefined,
+            },
+        },
+    },
+    xaxis: {
+        categories: ['17', '18', '19', '20', '21', '22', '23', '24', '25'],
+        show: false,
+        labels: {
+            show: true,
+            style: {
+                colors: '#A3AED0',
+                fontSize: '14px',
+                fontWeight: '500',
+            },
+        },
+        axisBorder: {
+            show: false,
+        },
+        axisTicks: {
+            show: false,
+        },
+    },
+    yaxis: {
+        show: false,
+        color: 'black',
+        labels: {
+            show: false,
+            style: {
+                colors: '#A3AED0',
+                fontSize: '14px',
+                fontWeight: '500',
+            },
+        },
+    },
+
+    grid: {
+        borderColor: 'rgba(163, 174, 208, 0.3)',
+        show: true,
+        yaxis: {
+            lines: {
+                show: false,
+                opacity: 0.5,
+            },
+        },
+        row: {
+            opacity: 0.5,
+        },
+        xaxis: {
+            lines: {
+                show: false,
+            },
+        },
+    },
+    fill: {
+        type: 'solid',
+        colors: ['#5E37FF', '#6AD2FF', '#E1E9F8'],
+    },
+    legend: {
+        show: false,
+    },
+    colors: ['#5E37FF', '#6AD2FF', '#E1E9F8'],
+    dataLabels: {
+        enabled: false,
+    },
+    plotOptions: {
+        bar: {
+            borderRadius: 10,
+            columnWidth: '20px',
+        },
+    },
+};
+
+export const lineChartDataTotalSpent = [
+    {
+        name: 'Revenue',
+        data: [50, 64, 48, 66, 49, 68],
+        color: '#4318FF',
     },
     {
-        id: 263,
-        name: 'location cloud observe',
-        type: 'army',
-        price: 37540,
-        quantity: 17,
-        status: false,
-        promotion: 'steel being',
+        name: 'Profit',
+        data: [30, 40, 24, 46, 20, 46],
+        color: '#6AD2FF',
+    },
+];
+
+export const lineChartOptionsTotalSpent = {
+    legend: {
+        show: false,
+    },
+
+    theme: {
+        mode: 'light',
+    },
+    chart: {
+        type: 'line',
+
+        toolbar: {
+            show: false,
+        },
+    },
+
+    dataLabels: {
+        enabled: false,
+    },
+    stroke: {
+        curve: 'smooth',
+    },
+
+    tooltip: {
+        style: {
+            fontSize: '12px',
+            fontFamily: undefined,
+            backgroundColor: '#000000',
+        },
+        theme: 'dark',
+        x: {
+            format: 'dd/MM/yy HH:mm',
+        },
+    },
+    grid: {
+        show: false,
+    },
+    xaxis: {
+        axisBorder: {
+            show: false,
+        },
+        axisTicks: {
+            show: false,
+        },
+        labels: {
+            style: {
+                colors: '#A3AED0',
+                fontSize: '12px',
+                fontWeight: '500',
+            },
+        },
+        type: 'text',
+        range: undefined,
+        categories: ['SEP', 'OCT', 'NOV', 'DEC', 'JAN', 'FEB'],
+    },
+
+    yaxis: {
+        show: false,
+    },
+};
+
+export const columnsDataDevelopment = [
+    {
+        Header: 'NAME',
+        accessor: 'name',
     },
     {
-        id: 105,
-        name: 'race doctor grandfather',
-        type: 'apartment',
-        price: 4602,
-        quantity: 16,
-        status: true,
-        promotion: 'honor stomach',
+        Header: 'TECH',
+        accessor: 'tech',
     },
     {
-        id: 684,
-        name: 'vessels find threw',
-        type: 'official',
-        price: 3216,
-        quantity: 28,
-        status: false,
-        promotion: 'spoken lady',
+        Header: 'DATE',
+        accessor: 'date',
     },
     {
-        id: 351,
-        name: 'of hall pie',
-        type: 'happened',
-        price: 1992,
-        quantity: 96,
-        status: true,
-        promotion: 'cause tropical',
+        Header: 'PROGRESS',
+        accessor: 'progress',
+    },
+];
+
+export const columnsDataCheck = [
+    {
+        Header: 'NAME',
+        accessor: 'name',
     },
     {
-        id: 503,
-        name: 'signal page tonight',
-        type: 'loose',
-        price: 6477,
-        quantity: 13,
-        status: false,
-        promotion: 'adult aware',
+        Header: 'PROGRESS',
+        accessor: 'progress',
     },
     {
-        id: 787,
-        name: 'measure bill imagine',
-        type: 'deer',
-        price: 58540,
-        quantity: 97,
-        status: true,
-        promotion: 'correctly am',
+        Header: 'QUANTITY',
+        accessor: 'quantity',
     },
     {
-        id: 202,
-        name: 'simple dried began',
-        type: 'therefore',
-        price: 6063,
-        quantity: 92,
-        status: false,
-        promotion: 'fine class',
+        Header: 'DATE',
+        accessor: 'date',
+    },
+];
+
+export const columnsDataColumns = [
+    {
+        Header: 'NAME',
+        accessor: 'name',
     },
     {
-        id: 127,
-        name: 'yesterday curve force',
-        type: 'actual',
-        price: 2520,
-        quantity: 20,
-        status: true,
-        promotion: 'burst camp',
+        Header: 'PROGRESS',
+        accessor: 'progress',
     },
     {
-        id: 898,
-        name: 'equally pond had',
-        type: 'struck',
-        price: 2124,
-        quantity: 75,
-        status: false,
-        promotion: 'poor pick',
+        Header: 'QUANTITY',
+        accessor: 'quantity',
     },
     {
-        id: 120,
-        name: 'bicycle taste log',
-        type: 'fed',
-        price: 585900,
-        quantity: 74,
-        status: true,
-        promotion: 'exciting tie',
+        Header: 'DATE',
+        accessor: 'date',
+    },
+];
+
+export const columnsDataComplex = [
+    {
+        Header: 'NAME',
+        accessor: 'name',
     },
     {
-        id: 958,
-        name: 'post known sugar',
-        type: 'town',
-        price: 92480,
-        quantity: 60,
-        status: false,
-        promotion: 'visitor lost',
+        Header: 'STATUS',
+        accessor: 'status',
     },
     {
-        id: 848,
-        name: 'additional word one',
-        type: 'finger',
-        price: 3930,
-        quantity: 82,
-        status: true,
-        promotion: 'history stepped',
+        Header: 'DATE',
+        accessor: 'date',
     },
     {
-        id: 597,
-        name: 'white bottom whole',
-        type: 'hunt',
-        price: 95460,
-        quantity: 72,
-        status: false,
-        promotion: 'deep rocky',
-    },
-    {
-        id: 51,
-        name: 'friendly perfectly being',
-        type: 'thee',
-        price: 70010,
-        quantity: 65,
-        status: true,
-        promotion: 'special engine',
-    },
-    {
-        id: 786,
-        name: 'powder raise vertical',
-        type: 'scene',
-        price: 6453,
-        quantity: 30,
-        status: false,
-        promotion: 'shut kids',
-    },
-    {
-        id: 259,
-        name: 'lake evening lovely',
-        type: 'smoke',
-        price: 6334,
-        quantity: 85,
-        status: true,
-        promotion: 'what victory',
-    },
-    {
-        id: 844,
-        name: 'develop label front',
-        type: 'here',
-        price: 72510,
-        quantity: 7,
-        status: false,
-        promotion: 'poet street',
-    },
-    {
-        id: 433,
-        name: 'first fire pale',
-        type: 'useful',
-        price: 1857,
-        quantity: 100,
-        status: true,
-        promotion: 'Pleaf shoot',
-    },
-    {
-        id: 835,
-        name: 'camera automobile you',
-        type: 'double',
-        price: 5972,
-        quantity: 72,
-        status: false,
-        promotion: 'consist pole',
-    },
-    {
-        id: 488,
-        name: 'rising frog fall',
-        type: 'degree',
-        price: 3632,
-        quantity: 42,
-        status: true,
-        promotion: 'taste stepped',
-    },
-    {
-        id: 843,
-        name: 'hang extra street',
-        type: 'treated',
-        price: 5130,
-        quantity: 32,
-        status: false,
-        promotion: 'apart coast',
-    },
-    {
-        id: 872,
-        name: 'star vegetable steady',
-        type: 'pig',
-        price: 398400,
-        quantity: 64,
-        status: true,
-        promotion: 'local fox',
-    },
-    {
-        id: 992,
-        name: 'fur threw clear',
-        type: 'applied',
-        price: 1537,
-        quantity: 17,
-        status: false,
-        promotion: 'car light',
-    },
-    {
-        id: 757,
-        name: 'beautiful use structure',
-        type: 'growth',
-        price: 5604,
-        quantity: 85,
-        status: true,
-        promotion: 'correct observe',
-    },
-    {
-        id: 108,
-        name: 'college shaking red',
-        type: 'stomach',
-        price: 2977,
-        quantity: 43,
-        status: false,
-        promotion: 'interior shoulder',
-    },
-    {
-        id: 405,
-        name: 'been on sale',
-        type: 'slide',
-        price: 1919,
-        quantity: 17,
-        status: true,
-        promotion: 'bus by',
-    },
-    {
-        id: 121,
-        name: 'drawn welcome ice',
-        type: 'sick',
-        price: 75540,
-        quantity: 14,
-        status: false,
-        promotion: 'completely himself',
-    },
-    {
-        id: 410,
-        name: 'carry to does',
-        type: 'thick',
-        price: 5639,
-        quantity: 23,
-        status: true,
-        promotion: 'duck move',
-    },
-    {
-        id: 676,
-        name: 'screen tank people',
-        type: 'rock',
-        price: 66850,
-        quantity: 83,
-        status: false,
-        promotion: 'mile wise',
-    },
-    {
-        id: 168,
-        name: 'brave fewer hurt',
-        type: 'former',
-        price: 9153,
-        quantity: 42,
-        status: true,
-        promotion: 'finger throughout',
-    },
-    {
-        id: 550,
-        name: 'occur friend current',
-        type: 'bee',
-        price: 293600,
-        quantity: 17,
-        status: false,
-        promotion: 'even children',
-    },
-    {
-        id: 269,
-        name: 'mood older whole',
-        type: 'cookies',
-        price: 2114,
-        quantity: 61,
-        status: true,
-        promotion: 'character diagram',
-    },
-    {
-        id: 961,
-        name: 'sides molecular thousand',
-        type: 'sell',
-        price: 74090,
-        quantity: 98,
-        status: false,
-        promotion: 'symbol equally',
-    },
-    {
-        id: 514,
-        name: 'size reach feed',
-        type: 'variety',
-        price: 1563,
-        quantity: 87,
-        status: true,
-        promotion: 'lose goes',
-    },
-    {
-        id: 71,
-        name: 'party sail dry',
-        type: 'sudden',
-        price: 5083,
-        quantity: 50,
-        status: false,
-        promotion: 'daughter west',
-    },
-    {
-        id: 214,
-        name: 'require last potatoes',
-        type: 'yesterday',
-        price: 9477,
-        quantity: 50,
-        status: true,
-        promotion: 'teeth crop',
-    },
-    {
-        id: 657,
-        name: 'smile extra orbit',
-        type: 'leaving',
-        price: 4239,
-        quantity: 88,
-        status: false,
-        promotion: 'strong respect',
-    },
-    {
-        id: 7,
-        name: 'evidence steep note',
-        type: 'master',
-        price: 6428,
-        quantity: 67,
-        status: true,
-        promotion: 'wood cowboy',
-    },
-    {
-        id: 812,
-        name: 'spell slave past',
-        type: 'younger',
-        price: 5674,
-        quantity: 63,
-        status: false,
-        promotion: 'through her',
-    },
-    {
-        id: 182,
-        name: 'nearer seat couple',
-        type: 'tape',
-        price: 92590,
-        quantity: 36,
-        status: true,
-        promotion: 'slave sleep',
-    },
-    {
-        id: 590,
-        name: 'using few statement',
-        type: 'goes',
-        price: 29390,
-        quantity: 77,
-        status: false,
-        promotion: 'eleven problem',
-    },
-    {
-        id: 628,
-        name: 'wonderful old fine',
-        type: 'chest',
-        price: 8145,
-        quantity: 48,
-        status: true,
-        promotion: 'skill anywhere',
-    },
-    {
-        id: 510,
-        name: 'triangle rocky soft',
-        type: 'vessels',
-        price: 4120,
-        quantity: 98,
-        status: false,
-        promotion: 'cause pressure',
-    },
-    {
-        id: 91,
-        name: 'discovery map sang',
-        type: 'prepare',
-        price: 1462,
-        quantity: 68,
-        status: true,
-        promotion: 'full bottom',
-    },
-    {
-        id: 697,
-        name: 'nice perfect foreign',
-        type: 'symbol',
-        price: 3046,
-        quantity: 78,
-        status: false,
-        promotion: 'chose thrown',
+        Header: 'PROGRESS',
+        accessor: 'progress',
     },
 ];

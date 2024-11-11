@@ -36,7 +36,7 @@ function App() {
                         element={<ProtectRoute isAllow={isAdmin && isLogin} />}
                     >
                         <Route path="/" element={<DefaultLayout />}>
-                            <Route element={<DashboardPage />} />
+                            <Route index element={<DashboardPage />} />
                             <Route
                                 path="/category/payment-method"
                                 element={<PaymentMethod />}
