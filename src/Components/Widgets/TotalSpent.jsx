@@ -9,8 +9,11 @@ import {
     lineChartOptionsTotalSpent,
 } from '~/Constants/data';
 import LineChart from '~/Components/Charts/LineChart';
+import { useSelector } from 'react-redux';
 
 export const TotalSpent = () => {
+    const { isDarkMode } = useSelector((state) => state.theme);
+
     return (
         <Card extra="!p-[20px] text-center">
             <div className="flex justify-between">
@@ -45,7 +48,14 @@ export const TotalSpent = () => {
                 </div>
                 <div className="h-full w-full">
                     <LineChart
-                        options={lineChartOptionsTotalSpent}
+                        options={{
+                            ...lineChartOptionsTotalSpent,
+                            theme: { mode: isDarkMode ? 'dark' : 'light' },
+                            chart: {
+                                ...lineChartOptionsTotalSpent.chart,
+                                background: 'transparent',
+                            },
+                        }}
                         series={lineChartDataTotalSpent}
                     />
                 </div>

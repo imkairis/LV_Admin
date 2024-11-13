@@ -5,5 +5,11 @@ export function ProductImage({
     src,
     ...props
 }) {
-    return <img className={className} src={`${URL}/${src}`} {...props} />;
+    return (
+        <img
+            className={`${className} mix-blend-darken dark:mix-blend-normal`}
+            src={`${URL}/${src}`}
+            {...props}
+        />
+    );
 }

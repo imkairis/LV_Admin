@@ -81,7 +81,7 @@ function Table({
                 }}
             >
                 <thead>
-                    <tr className="bg-gray-100 px-2">
+                    <tr className="bg-gray-100 dark:bg-navy-700 px-2">
                         {showOrder && (
                             <th className="text-left py-4 px-2">#</th>
                         )}
@@ -89,7 +89,7 @@ function Table({
                             <th
                                 key={index}
                                 className={clsx({
-                                    'py-4 px-2': true,
+                                    'py-4 px-2 dark:text-white': true,
                                     'text-left':
                                         column.align === 'left' ||
                                         !column.align,
@@ -122,7 +122,7 @@ function Table({
                                 className="hover:bg-slate-100 duration-200"
                             >
                                 {showOrder && (
-                                    <td className="border-b border-gray-200 px-2 py-4">
+                                    <td className="border-b border-gray-200 dark:border-navy-700 dark:text-white px-2 py-4">
                                         {index + 1 + start}
                                     </td>
                                 )}
@@ -130,7 +130,7 @@ function Table({
                                     <td
                                         key={column.key}
                                         className={clsx({
-                                            'border-b border-gray-200 px-2 py-4': true,
+                                            'border-b border-gray-200 dark:border-navy-700 dark:text-white px-2 py-4': true,
                                         })}
                                     >
                                         {column?.render
@@ -160,7 +160,7 @@ function Table({
                 {enableLimitChange && (
                     <input
                         type="number"
-                        className="border border-gray-200 rounded-md px-2 py-1 max-w-20 absolute right-0"
+                        className="border border-gray-200 dark:bg-navy-700 dark:border-navy-800 dark:text-white rounded-md px-2 py-1 max-w-20 absolute right-0"
                         value={limit}
                         onChange={(e) => {
                             onLimitChange(+e.target.value);
@@ -176,9 +176,9 @@ export default Table;
 
 function LoadingDataTable({ isLoading }) {
     return (
-        <tr className={`${isLoading ? 'h-96' : ''} `}>
+        <tr className={`${isLoading ? 'h-[60dvh]' : ''} `}>
             <td className={`absolute inset-0 flex justify-center items-center`}>
-                <span className="bg-white opacity-70 absolute inset-0" />
+                <span className="bg-white dark:bg-navy-800 opacity-70 absolute inset-0" />
                 <img className="size-20 relative z-10" src={BoundingSvg} />
             </td>
         </tr>

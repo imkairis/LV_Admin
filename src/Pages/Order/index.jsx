@@ -21,7 +21,7 @@ function Order() {
         'search',
     ]);
     const { data, isLoading, isFetching } = useQueryDefault({
-        keys: [QUERY_KEYS.PRODUCTS, { page, limit, search }],
+        keys: [QUERY_KEYS.ORDER, { page, limit, search }],
         fn: () =>
             getOrders({
                 page: page || 1,
@@ -141,7 +141,7 @@ function Order() {
     ];
 
     return (
-        <div>
+        <div className="mt-4">
             <Table
                 data={data?.data || []}
                 columns={columns}

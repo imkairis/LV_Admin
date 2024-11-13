@@ -1,4 +1,5 @@
 import { useParams } from 'react-router-dom';
+import { ProductImage } from '~/Components/common';
 import HeaderPage from '~/Components/HeaderPage';
 import { useQueryDefault } from '~/Hooks';
 import { formatPrice } from '~/lib/utils';
@@ -56,8 +57,8 @@ const OrderInfo = ({ order }) => {
                 <div>
                     {order?.items?.map((product, index) => (
                         <div key={index} className="flex gap-4 items-center">
-                            <img
-                                src={product?.product?.image}
+                            <ProductImage
+                                src={product?.product?.images[0]}
                                 alt={product?.product?.name}
                                 className="w-20 h-20 object-cover"
                             />

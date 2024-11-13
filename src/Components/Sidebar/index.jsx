@@ -107,9 +107,9 @@ const InnerNavItem = ({ icon, label, second, to }) => {
     return (
         <div
             className={clsx(
-                'relative flex items-center gap-2 hover:bg-gray-100 cursor-pointer',
+                'relative flex items-center gap-2 hover:bg-gray-100 dark:hover:bg-navy-700 cursor-pointer',
                 second ? 'pl-11 py-2' : 'pl-8 py-4',
-                isActive ? 'bg-blue-100' : ''
+                isActive ? 'bg-blue-100 dark:bg-navy-900' : ''
             )}
         >
             {icon}

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect } from 'react';
 import Dropdown from '~/Components/Dropdown';
 import { FiAlignJustify } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
@@ -9,18 +9,38 @@ import {
     IoMdNotificationsOutline,
     IoMdInformationCircleOutline,
 } from 'react-icons/io';
+import { useDispatch, useSelector } from 'react-redux';
+import { logout } from '~/store/authSlice';
+import { setDarkMode } from '~/store/themeSlice';
 
 const Navbar = (props) => {
+    const dispatch = useDispatch();
     const { onOpenSidenav, brandText } = props;
-    const [darkmode, setDarkmode] = useState(false);
+    const { isDarkMode: darkmode } = useSelector((state) => state.theme);
+
+    console.log(darkmode);
+
+    const handleLogout = () => {
+        dispatch(logout());
+    };
+
+    const setDarkmode = useCallback(
+        (value) => {
+            console.log(value);
+            dispatch(setDarkMode(value));
+        },
+        [dispatch]
+    );
 
     useEffect(() => {
         if (
             window.matchMedia &&
             window.matchMedia('(prefers-color-scheme: dark)').matches
         ) {
+            document.body.classList.add('dark');
             setDarkmode(true);
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return (
@@ -220,12 +240,12 @@ const Navbar = (props) => {
                             >
                                 Newsletter Settings
                             </a>
-                            <a
-                                href=" "
-                                className="mt-3 text-sm font-medium text-red-500 hover:text-red-500 transition duration-150 ease-out hover:ease-in"
+                            <button
+                                className="mt-3 text-sm font-medium text-red-500 hover:text-red-500 transition duration-150 ease-out hover:ease-in text-left"
+                                onClick={handleLogout}
                             >
                                 Log Out
-                            </a>
+                            </button>
                         </div>
                     </div>
                 </Dropdown>

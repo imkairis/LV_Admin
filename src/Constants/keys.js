@@ -3,6 +3,7 @@ export const QUERY_KEYS = {
     PRODUCTS: 'PRODUCTS',
     AGE_GROUPS: 'AGE_GROUPS',
     TARGET_AUDIENCES: 'TARGET_AUDIENCES',
+    ORDER: 'ORDER',
 };
 
 export const KEYS = {

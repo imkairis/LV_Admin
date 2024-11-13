@@ -28,7 +28,8 @@ function App() {
 
     return (
         <>
-            {isDevelopment && <ReactQueryDevtools initialIsOpen />}
+            {/* {isDevelopment && <ReactQueryDevtools initialIsOpen />} */}
+            <ReactQueryDevtools initialIsOpen />
             <Toaster position="top-center" reverseOrder={false} />
             <BrowserRouter>
                 <Routes>

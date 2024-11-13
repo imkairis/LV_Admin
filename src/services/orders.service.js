@@ -13,6 +13,6 @@ export const updateStatus = async (status) => {
 
 export const getOrderById = async (props) => {
     return instanceAxios
-        .get(`/orders/admin/${props.orderId}`)
+        .get(`/orders/order-detail/${props.orderId}`)
         .then((res) => res.data);
 };

@@ -79,9 +79,10 @@ function Product() {
         {
             key: 'images',
             render: ({ images }) => {
+                const image = images?.[0] || null;
                 return (
                     <ProductImage
-                        src={images[0]}
+                        src={image}
                         className="object-cover size-32"
                     />
                 );
