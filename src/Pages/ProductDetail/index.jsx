@@ -17,12 +17,13 @@ function ProductDetail() {
     });
 
     return (
-        <main>
+        <main className="bg-gray-50 py-8">
             <HeaderPage title="Product Detail" />
             {isLoading && <LoadingProductDetail />}
             {!isLoading && data && (
-                <div>
-                    <div className="w-3/4 mx-auto">
+                <div className="flex justify-center gap-8">
+                    {/* Hình ảnh */}
+                    <div className="w-full md:w-1/2">
                         <Slider
                             config={{
                                 infinite: true,
@@ -33,32 +34,66 @@ function ProductDetail() {
                                 <ProductImage
                                     src={src}
                                     alt={data?.data?.name}
+                                    className="max-w-full rounded-lg"
                                 />
                             )}
                         />
                     </div>
 
-                    <h2>Name: {data?.data?.name}</h2>
-                    <p>Price: {data?.data?.price}</p>
-                    <p>Type: {data?.data?.type}</p>
-                    <p>Quantity: {data?.data?.quantity}</p>
-                    <p>Cost: {data?.data?.cost}</p>
-                    <p>Stock quantity: {data?.data?.stockQuantity}</p>
-                    <p>Description: {data?.data?.description}</p>
-                    <p>User manual: {data?.data?.userManual}</p>
-                    <p>Weight: {data?.data?.weight}</p>
-                    <p>Element: {data?.data?.element}</p>
-                    <p>Origin: {data?.data?.origin}</p>
-                    <p>
-                        Date of manufacture:{' '}
-                        {formatDate(data?.data?.dateOfManufacture)}
-                    </p>
-                    <p>
-                        Expiration date:{' '}
-                        {formatDate(data?.data?.expirationDate)}
-                    </p>
-                    <p>Target audience: {data?.data?.targetAudience}</p>
-                    <p>Age group: {data?.data?.ageGroup}</p>
+                    {/* Chi tiết sản phẩm */}
+                    <div className="w-full md:w-1/2 bg-white p-6 rounded-lg shadow-lg flex flex-col justify-between">
+                        <h2 className="text-2xl font-semibold text-gray-800">
+                            Name: {data?.data?.name}
+                        </h2>
+                        <p className="text-lg text-red-600 mt-2">
+                            Price:{' '}
+                            {parseInt(data?.data?.price).toLocaleString(
+                                'vi-VN'
+                            )}{' '}
+                            VND
+                        </p>
+                        <p className="text-sm text-gray-900">
+                            Type: {data?.data?.type}
+                        </p>
+                        <p className="text-sm text-gray-900">
+                            Quantity: {data?.data?.quantity}
+                        </p>
+                        <p className="text-sm text-gray-900">
+                            Cost: {data?.data?.cost}
+                        </p>
+                        <p className="text-sm text-gray-900">
+                            Stock quantity: {data?.data?.stockQuantity}
+                        </p>
+                        <p className="text-sm text-gray-900">
+                            Description: {data?.data?.description}
+                        </p>
+                        <p className="text-sm text-gray-900">
+                            User manual: {data?.data?.userManual}
+                        </p>
+                        <p className="text-sm text-gray-900">
+                            Weight: {data?.data?.weight}
+                        </p>
+                        <p className="text-sm text-gray-900">
+                            Element: {data?.data?.element}
+                        </p>
+                        <p className="text-sm text-gray-900">
+                            Origin: {data?.data?.origin}
+                        </p>
+                        <p className="text-sm text-gray-900">
+                            Date of manufacture:{' '}
+                            {formatDate(data?.data?.dateOfManufacture)}
+                        </p>
+                        <p className="text-sm text-gray-900">
+                            Expiration date:{' '}
+                            {formatDate(data?.data?.expirationDate)}
+                        </p>
+                        <p className="text-sm text-gray-900">
+                            Target audience: {data?.data?.targetAudience}
+                        </p>
+                        <p className="text-sm text-gray-900">
+                            Age group: {data?.data?.ageGroup}
+                        </p>
+                    </div>
                 </div>
             )}
         </main>
