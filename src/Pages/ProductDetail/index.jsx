@@ -101,6 +101,11 @@ function ProductDetail() {
 }
 
 export default ProductDetail;
+export const formatPrice = (value) => {
+    if (!value) return '0 VND'; // Trường hợp giá trị không hợp lệ
+    const numberFormat = new Intl.NumberFormat('vi-VN'); // Định dạng số cho tiếng Việt
+    return `${numberFormat.format(value)} VND`; // Thêm "VND" vào cuối
+};
 
 const LoadingProductDetail = () => {
     return (

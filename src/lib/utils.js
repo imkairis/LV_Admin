@@ -22,12 +22,12 @@ export const formatDate = (date, locales = 'vi-VN', opt = {}) => {
     return newDate.toLocaleDateString(locales, opt);
 };
 
-export const formatPrice = (price) => {
-    return new Intl.NumberFormat('vi-VN', {
-        style: 'currency',
-        currency: 'VND',
-    }).format(price);
+export const formatPrice = (value) => {
+    if (!value) return "0 VND"; // Trường hợp giá trị không hợp lệ
+    const numberFormat = new Intl.NumberFormat("vi-VN"); // Định dạng số cho tiếng Việt
+    return `${numberFormat.format(value)} VND`; // Thêm "VND" vào cuối
 };
+
 
 export const detectNearExpiredProducts = (date, delta) => {
     const current = new Date();
