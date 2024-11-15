@@ -6,7 +6,6 @@ import HeaderPage from '~/Components/HeaderPage';
 import { useQueryDefault } from '~/Hooks';
 import { formatPrice } from '~/lib/utils';
 import { getOrderById } from '~/services';
-import jsPDF from 'jspdf';
 
 function OrderDetail() {
     const { orderId } = useParams();
@@ -18,15 +17,24 @@ function OrderDetail() {
         },
     });
 
+    // Handle Print
+    const printRef = React.useRef();
+
+    const handlePrint = useReactToPrint({
+        content: () => printRef.current, // Đảm bảo rằng bạn truyền đúng nội dung cần in
+        documentTitle: 'Order Invoice',
+        onAfterPrint: () => console.log('Invoice printed successfully!'),
+    });
+
     return (
         <main className="p-6">
             <HeaderPage title="Chi tiết đơn hàng" />
-            {/* <button
+            <button
                 onClick={handlePrint}
                 className="bg-blue-500 text-white p-2 rounded mb-6"
             >
                 In hóa đơn
-            </button> */}
+            </button>
             {isLoading && <p>Loading...</p>}
             {!isLoading && data && (
                 <OrderInfo order={data.data} printRef={printRef} />
@@ -50,6 +58,8 @@ const OrderInfo = ({ order, printRef }) => {
 
     return (
         <div className="p-6" ref={printRef}>
+            {' '}
+            {/* Đảm bảo in đúng phần này */}
             {/* Order Information - Container */}
             <div className="bg-white p-6 mb-8 rounded-lg shadow-sm">
                 <div className="space-y-4 text-center">
@@ -116,7 +126,6 @@ const OrderInfo = ({ order, printRef }) => {
                     </div>
                 </div>
             </div>
-
             {/* Product Information - Container */}
             <div className="bg-white p-6 mb-8 rounded-lg shadow-sm">
                 <div className="space-y-4 text-center">

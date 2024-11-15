@@ -24,22 +24,22 @@ function Dashboard() {
             <div className="mt-3 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-3 3xl:grid-cols-6">
                 <Widget
                     icon={<IoBarChart className="size-7" />}
-                    title={'Earnings'}
+                    title={'Product'}
                     subtitle={'$340.5'}
                 />
                 <Widget
                     icon={<IoDocument className="size-7" />}
-                    title={'Spend this month'}
+                    title={'Order'}
                     subtitle={'$642.39'}
                 />
                 <Widget
                     icon={<MdBarChart className="size-7" />}
-                    title={'Sales'}
+                    title={'Doanh thu'}
                     subtitle={'$574.34'}
                 />
                 <Widget
                     icon={<MdDashboard className="h-6 w-6" />}
-                    title={'Your Balance'}
+                    title={'Người dùng'}
                     subtitle={'$1,000'}
                 />
                 <Widget
