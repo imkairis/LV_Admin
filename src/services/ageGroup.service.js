@@ -6,8 +6,11 @@ export const getAllAges = async (queries) => {
 };
 
 export const addAgeGroup = async (data) => {
+    return instanceAxios.post('/ages/admin', data).then((res) => res.data);
+};
+export const updateAgeGroup = async ({ _id, ...data }) => {
     return instanceAxios
-        .post('/ages/admin', data)
+        .put('/ages/admin/' + _id, data)
         .then((res) => res.data);
 };
 

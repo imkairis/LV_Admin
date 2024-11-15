@@ -8,13 +8,22 @@ import {
     useMutationAndToast,
     useQueryDefault,
 } from '~/Hooks';
-import { getAllTargets, addTargets, deleteTargets } from '~/services';
+import {
+    getAllTargets,
+    addTargets,
+    deleteTargets,
+    updateTargets,
+} from '~/services';
 import { QUERY_KEYS } from '~/Constants';
 import AddAgeGroupForm from '~/Components/Product/AddAgeGroupForm';
 
 function TargetAudience() {
     // status modal
     const [showModalDelete, setShowModalDelete] = useState({
+        show: false,
+        target: null,
+    });
+    const [showModalUpdate, setShowModalUpdate] = useState({
         show: false,
         target: null,
     });
@@ -43,18 +52,34 @@ function TargetAudience() {
         loadingString: 'Deleting target audience...',
         successString: 'Deleting target audience success',
     });
-
-    const handleEditProduct = (id) => {
-        console.log('Edit product', id);
-    };
+    const mutationUpdate = useMutationAndToast({
+        keys: [QUERY_KEYS.TARGET_AUDIENCES, { page, limit }],
+        fn: updateTargets,
+        onSuccess: () => setShowModalUpdate({ show: false, type: null }),
+        loadingString: 'Updating target audience...',
+        successString: 'Updating target audience success',
+    });
 
     const handleDelete = (id) => {
         console.log('Delete product', id);
         mutationDelete.mutate(id);
     };
 
-    const handleAdding = (values) => {
-        mutation.mutate(values);
+    const handleCloseModalTarget = () => {
+        if (showModalUpdate.show) {
+            setShowModalUpdate({ show: false, type: null });
+        }
+        if (showModalAdding) {
+            setShowModalAdding(false);
+        }
+    };
+
+    const handleSubmit = (values) => {
+        if (showModalUpdate.show) {
+            mutationUpdate.mutate(values);
+        } else {
+            mutation.mutate(values);
+        }
     };
 
     const handlePageChange = (page) => {
@@ -97,17 +122,20 @@ function TargetAudience() {
                                 align="center"
                                 trigger={<IoIosMore size={20} />}
                                 content={
-                                    <div className="flex flex-col bg-white shadow-md">
+                                    <div className="flex flex-col bg-white dark:bg-navy-600 shadow-md">
                                         <button
-                                            className="py-1 px-2 w-full text-left hover:bg-gray-100 duration-200"
+                                            className="py-1 px-2 w-full text-left hover:bg-gray-100 hover:dark:bg-navy-500 duration-200"
                                             onClick={() =>
-                                                handleEditProduct(values.id)
+                                                setShowModalUpdate({
+                                                    show: true,
+                                                    target: values,
+                                                })
                                             }
                                         >
                                             Edit
                                         </button>
                                         <button
-                                            className="py-1 px-2 w-full text-left hover:bg-gray-100 duration-200"
+                                            className="py-1 px-2 w-full text-left hover:bg-gray-100 hover:dark:bg-navy-500 duration-200"
                                             onClick={() =>
                                                 setShowModalDelete({
                                                     show: true,
@@ -163,9 +191,10 @@ function TargetAudience() {
             />
 
             <ModalAddProductType
-                open={showModalAdding}
-                onClose={() => setShowModalAdding(false)}
-                onAdding={handleAdding}
+                open={showModalAdding || showModalUpdate.show}
+                onClose={handleCloseModalTarget}
+                onSubmit={handleSubmit}
+                initialValues={showModalUpdate.target}
             />
         </main>
     );
@@ -213,15 +242,16 @@ const ModalConfirmDelete = ({
     );
 };
 
-const ModalAddProductType = ({ onClose, open, onAdding }) => {
-    const handleAddProductType = (values) => {
-        onAdding(values);
+const ModalAddProductType = ({ onClose, open, onSubmit, initialValues }) => {
+    const handleSubmit = (values) => {
+        onSubmit(values);
     };
 
     return (
         <Modal title="Add Delete Target Audience" open={open} onClose={onClose}>
             <AddAgeGroupForm
-                onSubmit={(values) => handleAddProductType(values)}
+                onSubmit={(values) => handleSubmit(values)}
+                initialValues={initialValues}
             />
         </Modal>
     );

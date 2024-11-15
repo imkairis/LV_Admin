@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { forwardRef, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useReactToPrint } from 'react-to-print';
 import { ProductImage } from '~/Components/common';
@@ -21,7 +21,7 @@ function OrderDetail() {
     const printRef = React.useRef();
 
     const handlePrint = useReactToPrint({
-        content: () => printRef.current, // Đảm bảo rằng bạn truyền đúng nội dung cần in
+        contentRef: printRef,
         documentTitle: 'Order Invoice',
         onAfterPrint: () => console.log('Invoice printed successfully!'),
     });
@@ -31,13 +31,13 @@ function OrderDetail() {
             <HeaderPage title="Chi tiết đơn hàng" />
             <button
                 onClick={handlePrint}
-                className="bg-blue-500 text-white p-2 rounded mb-6"
+                className="bg-blue-500 dark:bg-navy-600 text-white p-2 rounded mb-6"
             >
                 In hóa đơn
             </button>
             {isLoading && <p>Loading...</p>}
             {!isLoading && data && (
-                <OrderInfo order={data.data} printRef={printRef} />
+                <OrderInfo order={data.data} ref={printRef} />
             )}
             {isError && <p>Error: {error?.message || 'Có lỗi xảy ra'}</p>}
         </main>
@@ -46,7 +46,8 @@ function OrderDetail() {
 
 export default OrderDetail;
 
-const OrderInfo = ({ order, printRef }) => {
+// eslint-disable-next-line react/display-name
+const OrderInfo = forwardRef(({ order }, printRef) => {
     const addressOrder = () => {
         const json = JSON.parse(order?.address);
         return {
@@ -57,11 +58,11 @@ const OrderInfo = ({ order, printRef }) => {
     };
 
     return (
-        <div className="p-6" ref={printRef}>
+        <div className="" ref={printRef}>
             {' '}
             {/* Đảm bảo in đúng phần này */}
             {/* Order Information - Container */}
-            <div className="bg-white p-6 mb-8 rounded-lg shadow-sm">
+            <div className="bg-white dark:bg-navy-700 p-6 mb-8 rounded-lg shadow-sm">
                 <div className="space-y-4 text-center">
                     <h2 className="text-2xl font-semibold text-blue-600">
                         Thông tin đơn hàng
@@ -127,7 +128,7 @@ const OrderInfo = ({ order, printRef }) => {
                 </div>
             </div>
             {/* Product Information - Container */}
-            <div className="bg-white p-6 mb-8 rounded-lg shadow-sm">
+            <div className="bg-white dark:bg-navy-700 p-6 mb-8 rounded-lg shadow-sm">
                 <div className="space-y-4 text-center">
                     <h3 className="mb-6 text-2xl font-semibold">Sản phẩm</h3>
                 </div>
@@ -167,4 +168,4 @@ const OrderInfo = ({ order, printRef }) => {
             </div>
         </div>
     );
-};
+});

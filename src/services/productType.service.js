@@ -17,6 +17,15 @@ export const addProductType = async (data) => {
         })
         .then((res) => res.data);
 };
+export const updateProductType = async ({ _id, ...data }) => {
+    return instanceAxios
+        .put(API_URL + '/types/admin/' + _id, data, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            },
+        })
+        .then((res) => res.data);
+};
 
 export const deleteProductType = async (id) => {
     return instanceAxios.delete(`/types/admin/${id}`).then((res) => res.data);

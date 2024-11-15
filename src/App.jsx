@@ -27,7 +27,7 @@ function App() {
     const isDevelopment = import.meta.env.NODE_ENV === 'development';
 
     return (
-        <>
+        <div className="dark:text-white">
             {/* {isDevelopment && <ReactQueryDevtools initialIsOpen />} */}
             {/* <ReactQueryDevtools initialIsOpen /> */}
             <Toaster position="top-center" reverseOrder={false} />
@@ -78,7 +78,7 @@ function App() {
                     <Route exact path="/login" element={<Login />} />
                 </Routes>
             </BrowserRouter>
-        </>
+        </div>
     );
 }
 

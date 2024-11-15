@@ -1,16 +1,19 @@
 import { Form, Formik, Field } from 'formik';
 import * as Yup from 'yup';
 
-function AddProductTypeForm({ onSubmit }) {
+function ProductTypeForm({
+    onSubmit,
+    initialValues = { name: '', description: '', image: '' },
+}) {
     const schema = Yup.object().shape({
         name: Yup.string().required('Name is required'),
         description: Yup.string().required('Description is required'),
-        image: Yup.string().required('Image is required'),
+        // image: Yup.string().required('Image is required'),
     });
 
     return (
         <Formik
-            initialValues={{ name: '', description: '', image: '' }}
+            initialValues={initialValues}
             validationSchema={schema}
             onSubmit={(values, { setSubmitting }) => {
                 onSubmit(values);
@@ -63,4 +66,4 @@ function AddProductTypeForm({ onSubmit }) {
     );
 }
 
-export default AddProductTypeForm;
+export default ProductTypeForm;

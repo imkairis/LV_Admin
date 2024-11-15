@@ -121,13 +121,13 @@ function Order() {
                             align="center"
                             trigger={<IoIosMore size={20} />}
                             content={
-                                <div className="flex flex-col bg-white shadow-md">
+                                <div className="flex flex-col bg-white dark:bg-navy-700 shadow-md">
                                     <Link
                                         to={ROUTES.ORDER_DETAIL.replace(
                                             ':orderId',
                                             product._id
                                         )}
-                                        className="block whitespace-nowrap py-1 px-2 w-full text-left hover:bg-gray-100 duration-200"
+                                        className="block whitespace-nowrap py-1 px-2 w-full text-left hover:bg-gray-100 dark:hover:bg-navy-600  duration-200"
                                     >
                                         Chi tiết
                                     </Link>

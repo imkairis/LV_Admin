@@ -9,10 +9,13 @@ export const getAllTargets = async (queries) => {
 
 export const addTargets = async (data) => {
     return instanceAxios
-        .post(
-            API_URL + '/targets/admin',
-            data 
-        )
+        .post(API_URL + '/targets/admin', data)
+        .then((res) => res.data);
+};
+
+export const updateTargets = async ({ _id, ...data }) => {
+    return instanceAxios
+        .put(API_URL + '/targets/admin/' + _id, data)
         .then((res) => res.data);
 };
 

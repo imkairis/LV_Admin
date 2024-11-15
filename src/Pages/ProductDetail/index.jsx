@@ -17,7 +17,7 @@ function ProductDetail() {
     });
 
     return (
-        <main className="bg-gray-50 py-8">
+        <main className="py-8">
             <HeaderPage title="Product Detail" />
             {isLoading && <LoadingProductDetail />}
             {!isLoading && data && (
@@ -41,56 +41,56 @@ function ProductDetail() {
                     </div>
 
                     {/* Chi tiết sản phẩm */}
-                    <div className="w-full md:w-1/2 bg-white p-6 rounded-lg shadow-lg flex flex-col justify-between">
-                        <h2 className="text-2xl font-semibold text-gray-800">
+                    <div className="w-full md:w-1/2 bg-white dark:bg-navy-700 p-6 rounded-lg shadow-lg flex flex-col justify-between">
+                        <h2 className="text-2xl font-semibold text-gray-800 dark:text-white">
                             Name: {data?.data?.name}
                         </h2>
-                        <p className="text-lg text-red-600 mt-2">
+                        <p className="text-lg text-red-600 mt-2 dark:text-white">
                             Price:{' '}
                             {parseInt(data?.data?.price).toLocaleString(
                                 'vi-VN'
                             )}{' '}
                             VND
                         </p>
-                        <p className="text-sm text-gray-900">
+                        <p className="text-sm text-gray-900 dark:text-white">
                             Type: {data?.data?.type}
                         </p>
-                        <p className="text-sm text-gray-900">
+                        <p className="text-sm text-gray-900 dark:text-white">
                             Quantity: {data?.data?.quantity}
                         </p>
-                        <p className="text-sm text-gray-900">
+                        <p className="text-sm text-gray-900 dark:text-white">
                             Cost: {data?.data?.cost}
                         </p>
-                        <p className="text-sm text-gray-900">
+                        <p className="text-sm text-gray-900 dark:text-white">
                             Stock quantity: {data?.data?.stockQuantity}
                         </p>
-                        <p className="text-sm text-gray-900">
+                        <p className="text-sm text-gray-900 dark:text-white">
                             Description: {data?.data?.description}
                         </p>
-                        <p className="text-sm text-gray-900">
+                        <p className="text-sm text-gray-900 dark:text-white">
                             User manual: {data?.data?.userManual}
                         </p>
-                        <p className="text-sm text-gray-900">
+                        <p className="text-sm text-gray-900 dark:text-white">
                             Weight: {data?.data?.weight}
                         </p>
-                        <p className="text-sm text-gray-900">
+                        <p className="text-sm text-gray-900 dark:text-white">
                             Element: {data?.data?.element}
                         </p>
-                        <p className="text-sm text-gray-900">
+                        <p className="text-sm text-gray-900 dark:text-white">
                             Origin: {data?.data?.origin}
                         </p>
-                        <p className="text-sm text-gray-900">
+                        <p className="text-sm text-gray-900 dark:text-white">
                             Date of manufacture:{' '}
                             {formatDate(data?.data?.dateOfManufacture)}
                         </p>
-                        <p className="text-sm text-gray-900">
+                        <p className="text-sm text-gray-900 dark:text-white">
                             Expiration date:{' '}
                             {formatDate(data?.data?.expirationDate)}
                         </p>
-                        <p className="text-sm text-gray-900">
+                        <p className="text-sm text-gray-900 dark:text-white">
                             Target audience: {data?.data?.targetAudience}
                         </p>
-                        <p className="text-sm text-gray-900">
+                        <p className="text-sm text-gray-900 dark:text-white">
                             Age group: {data?.data?.ageGroup}
                         </p>
                     </div>

@@ -1,7 +1,10 @@
 import { Form, Formik, Field } from 'formik';
 import * as Yup from 'yup';
 
-function AddAgeGroupForm({ onSubmit }) {
+function AddAgeGroupForm({
+    onSubmit,
+    initialValues = { name: '', description: '' },
+}) {
     const schema = Yup.object().shape({
         name: Yup.string().required('Name is required'),
         description: Yup.string().required('Description is required'),
@@ -9,7 +12,7 @@ function AddAgeGroupForm({ onSubmit }) {
 
     return (
         <Formik
-            initialValues={{ name: '', description: '' }}
+            initialValues={initialValues}
             validationSchema={schema}
             onSubmit={(values, { setSubmitting }) => {
                 onSubmit(values);

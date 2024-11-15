@@ -3,7 +3,7 @@ import Popover from '~/Components/Popover';
 import Table from '~/Components/Table';
 import { IoIosMore, IoIosAddCircleOutline } from 'react-icons/io';
 import Modal from '~/Components/Modal';
-import AddProductTypeForm from '~/Components/Product/AddProductTypeForm';
+import ProductTypeForm from '~/Components/Product/ProductTypeForm';
 import {
     useCustomSearchParams,
     useMutationAndToast,
@@ -13,12 +13,17 @@ import {
     addProductType,
     getAllProductTypes,
     deleteProductType,
+    updateProductType,
 } from '~/services';
 import { QUERY_KEYS } from '~/Constants';
 
 function ProductType() {
     // status modal
     const [showModalDelete, setShowModalDelete] = useState({
+        show: false,
+        target: null,
+    });
+    const [showModalEdit, setShowModalEdit] = useState({
         show: false,
         target: null,
     });
@@ -51,18 +56,33 @@ function ProductType() {
         loadingString: 'Deleting product type...',
         successString: 'Deleting product type success',
     });
-
-    const handleEditProduct = (id) => {
-        console.log('Edit product', id);
-    };
+    const mutationEdit = useMutationAndToast({
+        keys: [QUERY_KEYS.PRODUCT_TYPES, { page, limit }],
+        fn: updateProductType,
+        onSuccess: () => setShowModalEdit({ show: false, type: null }),
+        loadingString: 'Updating product type...',
+        successString: 'Updating product type success',
+    });
 
     const handleDeleteProductType = (id) => {
         console.log('Delete product', id);
         mutationDelete.mutate(id);
     };
 
-    const handleAddingProductType = (values) => {
-        mutation.mutate(values);
+    const handleSubmit = (values) => {
+        console.log('values', values);
+        if (showModalEdit.show) {
+            mutationEdit.mutate(values);
+        } else {
+            mutation.mutate(values);
+        }
+    };
+
+    const handleCloseModalProductType = () => {
+        if (showModalAdding) setShowModalAdding(false);
+        if (showModalEdit.show) {
+            setShowModalEdit({ show: false, target: null });
+        }
     };
 
     const handlePageChange = (page) => {
@@ -105,17 +125,20 @@ function ProductType() {
                                 align="center"
                                 trigger={<IoIosMore size={20} />}
                                 content={
-                                    <div className="flex flex-col bg-white shadow-md">
+                                    <div className="flex flex-col bg-white dark:bg-navy-600 shadow-md">
                                         <button
-                                            className="py-1 px-2 w-full text-left hover:bg-gray-100 duration-200"
+                                            className="py-1 px-2 w-full text-left hover:bg-gray-100 dark:hover:bg-navy-500 duration-200"
                                             onClick={() =>
-                                                handleEditProduct(values.id)
+                                                setShowModalEdit({
+                                                    show: true,
+                                                    target: values,
+                                                })
                                             }
                                         >
                                             Edit
                                         </button>
                                         <button
-                                            className="py-1 px-2 w-full text-left hover:bg-gray-100 duration-200"
+                                            className="py-1 px-2 w-full text-left hover:bg-gray-100 dark:hover:bg-navy-500 duration-200"
                                             onClick={() =>
                                                 setShowModalDelete({
                                                     show: true,
@@ -170,10 +193,11 @@ function ProductType() {
                 showModalDelete={showModalDelete}
             />
 
-            <ModalAddProductType
-                open={showModalAdding}
-                onClose={() => setShowModalAdding(false)}
-                onAdding={handleAddingProductType}
+            <ModalProductType
+                open={showModalAdding || showModalEdit.show}
+                onClose={handleCloseModalProductType}
+                onSubmit={handleSubmit}
+                initialValues={showModalEdit.target}
             />
         </main>
     );
@@ -223,15 +247,16 @@ const ModalConfirmDelete = ({
     );
 };
 
-const ModalAddProductType = ({ onClose, open, onAdding }) => {
-    const handleAddProductType = (values) => {
-        onAdding(values);
+const ModalProductType = ({ onClose, open, onSubmit, initialValues }) => {
+    const handleSubmit = (values) => {
+        onSubmit(values);
     };
 
     return (
         <Modal title="Add Product Type" open={open} onClose={onClose}>
-            <AddProductTypeForm
-                onSubmit={(values) => handleAddProductType(values)}
+            <ProductTypeForm
+                onSubmit={(values) => handleSubmit(values)}
+                initialValues={initialValues}
             />
         </Modal>
     );

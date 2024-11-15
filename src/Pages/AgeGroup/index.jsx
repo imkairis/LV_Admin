@@ -8,13 +8,22 @@ import {
     useMutationAndToast,
     useQueryDefault,
 } from '~/Hooks';
-import { getAllAges, deleteAgeGroup, addAgeGroup } from '~/services';
+import {
+    getAllAges,
+    deleteAgeGroup,
+    addAgeGroup,
+    updateAgeGroup,
+} from '~/services';
 import { QUERY_KEYS } from '~/Constants';
 import AddAgeGroupForm from '~/Components/Product/AddAgeGroupForm';
 
 function AgeGroup() {
     // status modal
     const [showModalDelete, setShowModalDelete] = useState({
+        show: false,
+        target: null,
+    });
+    const [showModalUpdate, setShowModalUpdate] = useState({
         show: false,
         target: null,
     });
@@ -47,6 +56,13 @@ function AgeGroup() {
         loadingString: 'Deleting age group...',
         successString: 'Deleting age group success',
     });
+    const mutationUpdate = useMutationAndToast({
+        keys: [QUERY_KEYS.AGE_GROUPS, { page, limit }],
+        fn: updateAgeGroup,
+        onSuccess: () => setShowModalUpdate({ show: false, type: null }),
+        loadingString: 'Updating age group...',
+        successString: 'Updating age group success',
+    });
 
     const handleEditProduct = (id) => {
         console.log('Edit product', id);
@@ -57,8 +73,12 @@ function AgeGroup() {
         mutationDelete.mutate({ id });
     };
 
-    const handleAdding = (values) => {
-        mutation.mutate(values);
+    const handleSubmit = (values) => {
+        if (showModalUpdate.show) {
+            mutationUpdate.mutate(values);
+        } else {
+            mutation.mutate(values);
+        }
     };
 
     const handlePageChange = (page) => {
@@ -66,6 +86,13 @@ function AgeGroup() {
             params.set('page', page);
             return params;
         });
+    };
+
+    const handleCloseModalAgeGroup = () => {
+        if (showModalAdding) setShowModalAdding(false);
+        if (showModalUpdate.show) {
+            setShowModalUpdate({ show: false, target: null });
+        }
     };
 
     const handleLimitChange = (limit) => {
@@ -101,17 +128,20 @@ function AgeGroup() {
                                 align="center"
                                 trigger={<IoIosMore size={20} />}
                                 content={
-                                    <div className="flex flex-col bg-white shadow-md">
+                                    <div className="flex flex-col bg-white dark:bg-navy-600 shadow-md">
                                         <button
-                                            className="py-1 px-2 w-full text-left hover:bg-gray-100 duration-200"
+                                            className="py-1 px-2 w-full text-left hover:bg-gray-100 dark:hover:bg-navy-500 duration-200"
                                             onClick={() =>
-                                                handleEditProduct(values.id)
+                                                setShowModalUpdate({
+                                                    show: true,
+                                                    target: values,
+                                                })
                                             }
                                         >
                                             Edit
                                         </button>
                                         <button
-                                            className="py-1 px-2 w-full text-left hover:bg-gray-100 duration-200"
+                                            className="py-1 px-2 w-full text-left hover:bg-gray-100 dark:hover:bg-navy-500 duration-200"
                                             onClick={() =>
                                                 setShowModalDelete({
                                                     show: true,
@@ -166,10 +196,11 @@ function AgeGroup() {
                 showModalDelete={showModalDelete}
             />
 
-            <ModalAddProductType
-                open={showModalAdding}
-                onClose={() => setShowModalAdding(false)}
-                onAdding={handleAdding}
+            <ModalAgeGroup
+                open={showModalAdding || showModalUpdate.show}
+                onClose={handleCloseModalAgeGroup}
+                onSubmit={handleSubmit}
+                initialValues={showModalUpdate.target}
             />
         </main>
     );
@@ -217,15 +248,16 @@ const ModalConfirmDelete = ({
     );
 };
 
-const ModalAddProductType = ({ onClose, open, onAdding }) => {
-    const handleAddProductType = (values) => {
-        onAdding(values);
+const ModalAgeGroup = ({ onClose, open, onSubmit, initialValues }) => {
+    const handleSubmit = (values) => {
+        onSubmit(values);
     };
 
     return (
         <Modal title="Add Age Group" open={open} onClose={onClose}>
             <AddAgeGroupForm
-                onSubmit={(values) => handleAddProductType(values)}
+                onSubmit={(values) => handleSubmit(values)}
+                initialValues={initialValues}
             />
         </Modal>
     );
