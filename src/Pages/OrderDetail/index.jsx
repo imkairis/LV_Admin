@@ -89,7 +89,7 @@ const OrderInfo = forwardRef(({ order }, printRef) => {
                     {/* Delivery Information */}
                     <div className="space-y-4">
                         <p>
-                            <span className="font-medium">Tên:</span>{' '}
+                            <span className="font-medium">Tên người nhận:</span>{' '}
                             {addressOrder().name}
                         </p>
                         <p>
