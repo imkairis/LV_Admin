@@ -3,10 +3,29 @@ import { QUERY_KEYS } from '~/Constants';
 import { useQueryDefault } from '~/Hooks';
 import { getAllAges, getAllProductTypes, getAllTargets } from '~/services';
 import * as Yup from 'yup';
-import { useMemo } from 'react';
+import { memo, useMemo, useState } from 'react';
 import SliderImageAddProduct from '../SliderImageAddProduct';
 
-function AddProductForm({ onSubmit }) {
+const initialValuesDefault = {
+    name: '',
+    price: '',
+    type: '',
+    quantity: '',
+    cost: '',
+    stockQuantity: '',
+    weight: '',
+    origin: '',
+    targetAudience: '',
+    ageGroup: '',
+    dateOfManufacture: '',
+    expirationDate: '',
+    description: '',
+    userManual: '',
+    element: '',
+};
+
+function ProductForm({ onSubmit, initialValues = initialValuesDefault }) {
+    const isEditMode = initialValues !== initialValuesDefault;
     const { data: productTypes, isLoading: loadingType } = useQueryDefault({
         keys: [QUERY_KEYS.PRODUCT_TYPES],
         fn: () => getAllProductTypes({ limit: 999999 }),
@@ -20,6 +39,7 @@ function AddProductForm({ onSubmit }) {
             keys: [QUERY_KEYS.TARGET_AUDIENCES],
             fn: () => getAllTargets({ limit: 99999 }),
         });
+    const [removeImages, setRemoveImages] = useState([]);
 
     const schema = useMemo(() => {
         return Yup.object().shape({
@@ -50,39 +70,29 @@ function AddProductForm({ onSubmit }) {
 
     return (
         <Formik
-            initialValues={{
-                name: '',
-                price: '',
-                type: '',
-                quantity: '',
-                cost: '',
-                stockQuantity: '',
-                weight: '',
-                origin: '',
-                targetAudience: '',
-                ageGroup: '',
-                dateOfManufacture: '',
-                expirationDate: '',
-                description: '',
-                userManual: '',
-                element: '',
-            }}
+            initialValues={initialValues}
             validationSchema={schema}
             onSubmit={(values, { setSubmitting }) => {
                 const formData = new FormData();
                 for (const key in values) {
                     if (key === 'images') {
                         for (let i = 0; i < values[key].length; i++) {
+                            if (typeof values[key][i] === 'string') {
+                                continue;
+                            }
                             formData.append('images', values[key][i]);
                         }
                     } else {
                         formData.append(key, values[key]);
                     }
                 }
-                console.log('formData', formData);
+                if (removeImages.length > 0) {
+                    formData.append(
+                        'removeImages',
+                        JSON.stringify(removeImages)
+                    );
+                }
                 onSubmit(formData);
-
-                // onSubmit(values);
                 setSubmitting(false);
             }}
         >
@@ -104,7 +114,7 @@ function AddProductForm({ onSubmit }) {
                                     id="name"
                                     name="name"
                                     placeholder="Product name"
-                                    className="border p-2 rounded-md"
+                                    className="p-2 rounded-md dark:bg-gray-800"
                                 />
                                 {errors.name && touched.name && (
                                     <div className="text-red-500">
@@ -120,7 +130,7 @@ function AddProductForm({ onSubmit }) {
                                         id="price"
                                         name="price"
                                         placeholder="Product price"
-                                        className="border p-2 rounded-md"
+                                        className="p-2 rounded-md dark:bg-gray-800"
                                     />
                                     {errors.price && touched.price && (
                                         <div className="text-red-500">
@@ -134,7 +144,7 @@ function AddProductForm({ onSubmit }) {
                                         as="select"
                                         id="type"
                                         name="type"
-                                        className="border p-2 rounded-md"
+                                        className="p-2 rounded-md dark:bg-gray-800"
                                     >
                                         {loadingType ? (
                                             <option>Loading...</option>
@@ -169,7 +179,7 @@ function AddProductForm({ onSubmit }) {
                                         id="quantity"
                                         name="quantity"
                                         placeholder="Product quantity"
-                                        className="border p-2 rounded-md"
+                                        className="p-2 rounded-md dark:bg-gray-800"
                                     />
                                     {errors.quantity && touched.quantity && (
                                         <div className="text-red-500">
@@ -187,7 +197,7 @@ function AddProductForm({ onSubmit }) {
                                         id="cost"
                                         name="cost"
                                         placeholder="Product cost"
-                                        className="border p-2 rounded-md"
+                                        className="p-2 rounded-md dark:bg-gray-800"
                                     />
                                     {errors.cost && touched.cost && (
                                         <div className="text-red-500">
@@ -204,7 +214,7 @@ function AddProductForm({ onSubmit }) {
                                         id="stockQuantity"
                                         name="stockQuantity"
                                         placeholder="Product stock quantity"
-                                        className="border p-2 rounded-md"
+                                        className="p-2 rounded-md dark:bg-gray-800"
                                     />
                                     {errors.stockQuantity &&
                                         touched.stockQuantity && (
@@ -220,7 +230,7 @@ function AddProductForm({ onSubmit }) {
                                         id="weight"
                                         name="weight"
                                         placeholder="Product weight"
-                                        className="border p-2 rounded-md"
+                                        className="p-2 rounded-md dark:bg-gray-800"
                                     />
                                     {errors.weight && touched.weight && (
                                         <div className="text-red-500">
@@ -237,7 +247,7 @@ function AddProductForm({ onSubmit }) {
                                         id="origin"
                                         name="origin"
                                         placeholder="Product origin"
-                                        className="border p-2 rounded-md"
+                                        className="p-2 rounded-md dark:bg-gray-800"
                                     />
                                     {errors.origin && touched.origin && (
                                         <div className="text-red-500">
@@ -254,7 +264,7 @@ function AddProductForm({ onSubmit }) {
                                         id="targetAudience"
                                         name="targetAudience"
                                         placeholder="Product target audience"
-                                        className="border p-2 rounded-md"
+                                        className="p-2 rounded-md dark:bg-gray-800"
                                     >
                                         {loadingTargetAudience ? (
                                             <option>Loading...</option>
@@ -290,7 +300,7 @@ function AddProductForm({ onSubmit }) {
                                         id="ageGroup"
                                         name="ageGroup"
                                         placeholder="Age group"
-                                        className="border p-2 rounded-md"
+                                        className="p-2 rounded-md dark:bg-gray-800"
                                     >
                                         {loadingAgeGroup ? (
                                             <option>Loading...</option>
@@ -330,7 +340,7 @@ function AddProductForm({ onSubmit }) {
                                         id="dateOfManufacture"
                                         name="dateOfManufacture"
                                         placeholder="Product date of manufacture"
-                                        className="border p-2 rounded-md"
+                                        className="p-2 rounded-md dark:bg-gray-800"
                                     />
                                     {errors.dateOfManufacture &&
                                         touched.dateOfManufacture && (
@@ -348,7 +358,7 @@ function AddProductForm({ onSubmit }) {
                                         id="expirationDate"
                                         name="expirationDate"
                                         placeholder="Product expiration date"
-                                        className="border p-2 rounded-md"
+                                        className="p-2 rounded-md dark:bg-gray-800"
                                     />
                                     {errors.expirationDate &&
                                         touched.expirationDate && (
@@ -366,7 +376,7 @@ function AddProductForm({ onSubmit }) {
                                     id="description"
                                     name="description"
                                     placeholder="Product description"
-                                    className="border p-2 rounded-md"
+                                    className="p-2 rounded-md dark:bg-gray-800"
                                 />
                                 {errors.description && touched.description && (
                                     <div className="text-red-500">
@@ -381,7 +391,7 @@ function AddProductForm({ onSubmit }) {
                                     id="userManual"
                                     name="userManual"
                                     placeholder="Product user manual"
-                                    className="border p-2 rounded-md"
+                                    className="p-2 rounded-md dark:bg-gray-800"
                                 />
                                 {errors.userManual && touched.userManual && (
                                     <div className="text-red-500">
@@ -397,7 +407,7 @@ function AddProductForm({ onSubmit }) {
                                     id="element"
                                     name="element"
                                     placeholder="Product element"
-                                    className="border p-2 rounded-md"
+                                    className="p-2 rounded-md dark:bg-gray-800"
                                 />
                                 {errors.element && touched.element && (
                                     <div className="text-red-500">
@@ -416,7 +426,7 @@ function AddProductForm({ onSubmit }) {
                                         id="images"
                                         name="images"
                                         placeholder="Product images"
-                                        className="border p-2 rounded-md"
+                                        className="p-2 rounded-md dark:bg-gray-800"
                                         multiple
                                         onChange={(event) => {
                                             if (event.currentTarget.files) {
@@ -435,6 +445,9 @@ function AddProductForm({ onSubmit }) {
                                 </div>
                                 <SliderImageAddProduct
                                     images={values?.images}
+                                    isEditMode={isEditMode}
+                                    setFieldValue={setFieldValue}
+                                    setRemoveImages={setRemoveImages}
                                 />
                             </div>
                             <div className="mt-6 flex justify-center">
@@ -442,9 +455,7 @@ function AddProductForm({ onSubmit }) {
                                     type="submit"
                                     className="py-2 px-4 bg-blue-500 hover:bg-blue-600 text-white rounded-md"
                                 >
-                                    {isSubmitting
-                                        ? 'Adding product...'
-                                        : 'Add Product'}
+                                    {isSubmitting ? 'Loading...' : 'Submit'}
                                 </button>
                             </div>
                         </div>
@@ -455,4 +466,4 @@ function AddProductForm({ onSubmit }) {
     );
 }
 
-export default AddProductForm;
+export default memo(ProductForm);

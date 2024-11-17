@@ -14,8 +14,6 @@ import { useState, useEffect, useCallback } from 'react';
  * @param {Array} responsiveConfig - Responsive configuration for the slider
  */
 export const useSlider = (data, config, responsiveConfig = []) => {
-    console.log('config', config);
-
     const [currentSlide, setCurrentSlide] = useState(0);
     const [canGoNext, setCanGoNext] = useState(false);
     const [canGoPrev, setCanGoPrev] = useState(false);
@@ -32,8 +30,6 @@ export const useSlider = (data, config, responsiveConfig = []) => {
         responsive: [],
         ...config,
     });
-
-    console.log('settings', settings);
 
     const nextSlide = () => {
         if (!canGoNext) return;

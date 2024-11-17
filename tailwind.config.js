@@ -133,6 +133,9 @@ export default {
             '3xl-max': { max: '1600px' },
             '4xl': '1850px',
             '4xl-max': { max: '1850px' },
+            screens: {
+                print: { raw: 'print' }, // Tạo screen tùy chỉnh cho chế độ in
+            },
         },
         colors: () => ({
             white: '#ffffff',
@@ -323,17 +326,6 @@ export default {
                 500: 'rgba(112, 144, 176, 0.08)',
             },
         }),
-    },
-    plugins: [],
-};
-module.exports = {
-    content: ['./src/**/*.{js,jsx,ts,tsx}', './public/index.html'], // Đường dẫn tệp của bạn
-    theme: {
-        extend: {
-            screens: {
-                print: { raw: 'print' }, // Tạo screen tùy chỉnh cho chế độ in
-            },
-        },
     },
     plugins: [],
 };

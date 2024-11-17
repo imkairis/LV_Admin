@@ -107,7 +107,7 @@ const Slider = ({ config, responsiveConfig = [], renderItem, data }) => {
                     }}
                 >
                     {data.length === 0 && (
-                        <h5 className="w-full aspect-[4/3] bg-gray-100 flex justify-center items-center">
+                        <h5 className="w-full aspect-[4/3] bg-gray-100 dark:bg-navy-700 flex justify-center items-center">
                             No data provided. Please provide data to the slider
                         </h5>
                     )}

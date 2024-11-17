@@ -6,6 +6,7 @@ export const ROUTES = {
     AGE_GROUP: '/products/age-group',
     TARGET_AUDIENCE: '/products/target-audience',
     PRODUCT_DETAIL: '/products/:productId',
+    UPDATE_PRODUCT: '/products/update/:productId',
     ORDER: '/orders',
     ORDER_DETAIL: '/orders/:orderId',
 };

@@ -1,4 +1,4 @@
-import AddProductForm from '~/Components/Product/AddProductForm';
+import ProductForm from '~/Components/Product/ProductForm';
 import { useMutationAndToast } from '~/Hooks';
 import { QUERY_KEYS, ROUTES } from '~/Constants';
 import { createProduct } from '~/services';
@@ -26,7 +26,7 @@ function AddProductPage() {
             <HeaderPage />
 
             <div className="mt-6">
-                <AddProductForm onSubmit={handleCreateProduct} />
+                <ProductForm onSubmit={handleCreateProduct} />
             </div>
         </main>
     );

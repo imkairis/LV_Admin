@@ -3,7 +3,7 @@ import Popover from '~/Components/Popover';
 import Table from '~/Components/Table';
 import { QUERY_KEYS, ROUTES } from '~/Constants';
 import { IoIosMore, IoIosAddCircleOutline } from 'react-icons/io';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Modal from '~/Components/Modal';
 
 import {
@@ -26,6 +26,7 @@ function Product() {
         'limit',
         'search',
     ]);
+    const nav = useNavigate();
     const { data, isLoading, isFetching } = useQueryDefault({
         keys: [QUERY_KEYS.PRODUCTS, { page, limit, search }],
         fn: () =>
@@ -153,7 +154,12 @@ function Product() {
                                     <button
                                         className="py-1 px-2 w-full text-left hover:bg-gray-100 dark:hover:bg-navy-600 duration-200"
                                         onClick={() =>
-                                            handleEditProduct(product.id)
+                                            nav(
+                                                ROUTES.UPDATE_PRODUCT.replace(
+                                                    ':productId',
+                                                    product._id
+                                                )
+                                            )
                                         }
                                     >
                                         Edit

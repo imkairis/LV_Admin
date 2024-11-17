@@ -18,15 +18,12 @@ const Navbar = (props) => {
     const { onOpenSidenav, brandText } = props;
     const { isDarkMode: darkmode } = useSelector((state) => state.theme);
 
-    console.log(darkmode);
-
     const handleLogout = () => {
         dispatch(logout());
     };
 
     const setDarkmode = useCallback(
         (value) => {
-            console.log(value);
             dispatch(setDarkMode(value));
         },
         [dispatch]

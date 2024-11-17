@@ -1,5 +1,5 @@
+import { useMemo } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { Toaster } from 'react-hot-toast';
 
 import DashboardPage from '~/Pages/Dashboard';
@@ -17,19 +17,16 @@ import AgeGroup from '~/Pages/AgeGroup';
 import TargetAudience from '~/Pages/TargetAudience';
 import ProductDetail from '~/Pages/ProductDetail';
 import { useSelector } from 'react-redux';
-import { useMemo } from 'react';
 import OrderDetail from './Pages/OrderDetail';
+import UpdateProductPage from './Pages/UpdateProductPage';
 
 function App() {
     const { token, user } = useSelector((state) => state.auth);
     const isLogin = useMemo(() => !!token, [token]);
     const isAdmin = useMemo(() => user?.isAdmin, [user]);
-    const isDevelopment = import.meta.env.NODE_ENV === 'development';
 
     return (
         <div className="dark:text-white">
-            {/* {isDevelopment && <ReactQueryDevtools initialIsOpen />} */}
-            {/* <ReactQueryDevtools initialIsOpen /> */}
             <Toaster position="top-center" reverseOrder={false} />
             <BrowserRouter>
                 <Routes>
@@ -72,6 +69,10 @@ function App() {
                             <Route
                                 path={ROUTES.PRODUCT_DETAIL}
                                 element={<ProductDetail />}
+                            />
+                            <Route
+                                path={ROUTES.UPDATE_PRODUCT}
+                                element={<UpdateProductPage />}
                             />
                         </Route>
                     </Route>
