@@ -12,7 +12,10 @@ function ProductDetail() {
     const { productId } = useParams();
     const { data, isLoading } = useQuery({
         queryKey: ['product', productId],
-        queryFn: () => getProductById(productId),
+        queryFn: () =>
+            getProductById(productId, {
+                populate: 'targetAudience,ageGroup,type',
+            }),
         ...configQuery,
     });
 
@@ -53,7 +56,7 @@ function ProductDetail() {
                             VND
                         </p>
                         <p className="text-sm text-gray-900 dark:text-white">
-                            Type: {data?.data?.type}
+                            Type: {data?.data?.type?.name}
                         </p>
                         <p className="text-sm text-gray-900 dark:text-white">
                             Quantity: {data?.data?.quantity}
@@ -88,10 +91,10 @@ function ProductDetail() {
                             {formatDate(data?.data?.expirationDate)}
                         </p>
                         <p className="text-sm text-gray-900 dark:text-white">
-                            Target audience: {data?.data?.targetAudience}
+                            Target audience: {data?.data?.targetAudience?.name}
                         </p>
                         <p className="text-sm text-gray-900 dark:text-white">
-                            Age group: {data?.data?.ageGroup}
+                            Age group: {data?.data?.ageGroup?.name}
                         </p>
                     </div>
                 </div>

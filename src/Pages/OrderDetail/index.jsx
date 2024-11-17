@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { useReactToPrint } from 'react-to-print';
 import { ProductImage } from '~/Components/common';
 import HeaderPage from '~/Components/HeaderPage';
-import { useQueryDefault } from '~/Hooks';
+import { useMutationAndToast, useQueryDefault } from '~/Hooks';
 import { formatPrice } from '~/lib/utils';
 import { getOrderById } from '~/services';
 
@@ -15,6 +15,14 @@ function OrderDetail() {
         option: {
             slateTime: Infinity,
         },
+    });
+    const mutation = useMutationAndToast({
+        fn: () => getOrderById({ orderId }),
+        keys: ['order', orderId],
+        failString: 'Có lỗi xảy ra',
+        loadingString: 'Đang xử lý...',
+        successString: 'Cập nhật thành công',
+        onSuccess: () => console.log('Order detail updated!'),
     });
 
     // Handle Print
@@ -29,12 +37,14 @@ function OrderDetail() {
     return (
         <main className="p-6">
             <HeaderPage title="Chi tiết đơn hàng" />
-            <button
-                onClick={handlePrint}
-                className="bg-blue-500 dark:bg-navy-600 text-white p-2 rounded mb-6"
-            >
-                In hóa đơn
-            </button>
+            <div>
+                <button
+                    onClick={handlePrint}
+                    className="bg-blue-500 dark:bg-navy-600 text-white p-2 rounded mb-6"
+                >
+                    In hóa đơn
+                </button>
+            </div>
             {isLoading && <p>Loading...</p>}
             {!isLoading && data && (
                 <OrderInfo order={data.data} ref={printRef} />
