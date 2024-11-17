@@ -326,3 +326,14 @@ export default {
     },
     plugins: [],
 };
+module.exports = {
+    content: ['./src/**/*.{js,jsx,ts,tsx}', './public/index.html'], // Đường dẫn tệp của bạn
+    theme: {
+        extend: {
+            screens: {
+                print: { raw: 'print' }, // Tạo screen tùy chỉnh cho chế độ in
+            },
+        },
+    },
+    plugins: [],
+};
