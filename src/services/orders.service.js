@@ -5,8 +5,8 @@ export const getOrders = async (queries) => {
     return instanceAxios.get(`/orders/admin?${params}`).then((res) => res.data);
 };
 
-export const updateStatus = async (status) => {
-    return instanceAxios.put(`/orders/admin`, {
+export const updateStatusOrder = async ({ status, id }) => {
+    return instanceAxios.put(`/orders/admin/` + id, {
         deliveryStatus: status,
     });
 };

@@ -1,11 +1,12 @@
-import React, { forwardRef, useEffect } from 'react';
+import React, { forwardRef } from 'react';
 import { useParams } from 'react-router-dom';
 import { useReactToPrint } from 'react-to-print';
 import { ProductImage } from '~/Components/common';
 import HeaderPage from '~/Components/HeaderPage';
+import { STATUS_ORDER } from '~/Constants';
 import { useMutationAndToast, useQueryDefault } from '~/Hooks';
 import { formatPrice } from '~/lib/utils';
-import { getOrderById } from '~/services';
+import { getOrderById, updateStatusOrder } from '~/services';
 
 function OrderDetail() {
     const { orderId } = useParams();
@@ -17,7 +18,7 @@ function OrderDetail() {
         },
     });
     const mutation = useMutationAndToast({
-        fn: () => getOrderById({ orderId }),
+        fn: updateStatusOrder,
         keys: ['order', orderId],
         failString: 'Có lỗi xảy ra',
         loadingString: 'Đang xử lý...',
@@ -34,16 +35,45 @@ function OrderDetail() {
         onAfterPrint: () => console.log('Invoice printed successfully!'),
     });
 
+    const handleUpdateStatusOrder = (status) => {
+        mutation.mutate({ status, id: orderId });
+    };
+
     return (
         <main className="p-6">
             <HeaderPage title="Chi tiết đơn hàng" />
-            <div>
+            <div className="flex justify-between">
                 <button
                     onClick={handlePrint}
                     className="bg-blue-500 dark:bg-navy-600 text-white p-2 rounded mb-6"
                 >
                     In hóa đơn
                 </button>
+
+                <div className="flex gap-2">
+                    {data?.data?.deliveryStatus === STATUS_ORDER.PENDING ? (
+                        <>
+                            <button
+                                onClick={() =>
+                                    handleUpdateStatusOrder(
+                                        STATUS_ORDER.SHIPPING
+                                    )
+                                }
+                                className="bg-blue-500 dark:bg-navy-600 text-white p-2 rounded mb-6"
+                            >
+                                Vận chuyển
+                            </button>
+                            <button
+                                onClick={() =>
+                                    handleUpdateStatusOrder(STATUS_ORDER.FAILED)
+                                }
+                                className="bg-red-500 text-white p-2 rounded mb-6"
+                            >
+                                Hủy đơn hàng
+                            </button>
+                        </>
+                    ) : null}
+                </div>
             </div>
             {isLoading && <p>Loading...</p>}
             {!isLoading && data && (
@@ -69,7 +99,6 @@ const OrderInfo = forwardRef(({ order }, printRef) => {
 
     return (
         <div className="" ref={printRef}>
-            {' '}
             {/* Đảm bảo in đúng phần này */}
             {/* Order Information - Container */}
             <div className="bg-white dark:bg-navy-700 p-6 mb-8 rounded-lg shadow-sm">
@@ -126,7 +155,18 @@ const OrderInfo = forwardRef(({ order }, printRef) => {
                         </p>
                         <p>
                             <span className="font-medium">Trạng thái:</span>{' '}
-                            {order?.deliveryStatus}
+                            {order?.deliveryStatus === STATUS_ORDER.PENDING
+                                ? 'Chờ xác nhận'
+                                : ''}
+                            {order?.deliveryStatus === STATUS_ORDER.SHIPPING
+                                ? 'Đang giao'
+                                : ''}
+                            {order?.deliveryStatus === STATUS_ORDER.DELIVERED
+                                ? 'Đã giao'
+                                : ''}
+                            {order?.deliveryStatus === STATUS_ORDER.FAILED
+                                ? 'Đã hủy'
+                                : ''}
                         </p>
                         <p>
                             <span className="font-medium">
