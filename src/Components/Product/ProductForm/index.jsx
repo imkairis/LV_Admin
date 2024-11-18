@@ -11,8 +11,8 @@ const initialValuesDefault = {
     price: '',
     type: '',
     quantity: '',
-    cost: '',
-    stockQuantity: '',
+    // cost: '',
+    // stockQuantity: '',
     weight: '',
     origin: '',
     targetAudience: '',
@@ -47,8 +47,8 @@ function ProductForm({ onSubmit, initialValues = initialValuesDefault }) {
             price: Yup.number().required('Price is required'),
             type: Yup.string().required('Type is required'),
             quantity: Yup.number().required('Quantity is required'),
-            cost: Yup.number().required('Cost is required'),
-            stockQuantity: Yup.number().required('Stock quantity is required'),
+            // cost: Yup.number().required('Cost is required'),
+            // stockQuantity: Yup.number().required('Stock quantity is required'),
             weight: Yup.number().required('Weight is required'),
             origin: Yup.string().required('Origin is required'),
             targetAudience: Yup.string().required(
@@ -190,7 +190,7 @@ function ProductForm({ onSubmit, initialValues = initialValuesDefault }) {
                             </div>
 
                             <div className="flex gap-4">
-                                <div className="flex flex-col gap-2 flex-1">
+                                {/* <div className="flex flex-col gap-2 flex-1">
                                     <label htmlFor="cost">Cost</label>
                                     <Field
                                         type="number"
@@ -204,8 +204,8 @@ function ProductForm({ onSubmit, initialValues = initialValuesDefault }) {
                                             {errors.cost}
                                         </div>
                                     )}
-                                </div>
-                                <div className="flex flex-col gap-2 flex-1">
+                                </div> */}
+                                {/* <div className="flex flex-col gap-2 flex-1">
                                     <label htmlFor="stockQuantity">
                                         Stock Quantity
                                     </label>
@@ -222,7 +222,7 @@ function ProductForm({ onSubmit, initialValues = initialValuesDefault }) {
                                                 {errors.stockQuantity}
                                             </div>
                                         )}
-                                </div>
+                                </div> */}
                                 <div className="flex flex-col gap-2 flex-1">
                                     <label htmlFor="weight">Weight</label>
                                     <Field

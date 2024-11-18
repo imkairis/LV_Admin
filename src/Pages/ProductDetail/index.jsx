@@ -44,58 +44,115 @@ function ProductDetail() {
                     </div>
 
                     {/* Chi tiết sản phẩm */}
-                    <div className="w-full md:w-1/2 bg-white dark:bg-navy-700 p-6 rounded-lg shadow-lg flex flex-col justify-between">
-                        <h2 className="text-2xl font-semibold text-gray-800 dark:text-white">
-                            Name: {data?.data?.name}
-                        </h2>
-                        <p className="text-lg text-red-600 mt-2 dark:text-white">
-                            Price:{' '}
-                            {parseInt(data?.data?.price).toLocaleString(
-                                'vi-VN'
-                            )}{' '}
-                            VND
-                        </p>
-                        <p className="text-sm text-gray-900 dark:text-white">
-                            Type: {data?.data?.type?.name}
-                        </p>
-                        <p className="text-sm text-gray-900 dark:text-white">
-                            Quantity: {data?.data?.quantity}
-                        </p>
-                        <p className="text-sm text-gray-900 dark:text-white">
-                            Cost: {data?.data?.cost}
-                        </p>
-                        <p className="text-sm text-gray-900 dark:text-white">
-                            Stock quantity: {data?.data?.stockQuantity}
-                        </p>
-                        <p className="text-sm text-gray-900 dark:text-white">
-                            Description: {data?.data?.description}
-                        </p>
-                        <p className="text-sm text-gray-900 dark:text-white">
-                            User manual: {data?.data?.userManual}
-                        </p>
-                        <p className="text-sm text-gray-900 dark:text-white">
-                            Weight: {data?.data?.weight}
-                        </p>
-                        <p className="text-sm text-gray-900 dark:text-white">
-                            Element: {data?.data?.element}
-                        </p>
-                        <p className="text-sm text-gray-900 dark:text-white">
-                            Origin: {data?.data?.origin}
-                        </p>
-                        <p className="text-sm text-gray-900 dark:text-white">
-                            Date of manufacture:{' '}
-                            {formatDate(data?.data?.dateOfManufacture)}
-                        </p>
-                        <p className="text-sm text-gray-900 dark:text-white">
-                            Expiration date:{' '}
-                            {formatDate(data?.data?.expirationDate)}
-                        </p>
-                        <p className="text-sm text-gray-900 dark:text-white">
-                            Target audience: {data?.data?.targetAudience?.name}
-                        </p>
-                        <p className="text-sm text-gray-900 dark:text-white">
-                            Age group: {data?.data?.ageGroup?.name}
-                        </p>
+                    <div className="w-full md:w-1/2 bg-white dark:bg-navy-700 p-6 rounded-lg shadow-lg">
+                        <div className="flow-root">
+                            <dl className="-my-3 divide-y divide-gray-100 text-sm">
+                                {/* Tên sản phẩm */}
+                                <div className="grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4">
+                                    <dt className="font-medium text-gray-900">
+                                        Product Name
+                                    </dt>
+                                    <dd className="text-gray-700 sm:col-span-2">
+                                        {data?.data?.name}
+                                    </dd>
+                                </div>
+
+                                {/* Giá sản phẩm */}
+                                <div className="grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4">
+                                    <dt className="font-medium text-gray-900">
+                                        Price
+                                    </dt>
+                                    <dd className="text-gray-700 sm:col-span-2">
+                                        {parseInt(
+                                            data?.data?.price
+                                        ).toLocaleString('vi-VN')}{' '}
+                                        VND
+                                    </dd>
+                                </div>
+
+                                {/* Mô tả sản phẩm */}
+                                <div className="grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4">
+                                    <dt className="font-medium text-gray-900">
+                                        Description
+                                    </dt>
+                                    <dd className="text-gray-700 sm:col-span-2">
+                                        {data?.data?.description}
+                                    </dd>
+                                </div>
+
+                                {/* Đối tượng người dùng */}
+                                <div className="grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4">
+                                    <dt className="font-medium text-gray-900">
+                                        Target Audience
+                                    </dt>
+                                    <dd className="text-gray-700 sm:col-span-2">
+                                        {data?.data?.targetAudience?.name}
+                                    </dd>
+                                </div>
+
+                                {/* Nhóm tuổi */}
+                                <div className="grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4">
+                                    <dt className="font-medium text-gray-900">
+                                        Age Group
+                                    </dt>
+                                    <dd className="text-gray-700 sm:col-span-2">
+                                        {data?.data?.ageGroup?.name}
+                                    </dd>
+                                </div>
+
+                                {/* Ngày sản xuất */}
+                                <div className="grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4">
+                                    <dt className="font-medium text-gray-900">
+                                        Date of Manufacture
+                                    </dt>
+                                    <dd className="text-gray-700 sm:col-span-2">
+                                        {formatDate(
+                                            data?.data?.dateOfManufacture
+                                        )}
+                                    </dd>
+                                </div>
+
+                                {/* Hạn sử dụng */}
+                                <div className="grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4">
+                                    <dt className="font-medium text-gray-900">
+                                        Expiration Date
+                                    </dt>
+                                    <dd className="text-gray-700 sm:col-span-2">
+                                        {formatDate(data?.data?.expirationDate)}
+                                    </dd>
+                                </div>
+
+                                {/* Cân nặng */}
+                                <div className="grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4">
+                                    <dt className="font-medium text-gray-900">
+                                        Weight
+                                    </dt>
+                                    <dd className="text-gray-700 sm:col-span-2">
+                                        {data?.data?.weight}
+                                    </dd>
+                                </div>
+
+                                {/* Thành phần */}
+                                <div className="grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4">
+                                    <dt className="font-medium text-gray-900">
+                                        Element
+                                    </dt>
+                                    <dd className="text-gray-700 sm:col-span-2">
+                                        {data?.data?.element}
+                                    </dd>
+                                </div>
+
+                                {/* Nguồn gốc */}
+                                <div className="grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4">
+                                    <dt className="font-medium text-gray-900">
+                                        Origin
+                                    </dt>
+                                    <dd className="text-gray-700 sm:col-span-2">
+                                        {data?.data?.origin}
+                                    </dd>
+                                </div>
+                            </dl>
+                        </div>
                     </div>
                 </div>
             )}
@@ -104,11 +161,6 @@ function ProductDetail() {
 }
 
 export default ProductDetail;
-export const formatPrice = (value) => {
-    if (!value) return '0 VND'; // Trường hợp giá trị không hợp lệ
-    const numberFormat = new Intl.NumberFormat('vi-VN'); // Định dạng số cho tiếng Việt
-    return `${numberFormat.format(value)} VND`; // Thêm "VND" vào cuối
-};
 
 const LoadingProductDetail = () => {
     return (
