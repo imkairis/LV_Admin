@@ -1,17 +1,11 @@
-import { useState } from 'react';
 import Popover from '~/Components/Popover';
 import Table from '~/Components/Table';
 import { QUERY_KEYS, ROUTES } from '~/Constants';
-import { IoIosMore, IoIosAddCircleOutline } from 'react-icons/io';
+import { IoIosMore } from 'react-icons/io';
 import { Link } from 'react-router-dom';
-import Modal from '~/Components/Modal';
 import { useCustomSearchParams, useQueryDefault } from '~/Hooks';
 import { getOrders } from '~/services';
-import {
-    detectNearExpiredProducts,
-    formatDate,
-    formatPrice,
-} from '~/lib/utils';
+import { formatPrice } from '~/lib/utils';
 import clsx from 'clsx';
 
 function Order() {
@@ -33,10 +27,6 @@ function Order() {
             refetchOnFocus: true,
         },
     });
-
-    const handleEditProduct = (id) => {
-        console.log('Edit product', id);
-    };
 
     const handlePageChange = (page) => {
         setSearchPrams((params) => {
@@ -104,7 +94,10 @@ function Order() {
                             status === 'failed' && 'bg-red-100 text-red-800'
                         )}
                     >
-                        {status}
+                        {status === 'pending' && 'Chờ xác nhận'}
+                        {status === 'shipping' && 'Đang giao'}
+                        {status === 'delivered' && 'Đã giao'}
+                        {status === 'failed' && 'Thất bại'}
                     </span>
                 );
             },
