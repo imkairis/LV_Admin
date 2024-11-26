@@ -17,20 +17,30 @@ import DailyTraffic from '~/Components/Widgets/DailyTraffic';
 import PieChartCard from '~/Components/PieChartCard';
 import TaskCard from '~/Components/Card/TaskCard';
 import MiniCalendar from '~/Components/Calendar';
+import { useQueryDefault } from '~/Hooks';
+import { getStatic } from '~/services';
 
 function Dashboard() {
+    const { data: statics } = useQueryDefault({
+        keys: ['static'],
+        fn: () => getStatic(),
+        option: {
+            slateTime: 1000,
+        },
+    });
+
     return (
         <div>
             <div className="mt-3 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-3 3xl:grid-cols-6">
                 <Widget
                     icon={<IoBarChart className="size-7" />}
                     title={'Product'}
-                    subtitle={'$340.5'}
+                    subtitle={statics?.countProducts || 0}
                 />
                 <Widget
                     icon={<IoDocument className="size-7" />}
                     title={'Order'}
-                    subtitle={'$642.39'}
+                    subtitle={statics?.countNewOrderSuccess || 0}
                 />
                 <Widget
                     icon={<MdBarChart className="size-7" />}
@@ -40,17 +50,17 @@ function Dashboard() {
                 <Widget
                     icon={<MdDashboard className="h-6 w-6" />}
                     title={'Người dùng'}
-                    subtitle={'$1,000'}
+                    subtitle={statics?.countUser || 0}
                 />
                 <Widget
                     icon={<MdBarChart className="h-7 w-7" />}
                     title={'New Tasks'}
-                    subtitle={'145'}
+                    subtitle={statics?.countNewProduct || 0}
                 />
                 <Widget
                     icon={<IoHome className="h-6 w-6" />}
                     title={'Total Projects'}
-                    subtitle={'$2433'}
+                    subtitle={statics?.countProductNearlyExpired || 0}
                 />
             </div>
 

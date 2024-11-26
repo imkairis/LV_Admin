@@ -122,7 +122,7 @@ function Product() {
             key: 'expirationDate',
             title: 'Expired Date',
             render: ({ expirationDate }) => {
-                const detect = detectNearExpiredProducts(expirationDate, 7);
+                const detect = detectNearExpiredProducts(expirationDate, 30);
                 return (
                     <span
                         className={clsx({

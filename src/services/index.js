@@ -5,3 +5,4 @@ export * from './ageGroup.service';
 export * from './targetAudience.service';
 export * from './orders.service';
 export * from './adopt.service';
+export * from './static.service';
