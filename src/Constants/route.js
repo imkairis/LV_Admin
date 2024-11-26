@@ -9,4 +9,6 @@ export const ROUTES = {
     UPDATE_PRODUCT: '/products/update/:productId',
     ORDER: '/orders',
     ORDER_DETAIL: '/orders/:orderId',
+    ADOPT: '/adopt',
+    ADOPT_DETAIL: '/adopt/:adoptId',
 };

@@ -19,6 +19,8 @@ import ProductDetail from '~/Pages/ProductDetail';
 import { useSelector } from 'react-redux';
 import OrderDetail from './Pages/OrderDetail';
 import UpdateProductPage from './Pages/UpdateProductPage';
+import AdoptPage from './Pages/Adopt';
+import AdoptDetail from './Pages/AdoptDetail';
 
 function App() {
     const { token, user } = useSelector((state) => state.auth);
@@ -73,6 +75,14 @@ function App() {
                             <Route
                                 path={ROUTES.UPDATE_PRODUCT}
                                 element={<UpdateProductPage />}
+                            />
+                            <Route
+                                path={ROUTES.ADOPT}
+                                element={<AdoptPage />}
+                            />
+                            <Route
+                                path={ROUTES.ADOPT_DETAIL}
+                                element={<AdoptDetail />}
                             />
                         </Route>
                     </Route>

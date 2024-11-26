@@ -11,3 +11,10 @@ export const STATUS_ORDER = {
     DELIVERED: 'delivered',
     FAILED: 'failed',
 };
+
+export const STATUS_ADOPT = {
+    PENDING: 'Đang chờ xét duyệt',
+    WAITING: 'Chưa có người nhận nuôi',
+    ADOPTED: 'Đã có người nhận nuôi',
+    REJECTED: 'Từ chối',
+}
