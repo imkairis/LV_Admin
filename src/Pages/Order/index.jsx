@@ -54,7 +54,7 @@ function Order() {
             key: 'address',
             title: 'Địa chỉ',
             render: (_, address) => {
-                return convertAddress(address) || 'N/A';
+                return convertAddress(address, ['address']) || 'N/A';
             },
         },
         {
@@ -155,7 +155,7 @@ function Order() {
 
 export default Order;
 
-const convertAddress = (address) => {
+const convertAddress = (address, show = ['name', 'phone', 'address']) => {
     let json = {
         name: '',
         phone: '',
@@ -167,7 +167,6 @@ const convertAddress = (address) => {
         console.log(error);
         json.address = address;
     }
-    return `${json?.name || 'N/A'} | ${json?.phone || 'N/A'} | ${
-        json?.address
-    }`;
+
+    return show.map((key) => json?.[key] || 'N/A').join(' | ');
 };
