@@ -34,18 +34,18 @@ function Dashboard() {
             <div className="mt-3 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-3 3xl:grid-cols-6">
                 <Widget
                     icon={<IoBarChart className="size-7" />}
-                    title={'Product'}
+                    title={'Sản phẩm đang có'}
                     subtitle={statics?.countProducts || 0}
                 />
                 <Widget
                     icon={<IoDocument className="size-7" />}
-                    title={'Order'}
+                    title={'Đơn hàng mới'}
                     subtitle={statics?.countNewOrderSuccess || 0}
                 />
                 <Widget
                     icon={<MdBarChart className="size-7" />}
                     title={'Doanh thu'}
-                    subtitle={'$574.34'}
+                    subtitle={'150.000.000 VND'}
                 />
                 <Widget
                     icon={<MdDashboard className="h-6 w-6" />}
@@ -54,12 +54,12 @@ function Dashboard() {
                 />
                 <Widget
                     icon={<MdBarChart className="h-7 w-7" />}
-                    title={'New Tasks'}
+                    title={'Sản phẩm mới'}
                     subtitle={statics?.countNewProduct || 0}
                 />
                 <Widget
                     icon={<IoHome className="h-6 w-6" />}
-                    title={'Total Projects'}
+                    title={'Sản phẩm sắp hết hạn'}
                     subtitle={statics?.countProductNearlyExpired || 0}
                 />
             </div>

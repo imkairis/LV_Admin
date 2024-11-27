@@ -4,50 +4,40 @@ import { useState } from 'react';
 import { HiX } from 'react-icons/hi';
 import { IoIosArrowUp } from 'react-icons/io';
 import { MdOutlineDashboard } from 'react-icons/md';
+import { PiDogFill } from 'react-icons/pi';
+import { RiBillLine } from 'react-icons/ri';
+import { BsCardList } from 'react-icons/bs';
+import { LuUserSquare } from 'react-icons/lu';
 import { Link, useLocation } from 'react-router-dom';
 import { ROUTES } from '~/Constants';
-
+import { PiBone } from 'react-icons/pi';
 function Sidebar({ open, onClose }) {
     const navItems = [
-        { to: '/', label: 'Dashboard', icon: <MdOutlineDashboard size={18} /> },
+        { to: '/', label: 'Thống kê', icon: <MdOutlineDashboard size={18} /> },
         {
-            label: 'Category',
+            label: 'Danh mục',
+            icon: <BsCardList size={18} />,
             children: [
-                {
-                    to: '/category/payment-method',
-                    label: 'Payment Method',
-                },
-                {
-                    to: '/category/delivery-method',
-                    label: 'Delivery Method',
-                },
-                {
-                    to: '/category/product-attribute',
-                    label: 'Product Attribute',
-                },
-                {
-                    to: '/category/order-status',
-                    label: 'Order Status',
-                },
-                {
-                    to: '/category/product-type',
-                    label: 'Promotion Type',
-                },
+                { to: ROUTES.PRODUCT_TYPE, label: 'Loại sản phẩm' },
+                { to: ROUTES.AGE_GROUP, label: 'Nhóm tuổi' },
+                { to: ROUTES.TARGET_AUDIENCE, label: 'Loại thú cưng' },
+                { to: ROUTES.Brand, label: 'Nhà cung cấp' },
+                { to: ROUTES.Type, label: 'Loại thú cưng' },
             ],
         },
         {
-            label: 'Products',
-            children: [
-                { to: ROUTES.PRODUCTS, label: 'Product List' },
-                { to: ROUTES.PRODUCT_TYPE, label: 'Product Type' },
-                { to: ROUTES.AGE_GROUP, label: 'Age Group' },
-                { to: ROUTES.TARGET_AUDIENCE, label: 'Target Audience' },
-            ],
+            to: '/products',
+            label: 'Sản phẩm',
+            icon: <PiBone size={18} />,
         },
-        { to: '/adopt', label: 'Adopt' },
-        { to: '/orders', label: 'Order' },
-        { to: '/promotions', label: 'Promotion' },
-        { to: '/users', label: 'User' },
+        { to: '/adopt', label: 'Nhận nuôi', icon: <PiDogFill size={18} /> },
+        { to: '/orders', label: 'Đơn hàng', icon: <RiBillLine size={18} /> },
+
+        {
+            to: '/users',
+            label: 'Tài khoản',
+            icon: <LuUserSquare size={18} />,
+        },
     ];
     return (
         <div

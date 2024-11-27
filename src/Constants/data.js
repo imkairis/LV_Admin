@@ -152,18 +152,18 @@ export const barChartDataWeeklyRevenue = [
     {
         name: 'PRODUCT A',
         data: [400, 370, 330, 390, 320, 350, 360, 320, 380],
-        color: '#6AD2Fa',
-    },
-    {
-        name: 'PRODUCT B',
-        data: [400, 370, 330, 390, 320, 350, 360, 320, 380],
         color: '#4318FF',
     },
-    {
-        name: 'PRODUCT C',
-        data: [400, 370, 330, 390, 320, 350, 360, 320, 380],
-        color: '#EFF4FB',
-    },
+    // {
+    //     name: 'PRODUCT B',
+    //     data: [400, 370, 330, 390, 320, 350, 360, 320, 380],
+    //     color: '#4318FF',
+    // },
+    // {
+    //     name: 'PRODUCT C',
+    //     data: [400, 370, 330, 390, 320, 350, 360, 320, 380],
+    //     color: '#EFF4FB',
+    // },
 ];
 
 export const barChartOptionsWeeklyRevenue = {
@@ -263,9 +263,9 @@ export const lineChartDataTotalSpent = [
         color: '#4318FF',
     },
     {
-        name: 'Profit',
-        data: [30, 40, 24, 46, 20, 46],
-        color: '#6AD2FF',
+        // name: 'Profit',
+        // data: [30, 40, 24, 46, 20, 46],
+        // color: '#6AD2FF',
     },
 ];
 
@@ -322,7 +322,7 @@ export const lineChartOptionsTotalSpent = {
         },
         type: 'text',
         range: undefined,
-        categories: ['SEP', 'OCT', 'NOV', 'DEC', 'JAN', 'FEB'],
+        categories: ['Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11'],
     },
 
     yaxis: {

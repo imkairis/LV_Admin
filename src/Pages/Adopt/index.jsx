@@ -3,7 +3,7 @@ import Table from '~/Components/Table';
 import { QUERY_KEYS, ROUTES, STATUS_ADOPT } from '~/Constants';
 import { IoIosMore, IoIosAddCircleOutline } from 'react-icons/io';
 import { Link } from 'react-router-dom';
-
+import { formatDate } from '~/lib/utils';
 import {
     useCustomSearchParams,
     useMutationAndToast,
@@ -69,7 +69,7 @@ function AdoptPage() {
         },
         {
             key: 'name',
-            title: 'Product',
+            title: 'Tên thú cưng',
             render: ({ name, _id }) => {
                 return (
                     <Link to={ROUTES.ADOPT_DETAIL.replace(':adoptId', _id)}>
@@ -89,6 +89,14 @@ function AdoptPage() {
                 return user.fullname;
             },
         },
+        {
+            key: 'createDate',
+            title: 'Ngày đăng',
+            render: ({ createDate }) => {
+                return formatDate(createDate);
+            },
+        },
+
         {
             key: 'action',
             title: 'Action',
