@@ -4,13 +4,13 @@ import { useState } from 'react';
 import { HiX } from 'react-icons/hi';
 import { IoIosArrowUp } from 'react-icons/io';
 import { MdOutlineDashboard } from 'react-icons/md';
-import { PiDogFill } from 'react-icons/pi';
+import { PiDog } from 'react-icons/pi';
 import { RiBillLine } from 'react-icons/ri';
 import { BsCardList } from 'react-icons/bs';
 import { LuUserSquare } from 'react-icons/lu';
 import { Link, useLocation } from 'react-router-dom';
 import { ROUTES } from '~/Constants';
-import { PiBone } from 'react-icons/pi';
+import { PiBoneBold } from 'react-icons/pi';
 function Sidebar({ open, onClose }) {
     const navItems = [
         { to: '/', label: 'Thống kê', icon: <MdOutlineDashboard size={18} /> },
@@ -28,9 +28,9 @@ function Sidebar({ open, onClose }) {
         {
             to: '/products',
             label: 'Sản phẩm',
-            icon: <PiBone size={18} />,
+            icon: <PiBoneBold size={18} />,
         },
-        { to: '/adopt', label: 'Nhận nuôi', icon: <PiDogFill size={18} /> },
+        { to: '/adopt', label: 'Nhận nuôi', icon: <PiDog size={18} /> },
         { to: '/orders', label: 'Đơn hàng', icon: <RiBillLine size={18} /> },
 
         {
