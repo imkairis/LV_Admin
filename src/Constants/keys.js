@@ -11,3 +11,11 @@ export const QUERY_KEYS = {
 export const KEYS = {
     TOKEN: 'TOKEN',
 };
+
+export const TYPE_FIELD_FILTER = {
+    TEXT: 'TEXT',
+    SELECT: 'SELECT',
+    DATE: 'DATE',
+    RANGE_DATE_PICKER: 'RANGE_DATE_PICKER',
+    SLIDER: 'SLIDER',
+}

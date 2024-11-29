@@ -1,11 +1,12 @@
 import { useState } from 'react';
+import { IoIosMore, IoIosAddCircleOutline } from 'react-icons/io';
+import { Link, useNavigate } from 'react-router-dom';
+import clsx from 'clsx';
+
+import Modal from '~/Components/Modal';
 import Popover from '~/Components/Popover';
 import Table from '~/Components/Table';
 import { QUERY_KEYS, ROUTES } from '~/Constants';
-import { IoIosMore, IoIosAddCircleOutline } from 'react-icons/io';
-import { Link, useNavigate } from 'react-router-dom';
-import Modal from '~/Components/Modal';
-
 import {
     useCustomSearchParams,
     useMutationAndToast,
@@ -13,27 +14,37 @@ import {
 } from '~/Hooks';
 import { deleteProduct, getAllProducts } from '~/services';
 import { detectNearExpiredProducts, formatDate } from '~/lib/utils';
-import clsx from 'clsx';
 import { ProductImage } from '~/Components/common';
+import FilterProduct from './Components/FilterProduct';
 
 function Product() {
     const [showModalDelete, setShowModalDelete] = useState({
         show: false,
         product: null,
     });
-    const { setSearchPrams, page, limit, search } = useCustomSearchParams([
-        'page',
-        'limit',
-        'search',
-    ]);
+    const { setSearchPrams, page, limit, search, status, type, price } =
+        useCustomSearchParams([
+            'page',
+            'limit',
+            'search',
+            'status',
+            'type',
+            'price',
+        ]);
     const nav = useNavigate();
     const { data, isLoading, isFetching } = useQueryDefault({
-        keys: [QUERY_KEYS.PRODUCTS, { page, limit, search }],
+        keys: [
+            QUERY_KEYS.PRODUCTS,
+            { page, limit, search, status, type, price },
+        ],
         fn: () =>
             getAllProducts({
                 page: page || 1,
                 limit: limit || 10,
                 search: search || '',
+                status: status || '',
+                type: type || '',
+                price: price || '',
                 populate: 'type',
             }),
     });
@@ -183,15 +194,23 @@ function Product() {
 
     return (
         <div>
-            <div className="flex justify-between my-8 items-center">
-                <h2>Product</h2>
-                <Link
-                    to={ROUTES.ADD_PRODUCT}
-                    className="rounded-md px-4 py-2 bg-blue-500 text-white flex gap-2 items-center"
+            <div className="mt-8 mb-4">
+                <FilterProduct
+                    defaultValues={{
+                        search,
+                        status,
+                        type,
+                        price: price?.split('-').map((item) => +item),
+                    }}
                 >
-                    <IoIosAddCircleOutline size={20} />
-                    Thêm sản phẩm
-                </Link>
+                    <Link
+                        to={ROUTES.ADD_PRODUCT}
+                        className="rounded-md px-4 py-2 bg-blue-500 text-white flex gap-2 items-center"
+                    >
+                        <IoIosAddCircleOutline size={20} />
+                        Thêm sản phẩm
+                    </Link>
+                </FilterProduct>
             </div>
 
             <Table
