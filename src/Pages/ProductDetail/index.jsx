@@ -50,7 +50,7 @@ function ProductDetail() {
                                 {/* Tên sản phẩm */}
                                 <div className="grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4">
                                     <dt className="font-medium text-gray-900">
-                                        Product Name
+                                        Tên sản phẩm
                                     </dt>
                                     <dd className="text-gray-700 sm:col-span-2">
                                         {data?.data?.name}
@@ -60,7 +60,7 @@ function ProductDetail() {
                                 {/* Giá sản phẩm */}
                                 <div className="grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4">
                                     <dt className="font-medium text-gray-900">
-                                        Price
+                                        Giá
                                     </dt>
                                     <dd className="text-gray-700 sm:col-span-2">
                                         {parseInt(
@@ -69,11 +69,19 @@ function ProductDetail() {
                                         VND
                                     </dd>
                                 </div>
+                                <div className="grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4">
+                                    <dt className="font-medium text-gray-900">
+                                        Trạng thái
+                                    </dt>
+                                    <dd className="text-gray-700 sm:col-span-2">
+                                        {data?.data?.status}
+                                    </dd>
+                                </div>
 
                                 {/* Mô tả sản phẩm */}
                                 <div className="grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4">
                                     <dt className="font-medium text-gray-900">
-                                        Description
+                                        Mô tả
                                     </dt>
                                     <dd className="text-gray-700 sm:col-span-2">
                                         {data?.data?.description}
@@ -83,7 +91,7 @@ function ProductDetail() {
                                 {/* Đối tượng người dùng */}
                                 <div className="grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4">
                                     <dt className="font-medium text-gray-900">
-                                        Target Audience
+                                        Đối tượng sử dụng
                                     </dt>
                                     <dd className="text-gray-700 sm:col-span-2">
                                         {data?.data?.targetAudience?.name}
@@ -93,7 +101,7 @@ function ProductDetail() {
                                 {/* Nhóm tuổi */}
                                 <div className="grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4">
                                     <dt className="font-medium text-gray-900">
-                                        Age Group
+                                        Độ tuổi sử dụng
                                     </dt>
                                     <dd className="text-gray-700 sm:col-span-2">
                                         {data?.data?.ageGroup?.name}
@@ -103,7 +111,7 @@ function ProductDetail() {
                                 {/* Ngày sản xuất */}
                                 <div className="grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4">
                                     <dt className="font-medium text-gray-900">
-                                        Date of Manufacture
+                                        Ngày sản xuất
                                     </dt>
                                     <dd className="text-gray-700 sm:col-span-2">
                                         {formatDate(
@@ -115,7 +123,7 @@ function ProductDetail() {
                                 {/* Hạn sử dụng */}
                                 <div className="grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4">
                                     <dt className="font-medium text-gray-900">
-                                        Expiration Date
+                                        Hạn sử dụng
                                     </dt>
                                     <dd className="text-gray-700 sm:col-span-2">
                                         {formatDate(data?.data?.expirationDate)}
@@ -125,7 +133,7 @@ function ProductDetail() {
                                 {/* Cân nặng */}
                                 <div className="grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4">
                                     <dt className="font-medium text-gray-900">
-                                        Weight
+                                        Khối lượng
                                     </dt>
                                     <dd className="text-gray-700 sm:col-span-2">
                                         {data?.data?.weight}
@@ -135,7 +143,7 @@ function ProductDetail() {
                                 {/* Thành phần */}
                                 <div className="grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4">
                                     <dt className="font-medium text-gray-900">
-                                        Element
+                                        Thành phần
                                     </dt>
                                     <dd className="text-gray-700 sm:col-span-2">
                                         {data?.data?.element}
@@ -145,7 +153,7 @@ function ProductDetail() {
                                 {/* Nguồn gốc */}
                                 <div className="grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4">
                                     <dt className="font-medium text-gray-900">
-                                        Origin
+                                        Nguồn gốc
                                     </dt>
                                     <dd className="text-gray-700 sm:col-span-2">
                                         {data?.data?.origin}

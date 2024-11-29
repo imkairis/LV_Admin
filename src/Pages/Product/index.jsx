@@ -91,7 +91,7 @@ function Product() {
         },
         {
             key: 'name',
-            title: 'Product',
+            title: 'Tên sản phẩm',
             render: ({ name, _id }) => {
                 return (
                     <Link to={ROUTES.PRODUCT_DETAIL.replace(':productId', _id)}>
@@ -102,25 +102,25 @@ function Product() {
         },
         {
             key: 'type',
-            title: 'Type',
+            title: 'Loại',
             render: ({ type }) => {
                 return type?.name;
             },
         },
         {
             key: 'price',
-            title: 'Price',
+            title: 'Giá',
             render: ({ price }) => {
                 return price;
             },
         },
         {
             key: 'quantity',
-            title: 'Quantity',
+            title: 'SL',
         },
         {
             key: 'expirationDate',
-            title: 'Expired Date',
+            title: 'Hạn sử dụng',
             render: ({ expirationDate }) => {
                 const detect = detectNearExpiredProducts(expirationDate, 30);
                 return (
@@ -140,7 +140,7 @@ function Product() {
         },
         {
             key: 'action',
-            title: 'Action',
+            title: 'Hành động',
             align: 'center',
             render: (product) => {
                 return (
@@ -162,7 +162,7 @@ function Product() {
                                             )
                                         }
                                     >
-                                        Edit
+                                        Sửa
                                     </button>
                                     <button
                                         className="py-1 px-2 w-full text-left hover:bg-gray-100 dark:hover:bg-navy-600 duration-200"
@@ -170,7 +170,7 @@ function Product() {
                                             handleShowModalDelete(product)
                                         }
                                     >
-                                        Delete
+                                        Xóa
                                     </button>
                                 </div>
                             }
@@ -190,7 +190,7 @@ function Product() {
                     className="rounded-md px-4 py-2 bg-blue-500 text-white flex gap-2 items-center"
                 >
                     <IoIosAddCircleOutline size={20} />
-                    Add
+                    Thêm sản phẩm
                 </Link>
             </div>
 

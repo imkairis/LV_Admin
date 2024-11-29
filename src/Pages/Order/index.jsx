@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import Popover from '~/Components/Popover';
 import Table from '~/Components/Table';
 import { QUERY_KEYS, ROUTES } from '~/Constants';
@@ -13,6 +14,7 @@ function Order() {
         'page',
         'limit',
         'search',
+        'status', // Thêm trạng thái vào params
     ]);
     const { data, isLoading, isFetching } = useQueryDefault({
         keys: [QUERY_KEYS.ORDER, { page, limit, search }],
@@ -21,6 +23,7 @@ function Order() {
                 page: page || 1,
                 limit: limit || 10,
                 search: search || '',
+                status: search?.status || '', // Lấy trạng thái từ params
             }),
         options: {
             slateTime: 1000,
@@ -42,99 +45,104 @@ function Order() {
         });
     };
 
+    const handleStatusChange = (status) => {
+        setSearchPrams((params) => {
+            params.set('status', status); // Thay đổi trạng thái
+            return params;
+        });
+    };
+
     const columns = [
         {
             key: 'user',
             title: 'Tên khách hàng',
-            render: (_, user) => {
-                return user?.fullname || 'N/A';
-            },
+            render: (_, user) => user?.fullname || 'N/A',
         },
         {
             key: 'address',
-            title: 'Địa chỉ',
-            render: (_, address) => {
-                return convertAddress(address, ['address']) || 'N/A';
-            },
+            title: 'Địa chỉ',
+            render: (_, address) =>
+                convertAddress(address, ['address']) || 'N/A',
         },
         {
-            key: 'payment', // tên trường trong data
-            title: 'Thanh toán', // tên cột hiển thị
+            key: 'payment',
+            title: 'Thanh toán',
         },
         {
             key: 'items',
-            title: 'Số lượng',
-            render: (_, items) => {
-                return items?.length;
-            },
+            title: 'Số lượng',
+            render: (_, items) => items?.length,
         },
         {
             key: 'totalPrice',
-            title: 'Giá',
-            render: (_, price) => {
-                return (
-                    <span className="font-medium">{formatPrice(price)}</span>
-                );
-            },
+            title: 'Giá',
+            render: (_, price) => (
+                <span className="font-medium">{formatPrice(price)}</span>
+            ),
         },
         {
             key: 'deliveryStatus',
-            title: 'Trạng thái',
-            render: (_, status) => {
-                return (
-                    <span
-                        className={clsx(
-                            'px-2 py-1 rounded-full',
-                            status === 'pending' &&
-                                'bg-yellow-100 text-yellow-800',
-                            status === 'shipping' &&
-                                'bg-blue-100 text-blue-800',
-                            status === 'delivered' &&
-                                'bg-green-100 text-green-800',
-                            status === 'failed' && 'bg-red-100 text-red-800'
-                        )}
-                    >
-                        {status === 'pending' && 'Chờ xác nhận'}
-                        {status === 'shipping' && 'Đang giao'}
-                        {status === 'delivered' && 'Đã giao'}
-                        {status === 'failed' && 'Thất bại'}
-                    </span>
-                );
-            },
+            title: 'Trạng thái',
+            render: (_, status) => (
+                <span
+                    className={clsx(
+                        'px-2 py-1 rounded-full',
+                        status === 'pending' && 'bg-yellow-100 text-yellow-800',
+                        status === 'shipping' && 'bg-blue-100 text-blue-800',
+                        status === 'delivered' && 'bg-green-100 text-green-800',
+                        status === 'failed' && 'bg-red-100 text-red-800'
+                    )}
+                >
+                    {status === 'pending' && 'Chờ xác nhận'}
+                    {status === 'shipping' && 'Đang giao'}
+                    {status === 'delivered' && 'Đã giao'}
+                    {status === 'failed' && 'Thất bại'}
+                </span>
+            ),
         },
         {
             key: 'action',
             title: 'Action',
             align: 'center',
-            render: (product) => {
-                return (
-                    <div className="w-full flex justify-center">
-                        <Popover
-                            dir="bottom"
-                            align="center"
-                            trigger={<IoIosMore size={20} />}
-                            content={
-                                <div className="flex flex-col bg-white dark:bg-navy-700 shadow-md">
-                                    <Link
-                                        to={ROUTES.ORDER_DETAIL.replace(
-                                            ':orderId',
-                                            product._id
-                                        )}
-                                        className="block whitespace-nowrap py-1 px-2 w-full text-left hover:bg-gray-100 dark:hover:bg-navy-600  duration-200"
-                                    >
-                                        Chi tiết
-                                    </Link>
-                                </div>
-                            }
-                        />
-                    </div>
-                );
-            },
+            render: (product) => (
+                <div className="w-full flex justify-center">
+                    <Popover
+                        dir="bottom"
+                        align="center"
+                        trigger={<IoIosMore size={20} />}
+                        content={
+                            <div className="flex flex-col bg-white dark:bg-navy-700 shadow-md">
+                                <Link
+                                    to={ROUTES.ORDER_DETAIL.replace(
+                                        ':orderId',
+                                        product._id
+                                    )}
+                                    className="block whitespace-nowrap py-1 px-2 w-full text-left hover:bg-gray-100 dark:hover:bg-navy-600  duration-200"
+                                >
+                                    Chi tiết
+                                </Link>
+                            </div>
+                        }
+                    />
+                </div>
+            ),
         },
     ];
 
     return (
         <div className="mt-4">
+            <div className="flex justify-end mb-4">
+                <select
+                    className="px-4 py-2 border rounded-md dark:bg-navy-700 dark:border-navy-600"
+                    onChange={(e) => handleStatusChange(e.target.value)}
+                >
+                    <option value="">Tất cả trạng thái</option>
+                    <option value="pending">Chờ xác nhận</option>
+                    <option value="shipping">Đang giao</option>
+                    <option value="delivered">Đã giao</option>
+                    <option value="failed">Thất bại</option>
+                </select>
+            </div>
             <Table
                 data={data?.data || []}
                 columns={columns}
