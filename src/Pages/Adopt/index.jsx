@@ -1,8 +1,9 @@
+import { IoIosMore } from 'react-icons/io';
+import { Link } from 'react-router-dom';
+
 import Popover from '~/Components/Popover';
 import Table from '~/Components/Table';
 import { QUERY_KEYS, ROUTES, STATUS_ADOPT } from '~/Constants';
-import { IoIosMore, IoIosAddCircleOutline } from 'react-icons/io';
-import { Link } from 'react-router-dom';
 import { formatDate } from '~/lib/utils';
 import {
     useCustomSearchParams,
@@ -11,13 +12,11 @@ import {
 } from '~/Hooks';
 import { getAllAdopts, updateStatusAdopt } from '~/services';
 import { ProductImage } from '~/Components/common';
+import FilterAdopt from './components/FilterAdopt';
 
 function AdoptPage() {
-    const { setSearchPrams, page, limit, search } = useCustomSearchParams([
-        'page',
-        'limit',
-        'search',
-    ]);
+    const { setSearchPrams, page, limit, search, status } =
+        useCustomSearchParams(['page', 'limit', 'search', 'status']);
     const { data, isLoading, isFetching } = useQueryDefault({
         keys: [QUERY_KEYS.ADOPT, { page, limit, search }],
         fn: () =>
@@ -147,8 +146,13 @@ function AdoptPage() {
 
     return (
         <div>
-            <div className="flex justify-between my-8 items-center">
-                <h2>Adopt</h2>
+            <div className="mt-8 mb-4">
+                <FilterAdopt
+                    defaultValues={{
+                        search,
+                        status,
+                    }}
+                />
             </div>
 
             <Table
