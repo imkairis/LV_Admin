@@ -26,15 +26,15 @@ function Sidebar({ open, onClose }) {
             ],
         },
         {
-            to: '/products',
+            to: ROUTES.PRODUCTS,
             label: 'Sản phẩm',
             icon: <PiBoneBold size={18} />,
         },
-        { to: '/adopt', label: 'Nhận nuôi', icon: <PiDog size={18} /> },
-        { to: '/orders', label: 'Đơn hàng', icon: <RiBillLine size={18} /> },
+        { to: ROUTES.ADOPT, label: 'Nhận nuôi', icon: <PiDog size={18} /> },
+        { to: ROUTES.ORDER, label: 'Đơn hàng', icon: <RiBillLine size={18} /> },
 
         {
-            to: '/users',
+            to: ROUTES.USERS,
             label: 'Tài khoản',
             icon: <LuUserSquare size={18} />,
         },

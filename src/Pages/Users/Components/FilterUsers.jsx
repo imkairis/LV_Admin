@@ -1,13 +1,13 @@
 import Filter from '~/Components/Filter';
 
-import { STATUS_ADOPT, TYPE_FIELD_FILTER } from '~/Constants';
+import { TYPE_FIELD_FILTER } from '~/Constants';
 
-function FilterAdopt({ children, defaultValues }) {
+function FilterUsers({ children, defaultValues }) {
     const fields = [
         {
             type: TYPE_FIELD_FILTER.TEXT,
             name: 'search',
-            placeholder: 'Tên thú cưng',
+            placeholder: 'Tên người dùng',
             isPriority: true,
             defaultValue: defaultValues?.search,
         },
@@ -16,14 +16,20 @@ function FilterAdopt({ children, defaultValues }) {
             name: 'status',
             placeholder: 'Trạng thái',
             defaultValue: defaultValues?.status,
-            options: Object.values(STATUS_ADOPT).map((item) => ({
-                value: item,
-                label: item,
-            })),
+            options: [
+                {
+                    value: '1',
+                    label: 'Hoạt động',
+                },
+                {
+                    value: '2',
+                    label: 'Đã chặn',
+                },
+            ],
         },
     ];
 
     return <Filter items={fields}>{children}</Filter>;
 }
 
-export default FilterAdopt;
+export default FilterUsers;

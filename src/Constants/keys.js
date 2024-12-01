@@ -6,6 +6,7 @@ export const QUERY_KEYS = {
     ORDER: 'ORDER',
     ADOPT: 'ADOPT',
     ADOPT_DETAIL: 'ADOPT_DETAIL',
+    USERS: 'USERS',
 };
 
 export const KEYS = {

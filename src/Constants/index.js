@@ -18,3 +18,8 @@ export const STATUS_ADOPT = {
     ADOPTED: 'Đã có người nhận nuôi',
     REJECTED: 'Từ chối',
 }
+
+export const STATUS_USER = {
+    ACTIVE: 1,
+    BLOCKED: 2,
+};

@@ -11,4 +11,5 @@ export const ROUTES = {
     ORDER_DETAIL: '/orders/:orderId',
     ADOPT: '/adopt',
     ADOPT_DETAIL: '/adopt/:adoptId',
+    USERS: '/users',
 };

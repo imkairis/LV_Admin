@@ -23,6 +23,7 @@ import UpdateProductPage from './Pages/UpdateProductPage';
 import AdoptPage from './Pages/Adopt';
 import AdoptDetail from './Pages/AdoptDetail';
 import { configTheme } from '~/lib/theme';
+import UsersPage from './Pages/Users';
 
 function App() {
     const { token, user } = useSelector((state) => state.auth);
@@ -96,6 +97,10 @@ function App() {
                                 <Route
                                     path={ROUTES.ADOPT_DETAIL}
                                     element={<AdoptDetail />}
+                                />
+                                <Route
+                                    path={ROUTES.USERS}
+                                    element={<UsersPage />}
                                 />
                             </Route>
                         </Route>
