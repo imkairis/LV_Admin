@@ -18,21 +18,25 @@ function AdoptPage() {
     const { setSearchPrams, page, limit, search, status } =
         useCustomSearchParams(['page', 'limit', 'search', 'status']);
     const { data, isLoading, isFetching } = useQueryDefault({
-        keys: [QUERY_KEYS.ADOPT, { page, limit, search }],
+        keys: [QUERY_KEYS.ADOPT, { page, limit, search, status }],
         fn: () =>
             getAllAdopts({
                 page: page || 1,
                 limit: limit || 10,
                 search: search || '',
+                status: status || '',
                 descending: true,
             }),
+        options: {
+            slateTime: 1000,
+        }
     });
     const updateStatusAdoptMutation = useMutationAndToast({
         fn: updateStatusAdopt,
-        keys: [QUERY_KEYS.ADOPT, { page, limit, search }],
-        loadingString: 'Deleting adopt...',
-        successString: 'Adopt deleted successfully',
-        failString: 'Delete adopt failed',
+        keys: [QUERY_KEYS.ADOPT, { page, limit, search, status }],
+        loadingString: 'Update adopt...',
+        successString: 'Adopt update successfully',
+        failString: 'Update adopt failed',
     });
 
     const handleUpdateStatusAdopt = (id, status) => {
