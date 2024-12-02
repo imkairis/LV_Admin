@@ -26,6 +26,10 @@ function UsersPage() {
                 search: search || '',
                 status: status || '',
             }),
+        options: {
+            slateTime: 1000,
+            refetchOnFocus: true,
+        },
     });
     const updateStatusMutation = useMutationAndToast({
         fn: updateStatusUser,
@@ -92,6 +96,15 @@ function UsersPage() {
                 title: 'Email',
                 render: ({ email }) => {
                     return email;
+                },
+            },
+            {
+                key: 'status',
+                title: 'Trạng thái',
+                render: ({ status }) => {
+                    return status === STATUS_USER.ACTIVE
+                        ? 'Hoạt động'
+                        : 'Bị chặn';
                 },
             },
             {

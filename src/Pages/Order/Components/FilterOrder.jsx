@@ -12,6 +12,7 @@ function FilterOrder({ children, defaultValues }) {
             defaultValue: defaultValues?.status,
             // TODO: Thêm options status vô đây
             options: [
+                { value: 'pending', label: 'Chờ xác nhận' },
                 { value: 'shipping', label: 'Đang giao' },
                 { value: 'delivered', label: 'Đã giao' },
                 { value: 'failed', label: 'Thất bại' },
